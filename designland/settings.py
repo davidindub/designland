@@ -32,14 +32,10 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-development = os.environ.get('DEVELOPMENT', False)
 
-DEBUG = development
+DEBUG = True
 
-if development:
-    ALLOWED_HOSTS = ['localhost', "127.0.0.1"]
-else:
-    ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
+ALLOWED_HOSTS = ["https://designland.herokuapp.com/", "localhost", "127.0.0.1"]
 
 # Application definition
 
