@@ -22,6 +22,10 @@ class ResourceDetail(View):
         bookmarked = False
         if resource.bookmarks.filter(id=self.request.user.id).exists():
             bookmarked = True
+
+        upvoted = False
+        if resource.upvotes.filter(id=self.request.user.id).exists():
+            upvoted = True
         
         return render(
             request,
@@ -29,18 +33,31 @@ class ResourceDetail(View):
             {
                 "resource": resource,
                 "comments": comments,
-                "bookmarked": bookmarked
+                "bookmarked": bookmarked,
+                "upvoted": upvoted
             }
         )
 
 
-class ResourceLike(View):
+class ResourceBookmark(View):
 
-    def resource(self, request, slug, *args, **kwargs):
-        resource = get_object_or_404(Post, slug=slug)
+    def post(self, request, slug, *args, **kwargs):
+        resource = get_object_or_404(Resource, slug=slug)
         if resource.bookmarks.filter(id=request.user.id).exists():
             resource.bookmarks.remove(request.user)
         else:
             resource.bookmarks.add(request.user)
+
+        return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
+
+
+class ResourceUpvote(View):
+
+    def post(self, request, slug, *args, **kwargs):
+        resource = get_object_or_404(Resource, slug=slug)
+        if resource.upvotes.filter(id=request.user.id).exists():
+            resource.upvotes.remove(request.user)
+        else:
+            resource.upvotes.add(request.user)
 
         return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
