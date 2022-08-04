@@ -1,5 +1,5 @@
 
-# Cinebook
+# designland
 
 
 ## Table of Contents
@@ -57,6 +57,7 @@ Users can register to submit resources to the directory, and upvote and bookmark
 
 ## External Python Packages Used
 
+- [django-taggit](https://github.com/jazzband/django-taggit) for tags on directory entries
 
 
 

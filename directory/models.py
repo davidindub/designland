@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from taggit.managers import TaggableManager
 
-STATUS = ((0, "Draft"), (1, "Published"))
+
+# STATUS = ((0, "Draft"), (1, "Published"))
 
 
 class Resource(models.Model):
@@ -11,17 +13,19 @@ class Resource(models.Model):
     """
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    user_added = models.ForeignKey(
+    url = models.URLField(default="")
+    author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="resources_added")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     thumbnail = CloudinaryField("image", default="placeholder")
     created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
+    approved = models.BooleanField(default=False)
     upvotes = models.ManyToManyField(
         User, related_name="upvoted_resources", blank=True)
     bookmarks = models.ManyToManyField(
         User, related_name="bookmarked_resources", blank=True)
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-created_on"]
@@ -37,8 +41,9 @@ class Comment(models.Model):
     """
     Model class for a Comments on Resouces
     """
-    resource = models.ForeignKey(Resource, on_delete=models.CASCADE, related_name="comments")
-    user_added = models.ForeignKey(
+    resource = models.ForeignKey(
+        Resource, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="comments_left")
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -48,14 +53,4 @@ class Comment(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"Comment {self.body} by {self.name}"
-
-
-class Tag(models.Model):
-    """
-    Model class for a Tag
-    """
-    description = models.ForeignKey(Resource, on_delete=models.PROTECT, related_name="tags")
-
-    def __str__(self):
-        return f"{self.description}"
+        return f"Comment {self.body} by {self.author}"
