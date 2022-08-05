@@ -18,6 +18,8 @@ class ResourceDetail(View):
         queryset = Resource.objects.filter(approved=True)
         resource = get_object_or_404(queryset, slug=slug)
         comments = resource.comments.filter(approved=True).order_by("created_on")
+        content = resource.content
+        tags = resource.tags.all()
         
         bookmarked = False
         if resource.bookmarks.filter(id=self.request.user.id).exists():
@@ -34,7 +36,8 @@ class ResourceDetail(View):
                 "resource": resource,
                 "comments": comments,
                 "bookmarked": bookmarked,
-                "upvoted": upvoted
+                "upvoted": upvoted,
+                "tags": tags
             }
         )
 

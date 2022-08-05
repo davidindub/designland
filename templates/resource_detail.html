@@ -4,15 +4,17 @@
         <div class="container">
             <div class="row g-0">
                 <div class="col-md-6 masthead-text">
-                    <h1 class="post-title">{{ resource.title }}</h1>
+                    <a href="{{ resource.url }}"><h1 class="post-title text-dark">{{ resource.title }}</h1></a>
                     <p class="post-subtitle">{{ resource.author }} | {{ resource.created_on }}</p>
                 </div>
                 <div class="d-none d-md-block col-md-6">
+                    <a href="{{ resource.url }}">
                     {% if "placeholder" in resource.thumbnail.url %}
                     <img src="https://i.ibb.co/10Y6XsK/open-graph-template.png" width="100%">
                     {% else %}
                     <img src=" {{ resource.thumbnail.url }}" width="100%">
                     {% endif %}
+                    </a>
                 </div>
             </div>
         </div>
@@ -20,7 +22,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col card mb-4  mt-3 left top">
+            <div class="col card mx-4 mb-4  mt-3 left top">
                 <div class="card-body">
                     <p class="card-text ">
                         {{ resource.content | safe }}
@@ -34,7 +36,7 @@
                                     {% csrf_token %}
                                     {% if upvoted %}
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}" class="btn-like">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
                                             <path
                                                 d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
@@ -42,7 +44,7 @@
                                     </button>
                                     {% else %}
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}" class="btn-like">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
                                                 d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
@@ -51,13 +53,13 @@
                                     {% endif %}
                                 </form>
                                 {% else %}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                     class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
                                         d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
                                 </svg>
                                 {% endif %}
-                                <span class="text-secondary">{{ resource.number_upvotes }}</span>
+                                <span class="upvote_number">{{ resource.number_upvotes }}</span>
                             </strong>
                         </div>
                         <div class="col-1">
@@ -86,6 +88,11 @@
 
                         </div>
                     </div>
+
+                        {% for tag in tags %}
+                        <span class="resource-tag badge rounded-pill text-bg-secondary">#{{tag}}</span>
+                        {% endfor %}
+
                 </div>
             </div>
         </div>
