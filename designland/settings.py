@@ -38,7 +38,7 @@ development = os.environ.get('DEVELOPMENT', False)
 DEBUG = development
 
 if development:
-    ALLOWED_HOSTS = ['localhost', "127.0.0.1"]
+    ALLOWED_HOSTS = ['localhost', "127.0.0.1", "8000-davidindub-designland-4lnvj9ynh6j.ws-eu59.gitpod.io"]
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
 
@@ -51,12 +51,22 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
     'directory',
     'taggit',
 ]
+
+SITE_ID = 2
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

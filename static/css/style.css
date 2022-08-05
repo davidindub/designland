@@ -4,13 +4,20 @@ main {
     background-color: rgb(244, 194, 54);
 }
 
+.main-container {
+    background-color: rgb(255, 255, 255);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Baloo 2', sans-serif;
+}
+
 .navbar-brand {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 2rem;
 }
 
 .card-title {
-    font-family: 'Baloo 2', sans-serif;
     color: rgb(0, 0, 0);
 }
 
@@ -24,6 +31,13 @@ a {
 
 .resource-container {
     background-color: rgb(255, 255, 255);
+}
+
+.list-title {
+    background-color: rgb(227, 116, 74);
+    border-radius: 2px;
+    border: 2px solid rgb(0, 0, 0);
+    box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
 }
 
 .card {
