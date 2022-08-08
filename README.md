@@ -1,6 +1,8 @@
 
 # designland
 
+![Designland logo](docs/images/logo.png)
+
 
 ## Table of Contents
 
@@ -29,11 +31,27 @@ Users can register to submit resources to the directory, and upvote and bookmark
 
 ### Wireframes
 
+![](/docs/images/wireframe.png)
+
+### Database Design
+
+![](/docs/images/database_design.png)
+
 
 ## Features 
 
 
 ### Existing Features
+
+#### Upvote Resources and view most Popular
+
+#### Register / Login
+
+#### Bookmarks
+
+#### User Profiles
+
+#### Submit Resources to Directory
 
 
 ***
@@ -51,9 +69,9 @@ Users can register to submit resources to the directory, and upvote and bookmark
 - [GitHub](https://github.com/) for storing the repository online during development.
 - GitHub Projects was invaluable throughout the project and helped me keep track of things to do and bugs to fix - you can see [the project's board here](https://github.com/users/davidindub/projects/7).
 - [GitPod](https://gitpod.io/) as a cloud based IDE.
-- [Balsamiq](https://balsamiq.com/wireframes/) for wireframing the browser view.
+- [Balsamiq](https://balsamiq.com/wireframes/) for wireframing.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/), [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Safari](https://www.apple.com/safari/) for testing on macOS Monterey.
-- [Lucid Chart](https://lucid.app/) for making flow charts.
+<!-- - [Lucid Chart](https://lucid.app/) for making flow charts. -->
 
 ## External Python Packages Used
 
@@ -75,7 +93,7 @@ Users can register to submit resources to the directory, and upvote and bookmark
 
 <details>
 
-<summary>PEP8 Online Validation - run.py</summary>
+<summary>PEP8 Online Validation</summary>
 
 </details>
 
