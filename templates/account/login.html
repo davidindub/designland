@@ -17,15 +17,12 @@
       {% get_providers as socialaccount_providers %}
       
       {% if socialaccount_providers %}
-      <p>{% blocktrans with site.name as site_name %}Please sign in with one
-      of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-      for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
       
       <div class="socialaccount_ballot">
       
-        <ul class="socialaccount_providers">
+          <!-- list of oauth login providers -->
           {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-        </ul>
+
       
         <div class="login-or">{% trans 'or' %}</div>
       
@@ -47,9 +44,15 @@
         <a class="btn btn-lg btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         <button class="btn btn-lg btn-success" type="submit">{% trans "Sign In" %}</button>
       </form>
+<hr>
+      <p>{% blocktrans with site.name as site_name %}
+        Not yet registered?
+        <br>
+        <a href="{{ signup_url }}">Sign up</a>
+        for a {{ site_name }} account.{% endblocktrans %}</p>
 
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 d-none d-md-inline">
       <img class="img-fluid" src="{% static 'images/illustration_modern_art.png' %}" alt="">
       
     </div>

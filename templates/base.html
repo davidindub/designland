@@ -51,8 +51,13 @@
                             {{ user.username }}
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'user' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'bookmarks' %}">My Bookmarks</a></li>
-                            <li><a class="dropdown-item" href="#">My Account</a></li>
+                            <li><a class="dropdown-item" href="#">My Submissions</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Add New Resource</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

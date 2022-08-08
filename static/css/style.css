@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&family=Bebas+Neue&display=swap');
 
-main {
+/* main {
     background-color: rgb(244, 194, 54);
-}
+} */
 
 .main-container {
     background-color: rgb(255, 255, 255);
@@ -38,6 +38,10 @@ a {
     border-radius: 2px;
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
+}
+
+.resource-detail-thumbnail {
+    border: 2px solid rgb(0, 0, 0);
 }
 
 .card {

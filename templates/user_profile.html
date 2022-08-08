@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% block content %}
+<div class="resource-container">
+    <div class="masthead">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-md-6 masthead-text">
+
+                    <h1 class="post-title text-dark">User profile for {{ user_profile.get_username }} </h1>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col card mx-4 mb-4  mt-3 left top">
+                <div class="card-body">
+                    <p class="card-text ">
+                        Member since: {{ user_profile.date_joined }}
+                        <hr>
+
+                        Resources added:
+                        <ul>
+                            {% if user_profile.resources_added.all %}
+                            {% for resource in user_profile.resources_added.all %}
+                            <li>
+                                <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>
+                            </li>
+                            {% endfor %}
+                            {% else %}
+
+                            {{ user_profile.get_username }} hasn't submitted any resources yet.
+                            {% endif %}
+
+
+
+                        </ul>
+
+
+                        {% if user.is_authenticated %}
+                        {% csrf_token %}
+                        <!-- If the User is logged in show this -->
+                        Edit button if user's own profile
+
+                        {% endif %}
+                    </p>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}
