@@ -20,6 +20,18 @@ class TagList(generic.ListView):
 
         return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]]).order_by("upvotes")
 
+class BookmarkList(generic.ListView):
+    model = Resource
+    template_name = "index.html"
+    paginate_by = 9
+
+    def get_queryset(self):
+
+        # Filter to return only the resources bookmarked by the logged in user!
+        print(f"User ID: {self.request.user.id}")
+
+        return Resource.objects.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
+
 class ResourceDetail(View):
 
     def get(self, request, slug, *arg, **kwargs):
