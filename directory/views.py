@@ -11,6 +11,14 @@ class ResourceList(generic.ListView):
     template_name = "index.html"
     paginate_by = 9
 
+class TagList(generic.ListView):
+    model = Resource
+    template_name = "index.html"
+    paginate_by = 9
+
+    def get_queryset(self):
+
+        return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]]).order_by("upvotes")
 
 class ResourceDetail(View):
 
