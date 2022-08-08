@@ -11,25 +11,15 @@ class ResourceList(generic.ListView):
     template_name = "index.html"
     paginate_by = 9
 
-class TagList(generic.ListView):
-    model = Resource
-    template_name = "index.html"
-    paginate_by = 9
-
+class TagList(ResourceList):
     def get_queryset(self):
 
         return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]]).order_by("upvotes")
 
-class BookmarkList(generic.ListView):
-    model = Resource
-    template_name = "index.html"
-    paginate_by = 9
-
+class BookmarkList(ResourceList):
     def get_queryset(self):
 
-        # Filter to return only the resources bookmarked by the logged in user!
-        print(f"User ID: {self.request.user.id}")
-
+        # Filter to return only the resources bookmarked by the logged in user
         return Resource.objects.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
 
 class ResourceDetail(View):

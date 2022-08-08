@@ -42,6 +42,7 @@ if development:
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
 
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 # Application definition
 
