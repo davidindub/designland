@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500&family=Bebas+Neue&display=swap');
 
-/* main {
+main, .main-container {
     background-color: rgb(244, 194, 54);
-} */
-
-.main-container {
-    background-color: rgb(255, 255, 255);
 }
+
+/* .main-container {
+    background-color: rgb(255, 255, 255);
+} */
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Baloo 2', sans-serif;

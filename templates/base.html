@@ -50,7 +50,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="{% url 'user' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'bookmarks' %}">My Bookmarks</a></li>
-                            <li><a class="dropdown-item" href="#">My Submissions</a></li>
+                            <li><a class="dropdown-item" href="{% url 'added_by_user' request.user.get_username %}">My Submissions</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

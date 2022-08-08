@@ -52,6 +52,16 @@ class UserProfile(View):
             }
         )
 
+class ListByUser(ResourceList):
+    """
+    View for showing all the resources added by a user
+    """
+
+    def get_queryset(self):
+        user_id = User.objects.get(username=self.kwargs["user"]).id
+
+        return Resource.objects.filter(approved=True).filter(author__id__in=[user_id]).order_by("upvotes")
+
 
 class ResourceDetail(View):
 

@@ -70,6 +70,7 @@ Users can register to submit resources to the directory, and upvote and bookmark
 - GitHub Projects was invaluable throughout the project and helped me keep track of things to do and bugs to fix - you can see [the project's board here](https://github.com/users/davidindub/projects/7).
 - [GitPod](https://gitpod.io/) as a cloud based IDE.
 - [Balsamiq](https://balsamiq.com/wireframes/) for wireframing.
+- [Bootstrap](https://getbootstrap.com/) as a front end framework.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/), [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Safari](https://www.apple.com/safari/) for testing on macOS Monterey.
 <!-- - [Lucid Chart](https://lucid.app/) for making flow charts. -->
 

@@ -21,7 +21,7 @@
                         Member since: {{ user_profile.date_joined }}
                         <hr>
 
-                        Resources added:
+                        <a href="{% url 'added_by_user' user_profile.get_username %}">Resources added:</a>
                         <ul>
                             {% if user_profile.resources_added.all %}
                             {% for resource in user_profile.resources_added.all %}
