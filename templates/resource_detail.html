@@ -13,6 +13,7 @@
                         {% comment %} Should only appear if user is author or admin: {% endcomment %}
                         <p>
                             <a href="{% url 'update_resource' resource.slug %}" class="btn btn-outline-dark">Edit</a>
+                            <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-outline-danger">Delete</a>
                         </p>
                 </div>
                 <div class="d-md-block col-md-6">

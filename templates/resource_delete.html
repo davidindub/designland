@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="">
+{% csrf_token %}
+
+<p>Are you sure you want to delete {{ resource.title }}?</p>
+<p class="text-muted">{{ resource.number_upvotes }} people have upvoted this resource.</p>
+
+<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-dark">Nevermind</a>
+<input type="submit" value="Delete Permanently" class="btn btn-danger"></input>
+
+
+</form>
+
+{% endblock content %}

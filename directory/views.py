@@ -82,6 +82,8 @@ class CreateResource(View):
             new_entry = form.save()
             # Should return user to the details page of the resource they just added or updated
             return redirect("resource_detail", new_entry.slug)
+        else:
+            return render(request, "resource_form.html", {"form": form})
 
 class UpdateResource(View):
     """
@@ -100,7 +102,7 @@ class UpdateResource(View):
 
     def post(self, request, *arg, **kwargs):
         resource = get_object_or_404(
-                Resource, slug=self.kwargs["slug"])
+            Resource, slug=self.kwargs["slug"])
 
         form = FormForResource(request.POST, instance=resource)
 
@@ -109,6 +111,21 @@ class UpdateResource(View):
             # Should return user to the details page of the resource they just added or updated
             return redirect("resource_detail", updated_entry.slug)
 
+
+class DeleteResource(View):
+    def get(self, request, slug, *arg, **kwargs):
+        resource = get_object_or_404(
+            Resource, slug=self.kwargs["slug"])
+
+        return render(request, "resource_delete.html", {"resource": resource})
+
+    def post(self, request, *arg, **kwargs):
+        resource = get_object_or_404(
+            Resource, slug=self.kwargs["slug"])
+        
+        resource.delete()
+
+        return redirect("home")
 
 
 class ResourceDetail(View):

@@ -9,6 +9,8 @@ urlpatterns = [
     path('add/', views.CreateResource.as_view(), name='create_resource'),
     path('details/<slug:slug>/update/', views.UpdateResource.as_view(),
          name='update_resource'),
+    path('details/<slug:slug>/delete/', views.DeleteResource.as_view(),
+         name='delete_resource'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
     path('user/', views.UserProfile.as_view(), name='user'),
     path('user/<slug:user>/', views.UserProfile.as_view(), name='user'),
