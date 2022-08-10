@@ -1,20 +1,24 @@
 {% extends 'base.html' %} {% block content %}
-<div class="resource-container">
-    <div class="masthead">
+<div class="resource-container p-4">
+  
         <div class="container">
             <div class="row g-0">
-                <div class="col-md-6 masthead-text">
+                <div class="col-md-6">
                     <a href="{{ resource.url }}" target="_blank">
                         <h1 class="post-title text-dark">{{ resource.title }}</h1>
                     </a>
                     <a href="{% url 'user' resource.author%}">
                         <p class="post-subtitle">{{ resource.author }}  </a>| {{ resource.created_on }}</p>
 
+                        {% if user.is_authenticated %}
+                        {% if user.username == resource.author.username or user.is_superuser %}
                         {% comment %} Should only appear if user is author or admin: {% endcomment %}
                         <p>
-                            <a href="{% url 'update_resource' resource.slug %}" class="btn btn-outline-dark">Edit</a>
-                            <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-outline-danger">Delete</a>
+                            <a href="{% url 'update_resource' resource.slug %}" class="btn btn-sm btn-outline-dark">Edit</a>
+                            <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
                         </p>
+                        {% endif %}
+                        {% endif %}
                 </div>
                 <div class="d-md-block col-md-6">
                     <a href="{{ resource.url }}" target="_blank">
@@ -27,11 +31,9 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container">
+       
         <div class="row">
-            <div class="col card mx-4 mb-4  mt-3 left top">
+            <div class="col card m-4 pb-4 left top">
                 <div class="card-body">
                     <p class="card-text ">
                         {{ resource.content | safe }}
@@ -107,17 +109,13 @@
                 </div>
 
                 {% for tag in tags %}
-                <a href="{% url 'tag' tag %}" class="resource-tag badge rounded-pill text-bg-secondary w-25 p-1">#{{tag}}</a>
+                <a href="{% url 'tag' tag %}"><span class="resource-tag badge rounded-pill text-bg-secondary">#{{tag}}</span></a>
                 {% endfor %}
 
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
+ 
+
 </div>
 </div>
 </div>

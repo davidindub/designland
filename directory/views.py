@@ -71,19 +71,29 @@ class CreateResource(View):
     """
 
     def get(self, request):
-        form = FormForResource()
-        context = {"form": form}
+        if self.request.user.is_authenticated:
+            form = FormForResource()
+            context = {"form": form}
 
-        return render(request, "resource_form.html", context)
+            return render(request, "resource_form.html", context)
+
+        else:
+            return redirect("home")
 
     def post(self, request, *arg, **kwargs):
-        form = FormForResource(request.POST)
-        if form.is_valid():
-            new_entry = form.save()
-            # Should return user to the details page of the resource they just added or updated
-            return redirect("resource_detail", new_entry.slug)
+        if self.request.user.is_authenticated:
+            form = FormForResource(request.POST)
+            if form.is_valid():
+                new_entry = form.save()
+                # Should return user to the details page of the resource
+                # they just added or updated
+                return redirect("resource_detail", new_entry.slug)
+            else:
+                return render(request, "resource_form.html", {"form": form})
+
         else:
-            return render(request, "resource_form.html", {"form": form})
+            return redirect("home")
+
 
 class UpdateResource(View):
     """
@@ -94,36 +104,52 @@ class UpdateResource(View):
         if "slug" in self.kwargs:
             resource = get_object_or_404(
                 Resource, slug=self.kwargs["slug"])
-            form = FormForResource(instance=resource)
 
-            context = {"form": form}
+            if self.request.user == resource.author or self.request.user.is_superuser:
 
-        return render(request, "resource_form.html", context)
+                form = FormForResource(instance=resource)
+
+                context = {"form": form}
+
+                return render(request, "resource_form.html", context)
+            
+            else:
+                return redirect("home")
 
     def post(self, request, *arg, **kwargs):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
 
-        form = FormForResource(request.POST, instance=resource)
+        if self.request.user == resource.author or self.request.user.is_superuser:
 
-        if form.is_valid():
-            updated_entry = form.save()
-            # Should return user to the details page of the resource they just added or updated
-            return redirect("resource_detail", updated_entry.slug)
+            form = FormForResource(request.POST, instance=resource)
+
+            if form.is_valid():
+                updated_entry = form.save()
+                # Should return user to the details page of the resource they just added or updated
+                return redirect("resource_detail", updated_entry.slug)
+
+        else:
+            return redirect("home")
 
 
 class DeleteResource(View):
     def get(self, request, slug, *arg, **kwargs):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
-
-        return render(request, "resource_delete.html", {"resource": resource})
+        
+        if self.request.user == resource.author or self.request.user.is_superuser:
+            return render(request, "resource_delete.html", {"resource": resource})
+        
+        else:
+            return redirect("home")
 
     def post(self, request, *arg, **kwargs):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
-        
-        resource.delete()
+
+        if self.request.user == resource.author or self.request.user.is_superuser:
+            resource.delete()
 
         return redirect("home")
 
