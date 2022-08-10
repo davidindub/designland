@@ -206,4 +206,4 @@ class ResourceUpvote(View):
         else:
             resource.upvotes.add(request.user)
 
-        return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
