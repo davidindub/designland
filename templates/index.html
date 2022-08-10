@@ -29,7 +29,7 @@
                                 {% if user.is_authenticated %}
                                 <form class="d-inline" action="{% url 'upvote_resource' resource.slug %}" method="POST">
                                     {% csrf_token %}
-                                    {% if upvoted %}
+                                    {% if user in resource.upvotes.all %}
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}"
                                         class="btn btn-outline-dark active">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
