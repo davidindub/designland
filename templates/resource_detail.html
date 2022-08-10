@@ -4,14 +4,19 @@
         <div class="container">
             <div class="row g-0">
                 <div class="col-md-6 masthead-text">
-                    <a href="{{ resource.url }}">
+                    <a href="{{ resource.url }}" target="_blank">
                         <h1 class="post-title text-dark">{{ resource.title }}</h1>
                     </a>
                     <a href="{% url 'user' resource.author%}">
                         <p class="post-subtitle">{{ resource.author }}  </a>| {{ resource.created_on }}</p>
+
+                        {% comment %} Should only appear if user is author or admin: {% endcomment %}
+                        <p>
+                            <a href="{% url 'update_resource' resource.slug %}" class="btn btn-outline-dark">Edit</a>
+                        </p>
                 </div>
                 <div class="d-md-block col-md-6">
-                    <a href="{{ resource.url }}">
+                    <a href="{{ resource.url }}" target="_blank">
                         {% if "placeholder" in resource.thumbnail.url %}
                         <img class="resource-detail-thumbnail" src="https://i.ibb.co/10Y6XsK/open-graph-template.png" width="100%">
                         {% else %}

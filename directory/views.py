@@ -53,6 +53,7 @@ class UserProfile(View):
             }
         )
 
+
 class ListByUser(ResourceList):
     """
     View for showing all the resources added by a user
@@ -64,9 +65,9 @@ class ListByUser(ResourceList):
         return Resource.objects.filter(approved=True).filter(author__id__in=[user_id])
 
 
-class ResourceForm(View):
+class CreateResource(View):
     """
-    View for form for adding or updating a resource in the database
+    View for form for adding a resource in the database
     """
 
     def get(self, request):
@@ -74,13 +75,40 @@ class ResourceForm(View):
         context = {"form": form}
 
         return render(request, "resource_form.html", context)
-    
-    def post(self, request):
+
+    def post(self, request, *arg, **kwargs):
         form = FormForResource(request.POST)
         if form.is_valid():
-            form.save()
+            new_entry = form.save()
             # Should return user to the details page of the resource they just added or updated
-            return redirect("home")
+            return redirect("resource_detail", new_entry.slug)
+
+class UpdateResource(View):
+    """
+    View for form for updating a resource in the database
+    """
+
+    def get(self, request, *arg, **kwargs):
+        if "slug" in self.kwargs:
+            resource = get_object_or_404(
+                Resource, slug=self.kwargs["slug"])
+            form = FormForResource(instance=resource)
+
+            context = {"form": form}
+
+        return render(request, "resource_form.html", context)
+
+    def post(self, request, *arg, **kwargs):
+        resource = get_object_or_404(
+                Resource, slug=self.kwargs["slug"])
+
+        form = FormForResource(request.POST, instance=resource)
+
+        if form.is_valid():
+            updated_entry = form.save()
+            # Should return user to the details page of the resource they just added or updated
+            return redirect("resource_detail", updated_entry.slug)
+
 
 
 class ResourceDetail(View):
