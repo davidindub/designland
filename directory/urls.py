@@ -6,6 +6,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('details/<slug:slug>/', views.ResourceDetail.as_view(),
          name='resource_detail'),
+    path('create/', views.ResourceForm.as_view(), name='create_resource'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
     path('user/', views.UserProfile.as_view(), name='user'),
     path('user/<slug:user>/', views.UserProfile.as_view(), name='user'),

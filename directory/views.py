@@ -1,15 +1,16 @@
-from django.shortcuts import render, get_object_or_404, reverse
+from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
 from .models import Resource
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import FormForResource
 
 
 class ResourceList(generic.ListView):
     model = Resource
-    queryset = Resource.objects.filter(approved=True).order_by("upvotes")
+    queryset = Resource.objects.filter(approved=True)
     template_name = "index.html"
     paginate_by = 9
 
@@ -21,7 +22,7 @@ class TagList(ResourceList):
 
     def get_queryset(self):
 
-        return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]]).order_by("upvotes")
+        return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
 
 
 class BookmarkList(ResourceList):
@@ -60,7 +61,26 @@ class ListByUser(ResourceList):
     def get_queryset(self):
         user_id = User.objects.get(username=self.kwargs["user"]).id
 
-        return Resource.objects.filter(approved=True).filter(author__id__in=[user_id]).order_by("upvotes")
+        return Resource.objects.filter(approved=True).filter(author__id__in=[user_id])
+
+
+class ResourceForm(View):
+    """
+    View for form for adding or updating a resource in the database
+    """
+
+    def get(self, request):
+        form = FormForResource()
+        context = {"form": form}
+
+        return render(request, "resource_form.html", context)
+    
+    def post(self, request):
+        form = FormForResource(request.POST)
+        if form.is_valid():
+            form.save()
+            # Should return user to the details page of the resource they just added or updated
+            return redirect("home")
 
 
 class ResourceDetail(View):
