@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 
+{% block title %}
+Delete {{ resource.title }}?
+{% endblock %}
+
 {% block content %}
 
 <form method="POST" action="">
 {% csrf_token %}
 
-<p>Are you sure you want to delete {{ resource.title }}?</p>
+<p>Are you sure you want to delete <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>?</p>
 <p class="text-muted">{{ resource.number_upvotes }} people have upvoted this resource.</p>
 
 <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-dark">Nevermind</a>

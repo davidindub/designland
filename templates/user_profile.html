@@ -1,17 +1,11 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block title %}
+User profile for {{user_info.get_username }}
+{% endblock %}
+
+{% block content %}
 <div class="resource-container">
-    <div class="masthead">
-        <div class="container">
-            <div class="row g-0">
-                <div class="col-md-6 masthead-text">
-
-                    <h1 class="post-title text-dark">User profile for {{ user_info.get_username }} </h1>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
 
     <div class="container">
         <div class="row">
@@ -21,7 +15,18 @@
                         Member since: {{ user_info.date_joined }}
                         <hr>
 
-                        <a href="{% url 'added_by_user' user_info.get_username %}">Resources added:</a>
+                            {% if profile_info.number_resources_added == 0 %}
+                            No Resources added yet:
+                            {% elif profile_info.number_resources_added > 1 %}
+                            <a href="{% url 'added_by_user' user_info.get_username %}">
+                            {{ profile_info.number_resources_added}} Resources added:
+                            </a>
+                            {% else %}
+                            <a href="{% url 'added_by_user' user_info.get_username %}">
+                            {{ profile_info.number_resources_added }} Resource added:
+                            </a>
+                            {% endif %}
+
                         <ul>
                             {% if user_info.resources_added.all %}
                             {% for resource in user_info.resources_added.all %}

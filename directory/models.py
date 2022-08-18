@@ -46,6 +46,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    def number_resources_added(self):
+        return self.user.resources_added.count()
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

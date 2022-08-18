@@ -1,17 +1,17 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Resource, Profile
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import FormForResource
+from .models import Resource, Profile
 
 
 class ResourceList(generic.ListView):
     model = Resource
     queryset = Resource.objects.filter(approved=True)
-    template_name = "index.html"
+    template_name = "resources_list.html"
     paginate_by = 9
 
 
@@ -164,8 +164,6 @@ class ResourceDetail(View):
     def get(self, request, slug, *arg, **kwargs):
         queryset = Resource.objects.filter(approved=True)
         resource = get_object_or_404(queryset, slug=slug)
-        comments = resource.comments.filter(
-            approved=True).order_by("created_on")
         content = resource.content
         tags = resource.tags.all()
 
@@ -182,7 +180,6 @@ class ResourceDetail(View):
             "resource_detail.html",
             {
                 "resource": resource,
-                "comments": comments,
                 "bookmarked": bookmarked,
                 "upvoted": upvoted,
                 "tags": tags
