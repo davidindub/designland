@@ -5,7 +5,7 @@
             <div class="row g-0">
                 <div class="col-md-6 masthead-text">
 
-                    <h1 class="post-title text-dark">User profile for {{ user_profile.get_username }} </h1>
+                    <h1 class="post-title text-dark">User profile for {{ user_info.get_username }} </h1>
 
                 </div>
 
@@ -18,20 +18,20 @@
             <div class="col card mx-4 mb-4  mt-3 left top">
                 <div class="card-body">
                     <p class="card-text ">
-                        Member since: {{ user_profile.date_joined }}
+                        Member since: {{ user_info.date_joined }}
                         <hr>
 
-                        <a href="{% url 'added_by_user' user_profile.get_username %}">Resources added:</a>
+                        <a href="{% url 'added_by_user' user_info.get_username %}">Resources added:</a>
                         <ul>
-                            {% if user_profile.resources_added.all %}
-                            {% for resource in user_profile.resources_added.all %}
+                            {% if user_info.resources_added.all %}
+                            {% for resource in user_info.resources_added.all %}
                             <li>
                                 <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>
                             </li>
                             {% endfor %}
                             {% else %}
 
-                            {{ user_profile.get_username }} hasn't submitted any resources yet.
+                            {{ user_info.get_username }} hasn't submitted any resources yet.
                             {% endif %}
 
 
@@ -43,6 +43,15 @@
                         {% csrf_token %}
                         <!-- If the User is logged in show this -->
                         Edit button if user's own profile
+                        <hr>
+                        {% if profile_info.username_github %}
+                        GitHub: <a href="https://www.github.com./{{ profile_info.username_github }}" target="_blank">{{ profile_info.username_github }}</a>
+                        {% endif %}
+                        <br>
+                        {% if profile_info.username_twitter %}
+                        Twitter: <a href="https://www.twitter.com./{{ profile_info.username_twitter }}" target="_blank">@{{ profile_info.username_twitter }}</a>
+                        {% endif %}
+
 
                         {% endif %}
                     </p>

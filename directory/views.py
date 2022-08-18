@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect
-from .models import Resource
+from .models import Resource, Profile
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -39,17 +39,22 @@ class BookmarkList(ResourceList):
 class UserProfile(View):
     def get(self, request, *arg, **kwargs):
         if "user" in self.kwargs:
-            user_profile = get_object_or_404(
+            user_info = get_object_or_404(
                 User, username=self.kwargs["user"])
+            profile_info = get_object_or_404(
+                Profile, user=user_info.id)
         else:
-            user_profile = get_object_or_404(
+            user_info = get_object_or_404(
                 User, username=request.user.username)
+            profile_info = get_object_or_404(
+                Profile, user=request.user.id)
 
         return render(
             request,
             "user_profile.html",
             {
-                "user_profile": user_profile
+                "user_info": user_info,
+                "profile_info": profile_info
             }
         )
 
