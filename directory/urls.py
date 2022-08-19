@@ -18,6 +18,8 @@ urlpatterns = [
          views.ListByUser.as_view(), name='added_by_user'),
     path('user/<slug:user>/update/', views.UpdateUserProfile.as_view(),
          name='update_user_profile'),
+    path('user/<slug:user>/delete/', views.DeleteUserProfile.as_view(),
+         name='delete_user_profile'),
     path('bookmarks/', views.BookmarkList.as_view(), name='bookmarks'),
     path('bookmark/<slug:slug>', views.ResourceBookmark.as_view(),
          name='bookmark_resource'),

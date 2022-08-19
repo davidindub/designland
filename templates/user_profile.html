@@ -13,6 +13,8 @@ User profile for {{user_info.get_username }}
                 <div class="card-body">
                     <p class="card-text ">
                         Member since: {{ user_info.date_joined }}
+                        <br>
+                        {% comment %} Upvotes received: {{ user_info.total_upvotes_received }} {% endcomment %}
 
                         <hr>
 
@@ -53,11 +55,6 @@ User profile for {{user_info.get_username }}
 
                         </ul>
 
-
-                        {% if user.is_authenticated %}
-                        {% csrf_token %}
-                        <!-- If the User is logged in show this -->
-                        Edit button if user's own profile
                         <hr>
                         {% if profile_info.username_github %}
                         GitHub: <a href="https://www.github.com./{{ profile_info.username_github }}" target="_blank">{{ profile_info.username_github }}</a>
@@ -65,7 +62,6 @@ User profile for {{user_info.get_username }}
                         <br>
                         {% if profile_info.username_twitter %}
                         Twitter: <a href="https://www.twitter.com./{{ profile_info.username_twitter }}" target="_blank">@{{ profile_info.username_twitter }}</a>
-                        {% endif %}
 
 
                         {% endif %}

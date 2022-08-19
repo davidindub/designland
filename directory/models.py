@@ -50,6 +50,12 @@ class Profile(models.Model):
     def number_resources_added(self):
         return self.user.resources_added.count()
 
+    def total_upvotes_received(self):
+        total = 0
+        for resource in self.user.resources_added.all():
+            total = total + resource.number_upvotes()
+        return total
+
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:

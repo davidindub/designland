@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+{% if user.username == user_info.username %}
+<p>Delete your account?</p>
+{% else %}
+<p>Delete {{ user_info.username }}?</p>
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="">
+{% csrf_token %}
+
+{% if user.username == user_info.username %}
+<p>Are you sure you want to permanently delete your account?</p>
+<hr>
+<p class="">
+{% if profile_info.number_resources_added > 0 %}
+You've contributed <span class="fw-bold">{{ profile_info.number_resources_added }}</span> resources to the community, which will be permanently deleted along with your account.
+<br>
+{% if profile_info.total_upvotes_received == 1 %}
+You've received <span class="fw-bold">{{ profile_info.total_upvotes_received }}</span> upvote for your contributions!
+{% else %}
+You've received <span class="fw-bold">{{ profile_info.total_upvotes_received }}</span> upvotes for your contributions!
+{% endif %}
+{% endif %}
+</p>
+
+
+{% else %}
+<p>Are you sure you want to permanently delete  {{ user_info.username }}?</p>
+{% endif %}
+
+
+
+<a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-dark">Nevermind</a>
+<input type="submit" value="Delete Permanently" class="btn btn-danger"></input>
+
+
+</form>
+
+{% endblock content %}

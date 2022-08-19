@@ -65,7 +65,6 @@ class UpdateUserProfile(View):
     """
 
     def get(self, request, *arg, **kwargs):
-        print(f"🟩 SLUG IS {self.kwargs['user']} 🟩")
         
         if "user" in self.kwargs:
             user_info = get_object_or_404(
@@ -78,12 +77,12 @@ class UpdateUserProfile(View):
 
                 form = FormForProfile(instance=profile_info)
 
-                context = {"form": form}
+                context = {"form": form, "user_info": user_info}
 
                 return render(request, "user_profile_form.html", context)
 
-        # else:
-        #     return redirect("home")
+        else:
+            return redirect("home")
 
     def post(self, request, *arg, **kwargs):
         user_info = get_object_or_404(
@@ -102,6 +101,28 @@ class UpdateUserProfile(View):
 
         else:
             return redirect("home")
+
+class DeleteUserProfile(View):
+    def get(self, request, *arg, **kwargs):
+        user_info = get_object_or_404(
+            User, username=self.kwargs["user"])
+        profile_info = get_object_or_404(
+            Profile, user=user_info.id)
+        
+        if self.request.user == user_info or self.request.user.is_superuser:
+            return render(request, "user_profile_delete.html", {"user_info": user_info, "profile_info": profile_info})
+
+        else:
+            return redirect("home")
+
+    def post(self, request, *arg, **kwargs):
+        user_info = get_object_or_404(
+            User, username=self.kwargs["user"])
+
+        if self.request.user == user_info or self.request.user.is_superuser:
+            user_info.delete()
+
+        return redirect("home")
 
 
 class ListByUser(ResourceList):
