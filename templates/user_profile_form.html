@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Update your profile
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <hr>
+  
+        <input type="submit" value="Submit" class="btn btn-dark"></input>
+
+
+
+</form>
+
+{% endblock content %}

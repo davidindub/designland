@@ -13,6 +13,16 @@ User profile for {{user_info.get_username }}
                 <div class="card-body">
                     <p class="card-text ">
                         Member since: {{ user_info.date_joined }}
+
+                        <hr>
+
+                        {% if user.is_authenticated %}
+                        {% if user.username == user_info.username or user.is_superuser %}
+                        <a href="{% url 'update_user_profile' user_info.get_username %}">Edit Profile</a>
+                        {% endif %}
+                        {% endif %}
+
+
                         <hr>
 
                             {% if profile_info.number_resources_added == 0 %}

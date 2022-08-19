@@ -10,7 +10,13 @@ Delete {{ resource.title }}?
 {% csrf_token %}
 
 <p>Are you sure you want to delete <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>?</p>
-<p class="text-muted">{{ resource.number_upvotes }} people have upvoted this resource.</p>
+<p class="text-muted">
+    {% if resource.number_upvotes == 1 %}
+    {{ resource.number_upvotes }} person has upvoted this resource.
+    {% else %}
+    {{ resource.number_upvotes }} people have upvoted this resource.
+    {% endif %}
+</p>
 
 <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-outline-dark">Nevermind</a>
 <input type="submit" value="Delete Permanently" class="btn btn-danger"></input>

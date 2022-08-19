@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import FormForResource
+from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
 
 
@@ -57,6 +57,51 @@ class UserProfile(View):
                 "profile_info": profile_info
             }
         )
+
+
+class UpdateUserProfile(View):
+    """
+    View for form for updating a user profile in the database
+    """
+
+    def get(self, request, *arg, **kwargs):
+        print(f"🟩 SLUG IS {self.kwargs['user']} 🟩")
+        
+        if "user" in self.kwargs:
+            user_info = get_object_or_404(
+                User, username=self.kwargs["user"])
+
+            profile_info = get_object_or_404(
+                Profile, user=user_info.id)
+
+            if self.request.user.id == user_info.id or self.request.user.is_superuser:
+
+                form = FormForProfile(instance=profile_info)
+
+                context = {"form": form}
+
+                return render(request, "user_profile_form.html", context)
+
+        # else:
+        #     return redirect("home")
+
+    def post(self, request, *arg, **kwargs):
+        user_info = get_object_or_404(
+            User, username=self.kwargs["user"])
+        profile_info = get_object_or_404(
+            Profile, user=user_info.id)
+
+        if self.request.user.id == user_info.id or self.request.user.is_superuser:
+
+            form = FormForProfile(request.POST, instance=profile_info)
+
+            if form.is_valid():
+                updated_entry = form.save()
+                # Return user to the profile they just updated
+                return redirect("user", user_info.username)
+
+        else:
+            return redirect("home")
 
 
 class ListByUser(ResourceList):
@@ -117,7 +162,7 @@ class UpdateResource(View):
                 context = {"form": form}
 
                 return render(request, "resource_form.html", context)
-            
+
             else:
                 return redirect("home")
 
@@ -142,10 +187,10 @@ class DeleteResource(View):
     def get(self, request, slug, *arg, **kwargs):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
-        
+
         if self.request.user == resource.author or self.request.user.is_superuser:
             return render(request, "resource_delete.html", {"resource": resource})
-        
+
         else:
             return redirect("home")
 
