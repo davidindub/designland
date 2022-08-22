@@ -1,43 +1,79 @@
 {% extends 'base.html' %}
 
 {% block title %}
+{{user_info.get_username}}'s profile / Designland
+{% endblock %}
+
+{% block h1 %}
 User profile for {{user_info.get_username }}
 {% endblock %}
 
 {% block content %}
-<div class="resource-container">
 
-    <div class="container">
-        <div class="row">
-            <div class="col card mx-4 mb-4  mt-3 left top">
-                <div class="card-body">
-                    <p class="card-text ">
-                        Member since: {{ user_info.date_joined }}
-                        <br>
-                        {% comment %} Upvotes received: {{ user_info.total_upvotes_received }} {% endcomment %}
+    <div class="row">
+        <div class="col mx-2">
+            <div class="row">
 
-                        <hr>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <p class="card-text ">
+                                Member since: {{ user_info.date_joined }}
+                                <br>
+                                {% comment %} Upvotes received: {{ user_info.total_upvotes_received }} {% endcomment %}
 
-                        {% if user.is_authenticated %}
-                        {% if user.username == user_info.username or user.is_superuser %}
-                        <a href="{% url 'update_user_profile' user_info.get_username %}">Edit Profile</a>
-                        {% endif %}
-                        {% endif %}
+                                <hr>
+
+                                {% if user.is_authenticated %}
+                                {% if user.username == user_info.username or user.is_superuser %}
+                                <a href="{% url 'update_user_profile' user_info.get_username %}"
+                                    class="btn btn-outline-dark">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path
+                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd"
+                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                    Edit Profile</a>
+                                {% endif %}
+                                {% endif %}
 
 
-                        <hr>
+                                <hr>
 
-                            {% if profile_info.number_resources_added == 0 %}
-                            No Resources added yet:
-                            {% elif profile_info.number_resources_added > 1 %}
-                            <a href="{% url 'added_by_user' user_info.get_username %}">
+
+                                {% if profile_info.username_github %}
+                                GitHub: <a href="https://www.github.com./{{ profile_info.username_github }}"
+                                    target="_blank">
+                                    {{ profile_info.username_github }}</a>
+                                {% endif %}
+                                <br>
+                                {% if profile_info.username_twitter %}
+                                Twitter: <a href="https://www.twitter.com./{{ profile_info.username_twitter }}"
+                                    target="_blank">@{{ profile_info.username_twitter }}</a>
+
+
+                                {% endif %}
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        {% if profile_info.number_resources_added == 0 %}
+                        No Resources added yet:
+                        {% elif profile_info.number_resources_added > 1 %}
+                        <a href="{% url 'added_by_user' user_info.get_username %}">
                             {{ profile_info.number_resources_added}} Resources added:
-                            </a>
-                            {% else %}
-                            <a href="{% url 'added_by_user' user_info.get_username %}">
+                        </a>
+                        {% else %}
+                        <a href="{% url 'added_by_user' user_info.get_username %}">
                             {{ profile_info.number_resources_added }} Resource added:
-                            </a>
-                            {% endif %}
+                        </a>
+                        {% endif %}
 
                         <ul>
                             {% if user_info.resources_added.all %}
@@ -51,34 +87,12 @@ User profile for {{user_info.get_username }}
                             {{ user_info.get_username }} hasn't submitted any resources yet.
                             {% endif %}
 
-
-
-                        </ul>
-
-                        <hr>
-                        {% if profile_info.username_github %}
-                        GitHub: <a href="https://www.github.com./{{ profile_info.username_github }}" target="_blank">{{ profile_info.username_github }}</a>
-                        {% endif %}
-                        <br>
-                        {% if profile_info.username_twitter %}
-                        Twitter: <a href="https://www.twitter.com./{{ profile_info.username_twitter }}" target="_blank">@{{ profile_info.username_twitter }}</a>
-
-
-                        {% endif %}
-                    </p>
-
+                    </div>
                 </div>
-
-
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
+
 </div>
-</div>
-</div>
+
 {% endblock content %}

@@ -4,13 +4,9 @@
     box-sizing: border-box;
   }
 
-main, .main-container {
+body, main {
     background-color: rgb(244, 194, 54);
 }
-
-/* .main-container {
-    background-color: rgb(255, 255, 255);
-} */
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Baloo 2', sans-serif;
@@ -37,7 +33,7 @@ a {
     text-decoration: none;
 }
 
-.resource-container {
+.resource-container, .footer-container, .container-main-content {
     background-color: rgb(255, 255, 255);
 }
 
@@ -53,7 +49,7 @@ a {
     border: 2px solid rgb(0, 0, 0);
 }
 
-.card, .resource-container {
+.card, .resource-container, .container-main-content {
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
 }

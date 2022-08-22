@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block title %}
+Delete Account? / Designland
+{% endblock %}
+
+{% block h1 %}
 
 {% if user.username == user_info.username %}
 <p>Delete your account?</p>
@@ -11,6 +15,8 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="container-main-content p-4">
 
 <form method="POST" action="">
 {% csrf_token %}
@@ -42,5 +48,6 @@ You've received <span class="fw-bold">{{ profile_info.total_upvotes_received }}<
 
 
 </form>
+</div>
 
 {% endblock content %}

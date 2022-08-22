@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
 {% block title %}
+Designland
+{% endblock %}
+
+
+{% block h1 %}
 By Most Popular:
 {% endblock %}
 
 {% block content %}
 
-<div class="container-fluid pt-2">
     <div class="row">
-        <div class="col-12 mt-3 left">
+        <div class="col mt-3 left">
             <div class="row">
                 {% for resource in resource_list %}
                 <div class="col-md-4">
@@ -74,7 +78,6 @@ By Most Popular:
 
             </div>
         </div>
-    </div>
     {% if is_paginated %}
     <nav aria-label="Page navigation">
         <ul class="mt-5 pagination justify-content-center">
