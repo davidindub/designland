@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load humanize %}
+
 
 {% block h1 %}
 Delete {{ resource.title }}?
@@ -6,15 +8,16 @@ Delete {{ resource.title }}?
 
 {% block content %}
 
+<div class="container-main-content p-4">
 <form method="POST" action="">
 {% csrf_token %}
 
 <p>Are you sure you want to delete <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>?</p>
 <p class="text-muted">
     {% if resource.number_upvotes == 1 %}
-    {{ resource.number_upvotes }} person has upvoted this resource.
+    {{ resource.number_upvotes| apnumber | capfirst }} person has upvoted this resource.
     {% else %}
-    {{ resource.number_upvotes }} people have upvoted this resource.
+    {{ resource.number_upvotes|apnumber | capfirst }} people have upvoted this resource.
     {% endif %}
 </p>
 
@@ -23,5 +26,6 @@ Delete {{ resource.title }}?
 
 
 </form>
+</div>
 
 {% endblock content %}

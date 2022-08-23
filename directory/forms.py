@@ -9,8 +9,9 @@ class FormForResource(ModelForm):
 class FormForProfile(ModelForm):
     class Meta:
         model = Profile
-        fields = ["username_github", "username_twitter"]
+        fields = ["username_github", "username_twitter", "website_address"]
         labels = {
             "username_github": "GitHub",
-            "username_twitter": "Twitter"
+            "username_twitter": "Twitter",
+            "website_address": "Portfolio URL"
         }

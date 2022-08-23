@@ -10,6 +10,7 @@ Add/Update a submission
 
 {% block content %}
 
+<div class="container-main-content p-4">
 <form method="POST" action="">
     {% csrf_token %}
 
@@ -20,5 +21,6 @@ Add/Update a submission
         <input type="submit" value="Submit" class="btn btn-dark"></input>
 
 </form>
+</div>
 
 {% endblock content %}

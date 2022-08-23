@@ -88,10 +88,18 @@ By Most Popular:
     <nav aria-label="Page navigation">
         <ul class="mt-5 pagination justify-content-center">
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link text-dark text-uppercase">&laquo; Prev</a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}" 
+                class="page-link page-link-prev mx-3 text-dark text-uppercase" 
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo; Prev</span>
+            </a></li>
             {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link text-dark text-uppercase">Next &raquo;</a></li>
+            <li><a href="?page={{ page_obj.next_page_number }}" 
+                class="page-link page-link-next mx-3 text-dark text-uppercase" 
+                aria-label="Next">
+                <span aria-hidden="true">Next &raquo;</span>
+            </a></li>
 
             {% endif %}
         </ul>

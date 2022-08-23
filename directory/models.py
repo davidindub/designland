@@ -43,6 +43,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     username_twitter = models.CharField(max_length=15, null=True)
     username_github = models.CharField(max_length=39, null=True)
+    website_address = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.user.username
