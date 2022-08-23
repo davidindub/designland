@@ -17,7 +17,7 @@
 
 <body>
 
-    <nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="sticky-lg-top navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-xl">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Most Popular</a>
+                        <a class="nav-link" href="/">Newest</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
@@ -82,9 +82,11 @@
     <main class="container-xl py-4">
 
 
+        {% if h1 %}
         <div class="list-title mb-3 p-2">
             <h1>{% block h1 %}Designland{% endblock %}</h1>
         </div>
+        {% endif %}
 
 
         {% block content %}
@@ -130,7 +132,7 @@
 
 <!-- Use Bootstrap Toasts for Django Messages -->
 {% if messages %}
-<div class="messages toast-container position-fixed top-0 end-0 p-3">
+<div class="messages toast-container position-fixed top-0 end-0 p-3" aria-live="polite">
 {% for message in messages %}
     <div class="message-toast toast {{ message.tags }} align-items-center border-0" role="alert"
         aria-live="assertive" aria-atomic="true">

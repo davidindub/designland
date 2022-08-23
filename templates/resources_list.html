@@ -6,7 +6,7 @@ Designland
 
 
 {% block h1 %}
-By Most Popular:
+{{ h1 }}
 {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@ By Most Popular:
     <div class="row">
         <div class="col mt-3 left">
             <div class="row">
-                {% for resource in resource_list %}
+                {% for resource in page_obj %}
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-body">

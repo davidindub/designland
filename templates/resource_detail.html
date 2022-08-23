@@ -12,121 +12,130 @@
 
 {% block content %}
 <div class="resource-container p-4">
-  
-        <div class="container">
-            <div class="row g-0">
-                <div class="col-md-6">
-                    <a href="{{ resource.url }}" target="_blank">
-                        <h1 class="post-title text-dark">{{ resource.title }}</h1>
-                    </a>
-                    <a href="{% url 'user' resource.author%}">
-                        <p class="post-subtitle">{{ resource.author }}  </a>| Added {{ resource.created_on|naturaltime }}</p>
+
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-6">
+                <a href="{{ resource.url }}" target="_blank">
+                    <h1 class="post-title text-dark">{{ resource.title }}</h1>
+                </a>
+                <a href="{% url 'user' resource.author%}">
+                    <p class="post-subtitle">{{ resource.author }}
+                </a>| Added {{ resource.created_on|naturaltime }}</p>
+
+                {% if user.is_authenticated %}
+                {% if user.username == resource.author.username or user.is_superuser %}
+                {% comment %} Should only appear if user is author or admin: {% endcomment %}
+                <p>
+                    <a href="{% url 'update_resource' resource.slug %}" class="btn btn-sm btn-outline-dark">Edit</a>
+                    <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </p>
+                {% endif %}
+                {% endif %}
+            </div>
+            <div class="d-md-block col-md-6">
+                <a href="{{ resource.url }}" target="_blank">
+                    {% if "placeholder" in resource.thumbnail.url %}
+                    <img class="resource-detail-thumbnail" src="https://i.ibb.co/10Y6XsK/open-graph-template.png"
+                        width="100%" alt="">
+                    {% else %}
+                    <img class="resource-detail-thumbnail" src=" {{ resource.thumbnail.url }}" width="100%" alt="">
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col card m-4 pb-4 left top">
+            <div class="card-body">
+                <p class="card-text ">
+                    {{ resource.content | safe }}
+                </p>
+                <div class="row">
+
+                    <div class="btn-group" role="group">
 
                         {% if user.is_authenticated %}
-                        {% if user.username == resource.author.username or user.is_superuser %}
-                        {% comment %} Should only appear if user is author or admin: {% endcomment %}
-                        <p>
-                            <a href="{% url 'update_resource' resource.slug %}" class="btn btn-sm btn-outline-dark">Edit</a>
-                            <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
-                        </p>
-                        {% endif %}
-                        {% endif %}
-                </div>
-                <div class="d-md-block col-md-6">
-                    <a href="{{ resource.url }}" target="_blank">
-                        {% if "placeholder" in resource.thumbnail.url %}
-                        <img class="resource-detail-thumbnail" src="https://i.ibb.co/10Y6XsK/open-graph-template.png" width="100%">
-                        {% else %}
-                        <img class="resource-detail-thumbnail" src=" {{ resource.thumbnail.url }}" width="100%">
-                        {% endif %}
-                    </a>
-                </div>
-            </div>
-        </div>
-       
-        <div class="row">
-            <div class="col card m-4 pb-4 left top">
-                <div class="card-body">
-                    <p class="card-text ">
-                        {{ resource.content | safe }}
-                    </p>
-                    <div class="row">
-
-                        <div class="btn-group" role="group">
-
-                            {% if user.is_authenticated %}
-                            <form class="d-inline" action="{% url 'upvote_resource' resource.slug %}" method="POST">
-                                {% csrf_token %}
-                                {% if upvoted %}
-                                <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                    class="btn btn-outline-dark active">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                        class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-                                    </svg>
-                                    <span class="upvote_number">{{ resource.number_upvotes }}</span>
-                                </button>
-                                {% else %}
-                                <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                    class="btn btn-outline-dark">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                        class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-                                    </svg>
-                                    <span class="upvote_number">{{ resource.number_upvotes }}</span>
-                                </button>
-                                {% endif %}
-                            </form>
+                        <form class="d-inline" action="{% url 'upvote_resource' resource.slug %}" method="POST">
+                            {% csrf_token %}
+                            {% if upvoted %}
+                            <button type="submit" name="button-upvote" value="{{resource.slug}}"
+                                class="btn btn-outline-dark active"
+                                aria-label="Remove your upvote from {{ resource }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                                </svg>
+                                <span class="upvote_number">{{ resource.number_upvotes }}</span>
+                            </button>
                             {% else %}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-                            </svg>
-                            <span class="upvote_number">{{ resource.number_upvotes }}</span>
-
+                            <button type="submit" name="button-upvote" value="{{resource.slug}}"
+                                class="btn btn-outline-dark"
+                                aria-label="Remove your upvote from {{ resource }}"
+                                aria-label="Upvote {{ resource }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                                </svg>
+                                <span class="upvote_number">{{ resource.number_upvotes }}</span>
+                            </button>
                             {% endif %}
+                        </form>
+                        {% else %}
+                        <span class="btn btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                        </svg>
+                        <span class="upvote_number">{{ resource.number_upvotes }}</span>
+                    </span>
+                        {% endif %}
 
 
 
-                            {% if user.is_authenticated %}
-                            <form class="d-inline" action="{% url 'bookmark_resource' resource.slug %}" method="POST">
-                                {% csrf_token %}
-                                {% if bookmarked %}
-                                <button type="submit" name="button-bookmark" value="{{resource.slug}}"
-                                    class="btn btn-outline-dark active">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                        class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
-                                    </svg>
-                                </button>
-                                {% else %}
-                                <button type="submit" name="button-bookmark" value="{{resource.slug}}"
-                                    class="btn btn-outline-dark">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                        class="bi bi-bookmark" viewBox="0 0 16 16">
-                                        <path
-                                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
-                                    </svg>
-                                </button>
-                            </form>
-                            {% endif %}
-                            {% endif %}
-                        </div>
-
+                        {% if user.is_authenticated %}
+                        <form class="d-inline" action="{% url 'bookmark_resource' resource.slug %}" method="POST">
+                            {% csrf_token %}
+                            {% if bookmarked %}
+                            <button type="submit" name="button-bookmark" value="{{resource.slug}}"
+                                class="btn btn-outline-dark active"
+                                aria-label="Remove your bookmark from {{ resource }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-bookmark-check-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5zm8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                                </svg>
+                            </button>
+                            {% else %}
+                            <button type="submit" name="button-bookmark" value="{{resource.slug}}"
+                                class="btn btn-outline-dark"
+                                aria-label="Add {{ resource }} to your bookmarks">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                    class="bi bi-bookmark" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                                </svg>
+                            </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
                     </div>
+
                 </div>
-
-                {% for tag in tags %}
-                <a href="{% url 'tag' tag %}"><span class="resource-tag badge rounded-pill text-bg-secondary">#{{tag}}</span></a>
-                {% endfor %}
-
             </div>
+
+            {% for tag in tags %}
+            <a href="{% url 'tag' tag %}"><span
+                    class="resource-tag badge rounded-pill text-bg-secondary">#{{tag}}</span></a>
+            {% endfor %}
+
         </div>
- 
+    </div>
+
 
 </div>
 </div>

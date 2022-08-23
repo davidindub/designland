@@ -10,9 +10,14 @@ from .models import Resource, Profile
 
 class ResourceList(generic.ListView):
     model = Resource
-    queryset = Resource.objects.filter(approved=True)
     template_name = "resources_list.html"
     paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["resource_list"] = Resource.objects.filter(approved=True)
+        context["h1"] = "By Recently Added"
+        return context
 
 
 class TagList(ResourceList):
@@ -20,9 +25,13 @@ class TagList(ResourceList):
     View for showing all the resources with a specified tag
     """
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-        return Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
+        # Filter to display approved resources with the requested tag
+        context["resource_list"] = Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
+        context["h1"] = f"#{self.kwargs['tag']}"
+        return context
 
 
 class BookmarkList(ResourceList):
@@ -30,10 +39,30 @@ class BookmarkList(ResourceList):
     View for showing all the resources the logged in user has bookmarked
     """
 
-    def get_queryset(self):
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
         # Filter to return only the resources bookmarked by the logged in user
-        return Resource.objects.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
+        context["resource_list"] = Resource.objects.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
+        context["h1"] = "Your bookmarks"
+
+        return context
+
+
+class ListByUser(ResourceList):
+    """
+    View for showing all the resources added by a user
+    """
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Filter to display approved added by the queried user
+        user_id = User.objects.get(username=self.kwargs["user"]).id
+
+        context["resource_list"] = Resource.objects.filter(approved=True).filter(author__id__in=[user_id])
+        context["h1"] = f"Added by {self.kwargs['user']}"
+        return context
 
 
 class UserProfile(View):
@@ -49,13 +78,11 @@ class UserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=request.user.id)
 
+        context = {"user_info": user_info, "profile_info": profile_info, "h1": f"{profile_info}"}
+
         return render(
             request,
-            "user_profile.html",
-            {
-                "user_info": user_info,
-                "profile_info": profile_info
-            }
+            "user_profile.html", context
         )
 
 
@@ -97,7 +124,8 @@ class UpdateUserProfile(View):
             if form.is_valid():
                 updated_entry = form.save()
                 # Return user to the profile they just updated
-                messages.add_message(request, messages.SUCCESS, 'Profile Updated!')
+                messages.add_message(
+                    request, messages.SUCCESS, 'Profile Updated!')
                 return redirect("user", user_info.username)
 
         else:
@@ -112,7 +140,10 @@ class DeleteUserProfile(View):
             Profile, user=user_info.id)
 
         if self.request.user == user_info or self.request.user.is_superuser:
-            return render(request, "user_profile_delete.html", {"user_info": user_info, "profile_info": profile_info})
+
+            context = {"user_info": user_info, "profile_info": profile_info}
+
+            return render(request, "user_profile_delete.html", context)
 
         else:
             return redirect("home")
@@ -122,21 +153,11 @@ class DeleteUserProfile(View):
             User, username=self.kwargs["user"])
 
         if self.request.user == user_info or self.request.user.is_superuser:
-            messages.add_message(request, messages.SUCCESS, f"Account for {user_info} successfully deleted.")
+            messages.add_message(request, messages.SUCCESS,
+                                 f"Account for {user_info} successfully deleted.")
             user_info.delete()
 
         return redirect("home")
-
-
-class ListByUser(ResourceList):
-    """
-    View for showing all the resources added by a user
-    """
-
-    def get_queryset(self):
-        user_id = User.objects.get(username=self.kwargs["user"]).id
-
-        return Resource.objects.filter(approved=True).filter(author__id__in=[user_id])
 
 
 class CreateResource(View):
@@ -147,7 +168,7 @@ class CreateResource(View):
     def get(self, request):
         if self.request.user.is_authenticated:
             form = FormForResource()
-            context = {"form": form}
+            context = {"form": form, "h1": "Submit a new Design Resource"}
 
             return render(request, "resource_form.html", context)
 
@@ -159,7 +180,8 @@ class CreateResource(View):
             form = FormForResource(request.POST)
             if form.is_valid():
                 new_entry = form.save()
-                messages.add_message(request, messages.SUCCESS, f"{new_entry} successfully added")
+                messages.add_message(
+                    request, messages.SUCCESS, f"{new_entry} successfully added")
                 # return user to the details page of the resource
                 # they just added or updated
                 return redirect("resource_detail", new_entry.slug)
@@ -184,7 +206,7 @@ class UpdateResource(View):
 
                 form = FormForResource(instance=resource)
 
-                context = {"form": form}
+                context = {"form": form, "h1": f"Update {resource}"}
 
                 return render(request, "resource_form.html", context)
 
@@ -201,12 +223,14 @@ class UpdateResource(View):
 
             if form.is_valid():
                 updated_entry = form.save()
-                messages.add_message(request, messages.SUCCESS, f"{resource} updated.")
+                messages.add_message(
+                    request, messages.SUCCESS, f"{resource} updated.")
                 # return user to the details page of the resource they added or updated
                 return redirect("resource_detail", updated_entry.slug)
 
         else:
-            messages.add_message(request, messages.ERROR, f"There was an error")
+            messages.add_message(request, messages.ERROR,
+                                 f"There was an error")
             return redirect("home")
 
 
@@ -278,10 +302,12 @@ class ResourceUpvote(View):
     def post(self, request, slug, *args, **kwargs):
         resource = get_object_or_404(Resource, slug=slug)
         if resource.upvotes.filter(id=request.user.id).exists():
-            messages.add_message(request, messages.INFO, f"Removed upvote from {resource}.")
+            messages.add_message(request, messages.INFO,
+                                 f"Removed upvote from {resource}.")
             resource.upvotes.remove(request.user)
         else:
-            messages.add_message(request, messages.INFO, f"Upvoted {resource}!")
+            messages.add_message(request, messages.INFO,
+                                 f"Upvoted {resource}!")
             resource.upvotes.add(request.user)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
