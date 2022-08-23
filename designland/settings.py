@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.contrib import messages
+
 
 if os.path.isfile("env.py"):
     import env
@@ -99,6 +101,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'designland.wsgi.application'
 
+# Using Bootstrap classes for messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'text-bg-info',
+    messages.INFO: 'text-bg-light',
+    messages.SUCCESS: 'text-bg-success',
+    messages.WARNING: 'text-bg-warning',
+    messages.ERROR: 'text-bg-danger',
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

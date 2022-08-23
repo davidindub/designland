@@ -25,8 +25,10 @@ Delete Account? / Designland
 <p>Are you sure you want to permanently delete your account?</p>
 <hr>
 <p class="">
-{% if profile_info.number_resources_added > 0 %}
-You've contributed <span class="fw-bold">{{ profile_info.number_resources_added }}</span> resources to the community, which will be permanently deleted along with your account.
+{% if profile_info.number_resources_added == 1 %}
+You've contributed <span class="fw-bold">{{ profile_info.number_resources_added }}</span> resource to the community.
+{% elif profile_info.number_resources_added > 1 %}
+You've contributed <span class="fw-bold">{{ profile_info.number_resources_added }}</span> resources to the community.
 <br>
 {% if profile_info.total_upvotes_received == 1 %}
 You've received <span class="fw-bold">{{ profile_info.total_upvotes_received }}</span> upvote for your contributions!
@@ -36,7 +38,8 @@ You've received <span class="fw-bold">{{ profile_info.total_upvotes_received }}<
 {% endif %}
 </p>
 
-
+All the resources you added will be permanently deleted along with your account.
+<hr>
 {% else %}
 <p>Are you sure you want to permanently delete  {{ user_info.username }}?</p>
 {% endif %}

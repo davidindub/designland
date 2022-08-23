@@ -65,7 +65,7 @@ class UpdateUserProfile(View):
     """
 
     def get(self, request, *arg, **kwargs):
-        
+
         if "user" in self.kwargs:
             user_info = get_object_or_404(
                 User, username=self.kwargs["user"])
@@ -97,10 +97,12 @@ class UpdateUserProfile(View):
             if form.is_valid():
                 updated_entry = form.save()
                 # Return user to the profile they just updated
+                messages.add_message(request, messages.SUCCESS, 'Profile Updated!')
                 return redirect("user", user_info.username)
 
         else:
             return redirect("home")
+
 
 class DeleteUserProfile(View):
     def get(self, request, *arg, **kwargs):
@@ -108,7 +110,7 @@ class DeleteUserProfile(View):
             User, username=self.kwargs["user"])
         profile_info = get_object_or_404(
             Profile, user=user_info.id)
-        
+
         if self.request.user == user_info or self.request.user.is_superuser:
             return render(request, "user_profile_delete.html", {"user_info": user_info, "profile_info": profile_info})
 
@@ -120,6 +122,7 @@ class DeleteUserProfile(View):
             User, username=self.kwargs["user"])
 
         if self.request.user == user_info or self.request.user.is_superuser:
+            messages.add_message(request, messages.SUCCESS, f"Account for {user_info} successfully deleted.")
             user_info.delete()
 
         return redirect("home")
@@ -156,7 +159,8 @@ class CreateResource(View):
             form = FormForResource(request.POST)
             if form.is_valid():
                 new_entry = form.save()
-                # Should return user to the details page of the resource
+                messages.add_message(request, messages.SUCCESS, f"{new_entry} successfully added")
+                # return user to the details page of the resource
                 # they just added or updated
                 return redirect("resource_detail", new_entry.slug)
             else:
@@ -197,10 +201,12 @@ class UpdateResource(View):
 
             if form.is_valid():
                 updated_entry = form.save()
-                # Should return user to the details page of the resource they just added or updated
+                messages.add_message(request, messages.SUCCESS, f"{resource} updated.")
+                # return user to the details page of the resource they added or updated
                 return redirect("resource_detail", updated_entry.slug)
 
         else:
+            messages.add_message(request, messages.ERROR, f"There was an error")
             return redirect("home")
 
 
@@ -259,8 +265,10 @@ class ResourceBookmark(View):
         resource = get_object_or_404(Resource, slug=slug)
         if resource.bookmarks.filter(id=request.user.id).exists():
             resource.bookmarks.remove(request.user)
+            messages.add_message(request, messages.INFO, 'Bookmark Removed')
         else:
             resource.bookmarks.add(request.user)
+            messages.add_message(request, messages.INFO, 'Bookmark Added.')
 
         return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
 
@@ -270,8 +278,10 @@ class ResourceUpvote(View):
     def post(self, request, slug, *args, **kwargs):
         resource = get_object_or_404(Resource, slug=slug)
         if resource.upvotes.filter(id=request.user.id).exists():
+            messages.add_message(request, messages.INFO, f"Removed upvote from {resource}.")
             resource.upvotes.remove(request.user)
         else:
+            messages.add_message(request, messages.INFO, f"Upvoted {resource}!")
             resource.upvotes.add(request.user)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
