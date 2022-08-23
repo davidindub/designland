@@ -13,11 +13,11 @@ Update your profile
 
     <hr>
   
-        <input type="submit" value="Submit" class="btn btn-dark"></input>
-
+        <input type="submit" value="Update" class="btn btn-dark"></input>
         <hr>
         {% if user.username == user_info.username %}
-        <a href="{% url 'delete_user_profile' user_info.get_username %}" class="text-muted">Delete Account</a>
+        <a href="{% url 'delete_user_profile' user_info.get_username %}" class="btn btn-sm btn-outline-danger">
+            Delete Account</a>
         {% endif %}
 
 </form>

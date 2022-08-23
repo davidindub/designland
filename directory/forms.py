@@ -10,3 +10,7 @@ class FormForProfile(ModelForm):
     class Meta:
         model = Profile
         fields = ["username_github", "username_twitter"]
+        labels = {
+            "username_github": "GitHub",
+            "username_twitter": "Twitter"
+        }

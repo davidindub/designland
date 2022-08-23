@@ -19,7 +19,7 @@
                         <h1 class="post-title text-dark">{{ resource.title }}</h1>
                     </a>
                     <a href="{% url 'user' resource.author%}">
-                        <p class="post-subtitle">{{ resource.author }}  </a>| {{ resource.created_on }}</p>
+                        <p class="post-subtitle">{{ resource.author }}  </a>| {{ resource.created_on|date:'j M \'y' }}</p>
 
                         {% if user.is_authenticated %}
                         {% if user.username == resource.author.username or user.is_superuser %}

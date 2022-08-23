@@ -40,29 +40,30 @@ a {
 .list-title {
     /* background-color: rgb(227, 116, 74); */
     background-color: rgb(34, 167, 90);
-    border-radius: 2px;
+    border-radius: 0.375rem;
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
 }
 
 .resource-detail-thumbnail {
     border: 2px solid rgb(0, 0, 0);
+    border-radius: 0.375rem;
 }
 
 .card, .resource-container, .container-main-content, .message-toast {
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
+    border-radius: 0.375rem;
 }
 
 .pagination li a {
     box-shadow: -6px 5px 0px 0px rgba(0,0,0,0.75);
     transition: all 0.2s ease-in-out;
     font-family: 'Baloo 2', sans-serif;
-    font-size: 2rem;
-    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
     background-color: rgb(157, 154, 198);
     border: 2px solid rgb(0, 0, 0);
-    border-radius: 2px;
+    border-radius: 0.375rem;
     padding: 0.5rem 3rem;
 }
 

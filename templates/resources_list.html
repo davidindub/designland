@@ -27,7 +27,7 @@ By Most Popular:
                                     <img class="card-img-top" src=" {{ resource.thumbnail.url }}" alt="">
                                     {% endif %}
                                 </div>
-                                <h2 class="card-title text-dark">{{ resource.title }}</h2>
+                                <h2 class="card-title text-dark pt-2">{{ resource.title }}</h2>
                             </a>
                             <p class="card-text">{{ resource.content }}</p>
                             <div class="card-body">
@@ -36,7 +36,8 @@ By Most Popular:
                                     {% csrf_token %}
                                     {% if user in resource.upvotes.all %}
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                        class="btn btn-outline-dark active">
+                                        class="btn btn-sm float-end btn-outline-dark active"
+                                        aria-label="Remove your upvote from {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
                                             <path
@@ -45,8 +46,11 @@ By Most Popular:
                                         <span class="upvote_number">{{ resource.number_upvotes }}</span>
                                     </button>
                                     {% else %}
-                                    <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                        class="btn btn-outline-dark">
+                                    <button type="submit" 
+                                    name="button-upvote" 
+                                    value="{{resource.slug}}"
+                                    class="btn btn-sm float-end btn-outline-dark"
+                                    aria-label="Upvote {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
@@ -57,12 +61,14 @@ By Most Popular:
                                     {% endif %}
                                 </form>
                                 {% else %}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                    class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
-                                </svg>
-                                <span class="upvote_number">{{ resource.number_upvotes }}</span>
+                                <span class="btn btn-sm float-end">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z" />
+                                    </svg>
+                                    <span class="upvote_number">{{ resource.number_upvotes }}</span>
+                                </span>
 
                                 {% endif %}
 
@@ -82,10 +88,10 @@ By Most Popular:
     <nav aria-label="Page navigation">
         <ul class="mt-5 pagination justify-content-center">
             {% if page_obj.has_previous %}
-            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link text-dark text-uppercase">&laquo; Prev</a></li>
             {% endif %}
             {% if page_obj.has_next %}
-            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            <li><a href="?page={{ page_obj.next_page_number }}" class="page-link text-dark text-uppercase">Next &raquo;</a></li>
 
             {% endif %}
         </ul>
