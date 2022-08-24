@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.utils.text import slugify
 from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
 
@@ -185,12 +186,19 @@ class CreateResource(View):
             return redirect("home")
 
     def post(self, request, *arg, **kwargs):
+        print(self.request.user.id)
         if self.request.user.is_authenticated:
+            user_info = get_object_or_404(User, id=self.request.user.id)
             form = FormForResource(request.POST)
             if form.is_valid():
+                # Set the author to the logged in user
+                form.instance.author = self.request.user
+
+                form.instance.slug = slugify(form.instance.title)
+
                 new_entry = form.save()
                 messages.add_message(
-                    request, messages.SUCCESS, f"{new_entry} successfully added")
+                    request, messages.SUCCESS, f"{new_entry} successfully added.")
                 # return user to the details page of the resource
                 # they just added or updated
                 return redirect("resource_detail", new_entry.slug)
@@ -267,29 +275,27 @@ class DeleteResource(View):
 class ResourceDetail(View):
 
     def get(self, request, slug, *arg, **kwargs):
-        queryset = Resource.objects.filter(approved=True)
+        queryset = Resource.objects.filter()
         resource = get_object_or_404(queryset, slug=slug)
         content = resource.content
         tags = resource.tags.all()
 
-        bookmarked = False
-        if resource.bookmarks.filter(id=self.request.user.id).exists():
-            bookmarked = True
-
-        upvoted = False
-        if resource.upvotes.filter(id=self.request.user.id).exists():
-            upvoted = True
-
-        return render(
-            request,
-            "resource_detail.html",
-            {
+        context = {
                 "resource": resource,
-                "bookmarked": bookmarked,
-                "upvoted": upvoted,
+                "approved": True if resource.approved else False,
+                "bookmarked": True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
+                "upvoted": True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
                 "tags": tags
             }
-        )
+
+        if (resource.approved == False):
+            if (resource.author == self.request.user or self.request.user.is_superuser):
+                return render(request, "resource_detail.html", context )
+            else:
+                raise Http404
+        
+        elif (resource.approved):
+            return render(request, "resource_detail.html", context)
 
 
 class ResourceBookmark(View):
@@ -298,10 +304,10 @@ class ResourceBookmark(View):
         resource = get_object_or_404(Resource, slug=slug)
         if resource.bookmarks.filter(id=request.user.id).exists():
             resource.bookmarks.remove(request.user)
-            messages.add_message(request, messages.INFO, 'Bookmark Removed')
+            messages.add_message(request, messages.INFO, "Bookmark Removed")
         else:
             resource.bookmarks.add(request.user)
-            messages.add_message(request, messages.INFO, 'Bookmark Added.')
+            messages.add_message(request, messages.INFO, f"Bookmarked {resource}.")
 
         return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
 
