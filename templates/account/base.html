@@ -8,17 +8,6 @@
   <body>
     {% block body %}
 
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-
     <div>
       <strong>Menu:</strong>
       <ul>
@@ -31,10 +20,44 @@
         {% endif %}
       </ul>
     </div>
+
     {% block content %}
     {% endblock %}
     {% endblock %}
     {% block extra_body %}
     {% endblock %}
   </body>
+
+  <!-- Use Bootstrap Toasts for Django Messages -->
+{% if messages %}
+<div class="messages toast-container position-fixed top-0 end-0 p-3" aria-live="polite">
+{% for message in messages %}
+    <div class="message-toast toast {{ message.tags }} align-items-center border-0" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ message }}
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    const toastLiveMessages = document.getElementsByClassName("message-toast");
+
+    console.log(toastLiveMessages);
+
+    for (let toastElement of toastLiveMessages) {
+        console.log(toastElement);
+        const toast = new bootstrap.Toast(toastElement);
+        toast.show();
+    }
+</script>
+
+
+{% endif %}
+
 </html>

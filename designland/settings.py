@@ -46,6 +46,7 @@ else:
 
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_LOGIN_ON_GET= True
+ACCOUNT_EMAIL_REQUIRED = False
 
 # Application definition
 
