@@ -44,7 +44,8 @@ if development:
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
 
-SOCIALACCOUNT_LOGIN_ON_GET=True
+SOCIALACCOUNT_AUTO_SIGNUP = False
+SOCIALACCOUNT_LOGIN_ON_GET= True
 
 # Application definition
 
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',

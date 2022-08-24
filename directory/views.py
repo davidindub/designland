@@ -13,9 +13,13 @@ class ResourceList(generic.ListView):
     template_name = "resources_list.html"
     paginate_by = 9
 
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset()
+        # Filter to display approved resources
+        return qs.filter(approved=True)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["resource_list"] = Resource.objects.filter(approved=True)
         context["h1"] = "By Recently Added"
         return context
 
@@ -25,11 +29,14 @@ class TagList(ResourceList):
     View for showing all the resources with a specified tag
     """
 
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset()
+        # Filter to display approved resources with the requested tag
+        return qs.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Filter to display approved resources with the requested tag
-        context["resource_list"] = Resource.objects.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
+        print(f"{self.kwargs['tag']}")
         context["h1"] = f"#{self.kwargs['tag']}"
         return context
 
@@ -39,13 +46,14 @@ class BookmarkList(ResourceList):
     View for showing all the resources the logged in user has bookmarked
     """
 
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset()
+        # Filter to return only the resources bookmarked by the logged in user
+        return qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        # Filter to return only the resources bookmarked by the logged in user
-        context["resource_list"] = Resource.objects.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
         context["h1"] = "Your bookmarks"
-
         return context
 
 
@@ -54,13 +62,14 @@ class ListByUser(ResourceList):
     View for showing all the resources added by a user
     """
 
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset()
+        user_id = User.objects.get(username=self.kwargs["user"]).id
+        # Filter to display approved added by the queried user
+        return qs.filter(approved=True).filter(author__id__in=[user_id])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Filter to display approved added by the queried user
-        user_id = User.objects.get(username=self.kwargs["user"]).id
-
-        context["resource_list"] = Resource.objects.filter(approved=True).filter(author__id__in=[user_id])
         context["h1"] = f"Added by {self.kwargs['user']}"
         return context
 
