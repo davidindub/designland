@@ -215,5 +215,10 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 
 ### Media
 
+- [Bootstrap Icons](https://icons.getbootstrap.com/) were used extensively in the project.
+
+
+
+
 
 ### Acknowledgements

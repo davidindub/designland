@@ -16,12 +16,31 @@ class ResourceList(generic.ListView):
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset()
+
+        results = {
+            "unapproved": qs.filter(approved=False),
+            "approved": qs.filter(approved=True),
+            "bookmarks": qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id]),
+        }
+
+        if "listby" in self.kwargs:
+            return results[self.kwargs["listby"]]
+
         # Filter to display approved resources
         return qs.filter(approved=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["h1"] = "By Recently Added"
+        context["h1"] = "Default h1"
+
+        h1s = {"unapproved": "Unapproved Resources",
+               "approved": "Approved Resources",
+               "bookmarks": "Your bookmarks",
+               }
+
+        if "listby" in self.kwargs:
+            context["h1"] = h1s[self.kwargs["listby"]]
+
         return context
 
 
@@ -37,7 +56,6 @@ class TagList(ResourceList):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(f"{self.kwargs['tag']}")
         context["h1"] = f"#{self.kwargs['tag']}"
         return context
 
@@ -76,6 +94,10 @@ class ListByUser(ResourceList):
 
 
 class UserProfile(View):
+    """
+    View for a user's profile page
+    """
+
     def get(self, request, *arg, **kwargs):
         if "user" in self.kwargs:
             user_info = get_object_or_404(
@@ -88,12 +110,12 @@ class UserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=request.user.id)
 
-        context = {"user_info": user_info, "profile_info": profile_info, "h1": f"{profile_info}"}
+        context = {
+            "user_info": user_info,
+            "profile_info": profile_info,
+            "h1": f"{profile_info}"}
 
-        return render(
-            request,
-            "user_profile.html", context
-        )
+        return render(request, "user_profile.html", context)
 
 
 class UpdateUserProfile(View):
@@ -256,8 +278,10 @@ class DeleteResource(View):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
 
+        context = {"resource": resource}
+
         if self.request.user == resource.author or self.request.user.is_superuser:
-            return render(request, "resource_delete.html", {"resource": resource})
+            return render(request, "resource_delete.html", context)
 
         else:
             return redirect("home")
@@ -272,30 +296,52 @@ class DeleteResource(View):
         return redirect("home")
 
 
+class ApproveResource(View):
+
+    def post(self, request, slug, *args, **kwargs):
+        resource = get_object_or_404(Resource, slug=slug)
+
+        if self.request.user.is_staff:
+            if not resource.approved:
+                resource.approved = True
+                messages.add_message(request, messages.INFO,
+                                     f"{resource} approved")
+            else:
+                resource.approved = False
+                messages.add_message(
+                    request, messages.INFO, f"{resource} hidden")
+
+            resource.save()
+
+        return redirect("resource_detail", resource.slug)
+
+
 class ResourceDetail(View):
 
     def get(self, request, slug, *arg, **kwargs):
         queryset = Resource.objects.filter()
         resource = get_object_or_404(queryset, slug=slug)
-        content = resource.content
         tags = resource.tags.all()
 
         context = {
-                "resource": resource,
-                "approved": True if resource.approved else False,
-                "bookmarked": True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
-                "upvoted": True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
-                "tags": tags
-            }
+            "resource": resource,
+            "approved": True if resource.approved else False,
+            "bookmarked": True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
+            "upvoted": True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
+            "tags": tags
+        }
 
-        if (resource.approved == False):
+        if (resource.approved is False):
             if (resource.author == self.request.user or self.request.user.is_superuser):
-                return render(request, "resource_detail.html", context )
+                return render(request, "resource_detail.html", context)
             else:
                 raise Http404
-        
+
         elif (resource.approved):
             return render(request, "resource_detail.html", context)
+
+        else:
+            raise Http404
 
 
 class ResourceBookmark(View):
@@ -307,7 +353,8 @@ class ResourceBookmark(View):
             messages.add_message(request, messages.INFO, "Bookmark Removed")
         else:
             resource.bookmarks.add(request.user)
-            messages.add_message(request, messages.INFO, f"Bookmarked {resource}.")
+            messages.add_message(request, messages.INFO,
+                                 f"Bookmarked {resource}.")
 
         return HttpResponseRedirect(reverse('resource_detail', args=[slug]))
 
