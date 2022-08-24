@@ -38,7 +38,6 @@ a {
 }
 
 .list-title {
-    /* background-color: rgb(227, 116, 74); */
     background-color: rgb(34, 167, 90);
     border-radius: 0.375rem;
     border: 2px solid rgb(0, 0, 0);
@@ -71,7 +70,7 @@ a {
 }
 
 .page-link-next {
-    background-color: rgb(218, 123, 77);
+    background-color: rgb(219, 124, 77);
 }
 
 .resource-tag {
