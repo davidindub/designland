@@ -40,6 +40,28 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Most Upvoted</a>
                     </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-gear-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z" />
+                            </svg>
+                            Manage
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'list' 'unapproved' %}">Unapproved Resources</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/admin">Django Admin Panel</a>
+                            </li>
+                        </ul>
+                    </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -68,28 +90,6 @@
                             <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
                         </ul>
                     </li>
-                    {% if user.is_staff %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                              </svg>
-                            Admin Panel
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'list' 'unapproved' %}">Unapproved Resources</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="{% url 'create_resource' %}">Submit New Resource</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                        </ul>
-                    </li>
-                    {% endif %}
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_signup' %}">Register</a>
@@ -112,13 +112,13 @@
             <h1>{% block h1 %}Designland{% endblock %}</h1>
         </div>
         {% endif %}
-        
+
         <div class="container-main-content p-4">
-        {% block content %}
-        <!-- Main Content Goes here -->
-        
-        {% endblock content %}
-</div>
+            {% block content %}
+            <!-- Main Content Goes here -->
+
+            {% endblock content %}
+        </div>
 
         </div>
         </div>
@@ -126,7 +126,7 @@
     </main>
 
     <div class="container-fluid footer-container">
-        <footer class="container-xl d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer class="container-xl d-flex flex-wrap justify-content-between align-items-center pt-3 pb-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <a href="/" class="footer-link mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -139,10 +139,9 @@
             </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex align-items-center">
-                <li class="ms-3"><a class="text-muted footer-link" href="#"
-                    target="_blank"
-                    aria-label="Privacy Policy (opens in a new tab)">
-                    Privacy Policy
+                <li class="ms-3"><a class="btn btn-sm btn-outline-dark" href="#" target="_blank"
+                        aria-label="Privacy Policy" data-bs-toggle="modal" data-bs-target="#privacy-policy">
+                        Privacy Policy
                     </a></li>
                 <li class="ms-3"><a class="text-muted footer-link" href="https://github.com/davidindub/designland"
                         target="_blank" rel="noopener"
@@ -157,43 +156,85 @@
         </footer>
     </div>
 
+    <!-- Modal for Privacy Policy -->
+    <div class="modal fade" id="privacy-policy" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Privacy Policy - August 2022</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>What data do we collect?</h4>
+                    <p>We collect and process data when you register for an account. Information you provide may
+                        include: email address and social media usernames. If you choose to signup using Google or
+                        GitHub we will not collect any extra personal identification information.</p>
+                    <h4>How will we use your data?</h4>
+                    <p>This site was created as an educational project and we won't ever email you or share your data
+                        with anyone else.</p>
+                    <h4>How do we store your data?</h4>
+                    <p>Your data is stored on a <a href="https://heroku.com/" target="_blank">Heroku</a> server in the
+                        European Union.</p>
+                    <h4>Your data protection rights</h4>
+                    <p>You can permanently delete your account and all associated information at any time by visiting
+                        your profile, clicking Edit Profile, then Delete Account.</p>
+                    <h4>Cookies</h4>
+                    <p>Cookies are text files placed on your computer to collect standard Internet log information and
+                        visitor behavior information. When you visit our websites, we may collect information from you
+                        automatically through cookies or similar technology</p>
+                    <p>For further information, visit <a href="https://allaboutcookies.org"
+                            target="_blank">allaboutcookies.org</a>.</p>
+                    <h4>How do we use cookies?</h4>
+                    <p>If you register, we use cookies in to improve your experience by keeping you signed in unless you
+                        manually sign out.</p>
+                    <p>We don't collect information about your browser, device or IP address, and we don't use cookies
+                        for advertising.</p>
+                    <p>The above website tells you how to remove cookies from your browser or set your browser not to
+                        accept cookies. Site functionality may not function as expected without cookies.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous">
         </script>
 
-<!-- Use Bootstrap Toasts for Django Messages -->
-{% if messages %}
-<div class="messages toast-container position-fixed top-0 end-0 p-3" aria-live="polite">
-{% for message in messages %}
-    <div class="message-toast toast {{ message.tags }} align-items-center border-0" role="alert"
-        aria-live="assertive" aria-atomic="true">
-        <div class="d-flex">
-            <div class="toast-body">
-                {{ message }}
+    <!-- Use Bootstrap Toasts for Django Messages -->
+    {% if messages %}
+    <div class="messages toast-container position-fixed top-0 end-0 p-3" aria-live="polite">
+        {% for message in messages %}
+        <div class="message-toast toast {{ message.tags }} align-items-center border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
-            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
-                aria-label="Close"></button>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-<script>
-    const toastLiveMessages = document.getElementsByClassName("message-toast");
+    <script>
+        const toastLiveMessages = document.getElementsByClassName("message-toast");
 
-    console.log(toastLiveMessages);
+        console.log(toastLiveMessages);
 
-    for (let toastElement of toastLiveMessages) {
-        console.log(toastElement);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-    }
-</script>
+        for (let toastElement of toastLiveMessages) {
+            console.log(toastElement);
+            const toast = new bootstrap.Toast(toastElement);
+            toast.show();
+        }
+    </script>
 
 
-{% endif %}
+    {% endif %}
 
 </body>
 

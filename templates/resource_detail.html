@@ -51,7 +51,7 @@
                     <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
 
                     {% if user.is_staff %}
-                <form method="POST" action="{% url 'approve_resource' resource.slug %}">
+                <form method="POST" class="" action="{% url 'approve_resource' resource.slug %}">
                     {% csrf_token %}
                     {% if not approved %}
                     <input type="submit" class="btn btn-sm btn-outline-success" value="Approve"></input>
@@ -156,10 +156,12 @@
                 </div>
             </div>
 
+            <div class="tag-container">
             {% for tag in tags %}
-            <a href="{% url 'tag' tag %}"><span
-                    class="resource-tag badge rounded-pill text-bg-secondary">#{{tag}}</span></a>
+            <a href="{% url 'tag' tag %}"
+                    class="badge rounded-pill resource-tag">#{{tag}}</a>
             {% endfor %}
+        </div>
 
         </div>
     </div>

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Submit / Designland
 {% endblock %}
@@ -11,16 +13,17 @@ Submit / Designland
 {% block content %}
 
 <div class="container-main-content p-4">
-<form method="POST" action="">
-    {% csrf_token %}
+    <div class="form-group">
+        <form method="POST" action="">
+            {% csrf_token %}
+            {% crispy form %}
 
-    {{ form.as_p }}
+            <hr>
 
-    <hr>
-  
-        <input type="submit" value="Submit" class="btn btn-dark"></input>
+            <input type="submit" value="Submit" class="btn btn-dark"></input>
 
-</form>
+        </form>
+    </div>
 </div>
 
 {% endblock content %}

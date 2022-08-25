@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block h1 %}
 Update your profile
 {% endblock %}
@@ -9,7 +11,7 @@ Update your profile
 <form method="POST" action="">
     {% csrf_token %}
 
-    {{ form.as_p }}
+    {% crispy form %}
 
     <hr>
   

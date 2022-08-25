@@ -24,7 +24,12 @@ Users can register to submit resources to the directory, and upvote and bookmark
 
 ## UX  
 
+As the project is a directory of design resources, I wanted to try something fun and bold with the design and was inspired by the trend for neubrutalism web design, and websites such as [Gumroad](https://gumroad.com/) and [Google I/O 2022](https://io.google/2022/).
 
+I ensured that despite bold use of color, every element still met AAA level in the [Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG2AAA-Conformance) (WCAG)
+
+[Qode Magazine - 60 Best Examples of Brutalism in Web Design](https://qodeinteractive.com/magazine/best-examples-of-brutalism-in-web-design/)
+[Elementor Blog - What Is Brutalism in Web Design?](https://elementor.com/blog/brutalism-in-web-design/)
 
 ### Typography
 
@@ -77,6 +82,8 @@ Users can register to submit resources to the directory, and upvote and bookmark
 ## External Python Packages Used
 
 - [django-taggit](https://github.com/jazzband/django-taggit) for tags on directory entries
+- [django-crispy-forms](https://pypi.org/project/django-crispy-forms/) for help styling the forms
+- [crispy-bootstrap5](https://pypi.org/project/crispy-bootstrap5/) for Bootstrap 5 templates for django-crispy-forms
 
 
 
