@@ -4,6 +4,10 @@
     box-sizing: border-box;
   }
 
+a, button {
+    transition: all 0.2s ease-in-out;
+}
+
 
 body {
     background-color: rgb(244, 194, 54);
@@ -19,11 +23,16 @@ main {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Baloo 2', sans-serif;
-
 }
 
 .navbar {
+    font-family: 'Bebas Neue', sans-serif;
     border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+.nav-link {
+    color: rgb(0, 0, 0);
+    font-family: 'Baloo 2', sans-serif;
 }
 
 .navbar-brand {
@@ -38,10 +47,6 @@ h1, h2, h3, h4, h5, h6 {
 
 footer {
     background-color: rgb(255, 255, 255);
-}
-
-.btn:hover, a {
-    transition: all 0.2s ease-in-out;
 }
 
 .footer-link svg {
@@ -60,17 +65,32 @@ a {
     text-decoration: none;
 }
 
-.container-main-content {
-    background-color: rgb(244, 244, 240);
+.container-main-content, .accounts-container {
+    background-color: rgb(255, 255, 255);
 }
 
 .resource-container {
     background-color: rgb(255, 255, 255);
 }
 
-.tag-container {
+/* .btns-container, .tag-container {
     display: flex;
     gap: 1rem;
+} */
+
+.btn-upvote, .btn-upvote:active, .btn-bookmark, .btn-bookmark:active {
+    margin-right: 1rem;
+    border: 2px solid rgb(0, 0, 0);
+    box-shadow: 6px 5px 0px 0px rgb(0,0,0);
+    border-radius: 0.375rem
+}
+
+.btn-upvote.active {
+    background-color: rgb(37, 173, 159);
+}
+
+.btn-bookmark.active {
+    background-color: rgb(145, 168, 237);
 }
 
 .resource-tag {
@@ -104,7 +124,7 @@ a {
     border-radius: 0.375rem;
 }
 
-.card, .resource-container, .container-main-content, .message-toast {
+.card, .resource-container, .container-main-content, .message-toast, .accounts-container {
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 6px 5px 0px 0px rgba(0,0,0,0.75);
     border-radius: 0.375rem;
@@ -121,13 +141,9 @@ a {
 }
 
 .page-link-prev {
-    background-color: rgb(157, 154, 198);
+    background-color: rgb(145, 168, 237);
 }
 
 .page-link-next {
     background-color: rgb(219, 124, 77);
-}
-
-.resource-tag {
-    /* background-color: rgb(157, 154, 198); */
 }

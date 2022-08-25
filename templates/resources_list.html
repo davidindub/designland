@@ -36,7 +36,7 @@ Designland
                                     {% csrf_token %}
                                     {% if user in resource.upvotes.all %}
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                        class="btn btn-sm float-end btn-outline-dark active"
+                                        class="btn btn-sm float-end btn-upvote active"
                                         aria-label="Remove your upvote from {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@ Designland
                                     <button type="submit" 
                                     name="button-upvote" 
                                     value="{{resource.slug}}"
-                                    class="btn btn-sm float-end btn-outline-dark"
+                                    class="btn btn-sm float-end btn-upvote"
                                     aria-label="Upvote {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
@@ -89,14 +89,14 @@ Designland
         <ul class="mt-5 pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li><a href="?page={{ page_obj.previous_page_number }}" 
-                class="page-link page-link-prev mx-3 text-dark text-uppercase" 
+                class="page-link-prev mx-3 text-dark text-uppercase" 
                 aria-label="Previous">
                 <span aria-hidden="true">&laquo; Prev</span>
             </a></li>
             {% endif %}
             {% if page_obj.has_next %}
             <li><a href="?page={{ page_obj.next_page_number }}" 
-                class="page-link page-link-next mx-3 text-dark text-uppercase" 
+                class="page-link-next mx-3 text-dark text-uppercase" 
                 aria-label="Next">
                 <span aria-hidden="true">Next &raquo;</span>
             </a></li>

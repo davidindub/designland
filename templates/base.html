@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +18,7 @@
 
 <body>
 
-    <nav class="sticky-lg-top navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="sticky-lg-top navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-xl">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
@@ -33,7 +34,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/">Newest</a>
                     </li>
@@ -113,12 +114,12 @@
         </div>
         {% endif %}
 
-        <div class="container-main-content p-4">
+        <!-- <div class="container-main-content p-4"> -->
             {% block content %}
             <!-- Main Content Goes here -->
 
             {% endblock content %}
-        </div>
+        <!-- </div> -->
 
         </div>
         </div>
@@ -156,49 +157,7 @@
         </footer>
     </div>
 
-    <!-- Modal for Privacy Policy -->
-    <div class="modal fade" id="privacy-policy" tabindex="-1">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Privacy Policy - August 2022</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <h4>What data do we collect?</h4>
-                    <p>We collect and process data when you register for an account. Information you provide may
-                        include: email address and social media usernames. If you choose to signup using Google or
-                        GitHub we will not collect any extra personal identification information.</p>
-                    <h4>How will we use your data?</h4>
-                    <p>This site was created as an educational project and we won't ever email you or share your data
-                        with anyone else.</p>
-                    <h4>How do we store your data?</h4>
-                    <p>Your data is stored on a <a href="https://heroku.com/" target="_blank">Heroku</a> server in the
-                        European Union.</p>
-                    <h4>Your data protection rights</h4>
-                    <p>You can permanently delete your account and all associated information at any time by visiting
-                        your profile, clicking Edit Profile, then Delete Account.</p>
-                    <h4>Cookies</h4>
-                    <p>Cookies are text files placed on your computer to collect standard Internet log information and
-                        visitor behavior information. When you visit our websites, we may collect information from you
-                        automatically through cookies or similar technology</p>
-                    <p>For further information, visit <a href="https://allaboutcookies.org"
-                            target="_blank">allaboutcookies.org</a>.</p>
-                    <h4>How do we use cookies?</h4>
-                    <p>If you register, we use cookies in to improve your experience by keeping you signed in unless you
-                        manually sign out.</p>
-                    <p>We don't collect information about your browser, device or IP address, and we don't use cookies
-                        for advertising.</p>
-                    <p>The above website tells you how to remove cookies from your browser or set your browser not to
-                        accept cookies. Site functionality may not function as expected without cookies.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {% include "privacy_policy.html" %}
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
