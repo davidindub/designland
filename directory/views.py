@@ -373,3 +373,23 @@ class ResourceUpvote(View):
             resource.upvotes.add(request.user)
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class ProfilesList(generic.ListView):
+    """
+    View for admin view of all user profiles
+    """
+    model = Profile
+    template_name = "profile_list.html"
+    paginate_by = 10
+
+    def get_queryset(self, **kwargs):
+        qs = super().get_queryset()
+
+        return qs.order_by("user__date_joined")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["h1"] = "Users sorted by join date"
+
+        return context

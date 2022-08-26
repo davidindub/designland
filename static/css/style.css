@@ -38,13 +38,17 @@ h1, h2, h3, h4, h5, h6 {
     transition: all .2s ease-in;
 }
 
-.nav-item {
-    padding: 0.2rem 0;
-    border-left: 2px solid rgb(0, 0, 0);
+.navbar-toggler {
+    border: none;
 }
 
-.nav-item:last-of-type {
-    border-right: 2px solid rgb(0, 0, 0);
+.nav-item .dropdown-toggle.show {
+    background-color: rgb(0, 0, 0);
+    color:rgb(255, 255, 255);
+}
+
+.nav-item {
+    padding: 0.2rem 0;
 }
 
 .nav-item:hover {
@@ -167,4 +171,14 @@ a {
 
 .page-link-next {
     background-color: rgb(219, 124, 77);
+}
+
+@media screen and (min-width: 992px) {
+    .nav-item {
+    border-left: 2px solid rgb(0, 0, 0);
+}
+
+.nav-item:last-of-type {
+    border-right: 2px solid rgb(0, 0, 0);
+}   
 }

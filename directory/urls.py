@@ -29,6 +29,7 @@ urlpatterns = [
     path('', views.ResourceList.as_view(), name='home'),
     path('list/', include(list_patterns)),
     path('accounts/', include('allauth.urls')),
+    path('manage/users', views.ProfilesList.as_view(), name='profile_list'),
     path('add/', views.CreateResource.as_view(), name='create_resource'),
     path('resource/<slug:slug>/', include(resource_patterns)),
     path('user/', views.UserProfile.as_view(), name='user'),

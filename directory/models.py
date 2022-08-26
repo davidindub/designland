@@ -51,6 +51,9 @@ class Profile(models.Model):
     def number_resources_added(self):
         return self.user.resources_added.count()
 
+    def date_joined(self):
+        return self.user.date_joined()
+
     def total_upvotes_received(self):
         total = 0
         for resource in self.user.resources_added.all():
