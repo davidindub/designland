@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
+from django.db.models import Count
 from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
 
@@ -23,10 +24,23 @@ class ResourceList(generic.ListView):
             "bookmarks": qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id]),
         }
 
+        sort = {
+            "new": "-created_on",
+            "old": "created_on"
+        }
+
         if "listby" in self.kwargs:
             return results[self.kwargs["listby"]]
 
-        # Filter to display approved resources
+        sort_request = self.request.GET.get("sort")
+
+        if sort_request:
+            if sort_request == "popular":
+                return qs.filter(approved=True).annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
+
+            return qs.filter(approved=True).order_by(sort[sort_request])
+
+
         return qs.filter(approved=True)
 
     def get_context_data(self, **kwargs):
