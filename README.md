@@ -33,6 +33,10 @@ I ensured that despite bold use of color, every element still met AAA level in t
 
 ### Typography
 
+- A display font called [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue?query=bebas) was used for the logo as it fitted the neubrutalist theme of the site.
+
+- [Baloo 2](https://fonts.google.com/specimen/Baloo+2?query=baloo) contrasts the harsh lines of the display font with friendlier rounded letters that made it suitable for the headings and navbar.
+
 
 ### Wireframes
 
@@ -46,23 +50,71 @@ I ensured that despite bold use of color, every element still met AAA level in t
 ## Features 
 
 
-### Existing Features
+## Existing Features
 
-#### Upvote Resources and view most Popular
+### Navbar
 
-#### Register / Login
+The Navbar is responsive and collapses to a hamburger menu on smaller devices. On larger screen it sticks to the top when the page is scrolled.
 
-#### Bookmarks
+When a user is logged in, their username is displayed in the navbar, and a dropdown menu includes:
+- My Profile (link to the user's own profile)
+- My Bookmarks (list of the resources the user has bookmarked)
+- My Submissions (list including submissions not yet approved by staff)
+- Submit New Resource (form to submit a new resource)
+- Logout
 
-#### User Profiles
+When a staff member is logged in, an extra Manage dropdown option is shown which includes:
+- Unapproved Resources (submissions not yet visible on the site ready for screening)
+- Django Admin Panel (a link to the Django Administration Panel)
 
-#### Submit Resources to Directory
 
+### Register / Login
+
+Users can either sign up using their Google or Github account, or directly on the site.
+
+GitHub was chosen as the site is aimed at developers and designers, and Google as is has 1.8 billion active montly users.
+
+Users who have previously registered with GitHub or Google can easily sign in again with one click.
+
+### Upvoting
+
+Users can upvote the resources they like, other users will see the total number of uploads and can view the most popular resources on the site.
+
+### Bookmarks
+
+Users can bookmark resources they find useful in list that only they, and not other users can see.
+
+### User Profiles
+
+Users can display links to their Personal Website, GitHub profile and Twitter profile
+
+A list of all the resources the user has contributed is shown on their page.
+
+When a logged in user views their own profile, they can click a button to edit it. The user can delete their account from this page too if they choose.
+
+### Submit Resources to Directory
+
+### Footer
+
+The Footer includes:
+- A link back to the homepage
+- Copyright information
+- A link to the Privacy Policy
+- A link to the [GitHub repository for the project](https://github.com/davidindub/designland).
+
+### Privacy Policy
+
+As the project can collect data from users, I included a Privacy Policy link in the Footer which explains how data may be used. I used [GDPR.eu](https://gdpr.eu/) for help writing the policy.
+
+See:
+[Writing a GDPR-compliant privacy notice (template included)](https://gdpr.eu/privacy-notice/)
 
 ***
 
 
 ### Features Left to Implement
+
+- Currently the screenshot thumbnails for the site are manually uploaded to Cloudinary by an administrator, but I would like to add an API such as [URL2PNG](http://url2png.com/) in future to automate the process, however it was difficult to find a free service for this project.
 
 
 
@@ -75,9 +127,9 @@ I ensured that despite bold use of color, every element still met AAA level in t
 - GitHub Projects was invaluable throughout the project and helped me keep track of things to do and bugs to fix - you can see [the project's board here](https://github.com/users/davidindub/projects/7).
 - [GitPod](https://gitpod.io/) as a cloud based IDE.
 - [Balsamiq](https://balsamiq.com/wireframes/) for wireframing.
-- [Bootstrap](https://getbootstrap.com/) as a front end framework.
+- [Bootstrap 5](https://getbootstrap.com/) as a front end framework.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/), [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Safari](https://www.apple.com/safari/) for testing on macOS Monterey.
-<!-- - [Lucid Chart](https://lucid.app/) for making flow charts. -->
+- [diagrams.net](https://www.diagrams.net/) for drawing database diagrams.
 
 ## External Python Packages Used
 
@@ -218,6 +270,7 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 ## Credits 
 
 ### Content 
+- [Writing a GDPR-compliant privacy notice (template included)](https://gdpr.eu/privacy-notice/)
 
 
 ### Media
