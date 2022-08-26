@@ -9,7 +9,22 @@ Designland
 {{ h1 }}
 {% endblock %}
 
+{% block sort-dropdown %}
+    <div class="col col-12 col-lg-4 top-col-sort">
+        <form action="" class="d-flex align-items-center">
+            <label for="sort" class="form-label visually-hidden">Sort by:</label>
+                    <select class="form-select form-select-sm flex-grow-1" name="sort" id="sort">
+                        <option value="new">newest</option>
+                        <option value="old">oldest</option>
+                        <option value="popular">most upvotes</option>
+                    </select>
+                    <input class="btn btn-sm btn-dark btn-block" type="submit" value="Sort">
+          </form>
+    </div>
+{% endblock %}
+
 {% block content %}
+
 
     <div class="row">
         <div class="col mt-3 left">

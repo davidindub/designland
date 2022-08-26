@@ -51,7 +51,7 @@ class FormForProfile(LoginRequiredMixin, forms.ModelForm):
         model = Profile
         fields = ["username_github", "username_twitter", "website_address"]
         labels = {
-            "username_github": "GitHub",
-            "username_twitter": "Twitter",
+            "username_github": "GitHub username",
+            "username_twitter": "Twitter username",
             "website_address": "Portfolio URL"
         }
