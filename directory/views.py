@@ -304,7 +304,7 @@ class ApproveResource(View):
         if self.request.user.is_staff:
             if not resource.approved:
                 resource.approved = True
-                messages.add_message(request, messages.INFO,
+                messages.add_message(request, messages.SUCCESS,
                                      f"{resource} approved")
             else:
                 resource.approved = False

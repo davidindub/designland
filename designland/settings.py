@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'designland.wsgi.application'
 # Using Bootstrap classes for messages
 MESSAGE_TAGS = {
     messages.DEBUG: 'text-bg-info',
-    messages.INFO: 'text-bg-light',
+    messages.INFO: 'text-bg-dark',
     messages.SUCCESS: 'text-bg-success',
     messages.WARNING: 'text-bg-warning',
     messages.ERROR: 'text-bg-danger',
