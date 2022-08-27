@@ -122,6 +122,8 @@ Django Messages and Bootstrap's Toast elements were combined to make elegant not
 
 - Currently the screenshot thumbnails for the site are manually uploaded to Cloudinary by an administrator, but I would like to add an API such as [URL2PNG](http://url2png.com/) in future to automate the process, however it was difficult to find a free service for this project.
 
+- With Heroku ending free plans in November 2022, the project will be redeployed on a different cloud platform in future. This was only announced when nearing the final sprint.
+
 
 
 ## Technologies Used
