@@ -13,7 +13,7 @@ Designland
     <div class="col col-12 col-lg-4 top-col-sort">
         <form action="" class="d-flex align-items-center">
             <label for="sort" class="form-label visually-hidden">Sort by:</label>
-                    <select class="form-select form-select-sm flex-grow-1" name="sort" id="sort">
+                    <select class="sort-select form-select form-select-sm flex-grow-1" name="sort" id="sort">
                         <option value="new">newest</option>
                         <option value="old">oldest</option>
                         <option value="popular">most upvotes</option>
@@ -24,7 +24,6 @@ Designland
 {% endblock %}
 
 {% block content %}
-
 
     <div class="row">
         <div class="col mt-3 left">
@@ -129,4 +128,19 @@ Designland
     </nav>
     {% endif %}
 </div>
+
+<script>
+    // Sets the sort drop down to match the url param
+    const searchParams = new URLSearchParams(window.location.search);
+    const sortOrder = searchParams.get("sort");
+    const options = document.querySelector(".sort-select").children;
+    
+    for (let option of options) {
+        if (option.value == sortOrder) {
+            console.log(option.value);
+            option.setAttribute('selected', true)
+        }
+    }
+</script>
+
 {%endblock%}

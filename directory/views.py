@@ -21,7 +21,8 @@ class ResourceList(generic.ListView):
         results = {
             "unapproved": qs.filter(approved=False),
             "approved": qs.filter(approved=True),
-            "bookmarks": qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id]),
+            "bookmarks": 
+            qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id]),
         }
 
         sort = {
@@ -39,7 +40,6 @@ class ResourceList(generic.ListView):
                 return qs.filter(approved=True).annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
 
             return qs.filter(approved=True).order_by(sort[sort_request])
-
 
         return qs.filter(approved=True)
 
@@ -66,7 +66,8 @@ class TagList(ResourceList):
     def get_queryset(self, **kwargs):
         qs = super().get_queryset()
         # Filter to display approved resources with the requested tag
-        return qs.filter(approved=True).filter(tags__name__in=[self.kwargs["tag"]])
+        return (qs.filter(approved=True)
+        .filter(tags__name__in=[self.kwargs["tag"]]))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -82,7 +83,8 @@ class BookmarkList(ResourceList):
     def get_queryset(self, **kwargs):
         qs = super().get_queryset()
         # Filter to return only the resources bookmarked by the logged in user
-        return qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id])
+        return (qs.filter(approved=True)
+        .filter(bookmarks__in=[self.request.user.id]))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -146,7 +148,8 @@ class UpdateUserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=user_info.id)
 
-            if self.request.user.id == user_info.id or self.request.user.is_superuser:
+            if (self.request.user.id == user_info.id 
+            or self.request.user.is_superuser):
 
                 form = FormForProfile(instance=profile_info)
 
@@ -163,7 +166,8 @@ class UpdateUserProfile(View):
         profile_info = get_object_or_404(
             Profile, user=user_info.id)
 
-        if self.request.user.id == user_info.id or self.request.user.is_superuser:
+        if (self.request.user.id == user_info.id 
+        or self.request.user.is_superuser):
 
             form = FormForProfile(request.POST, instance=profile_info)
 
@@ -338,11 +342,16 @@ class ResourceDetail(View):
         tags = resource.tags.all()
 
         context = {
-            "resource": resource,
-            "approved": True if resource.approved else False,
-            "bookmarked": True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
-            "upvoted": True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
-            "tags": tags
+            "resource": 
+            resource,
+            "approved": 
+            True if resource.approved else False,
+            "bookmarked": 
+            True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
+            "upvoted": 
+            True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
+            "tags": 
+            tags
         }
 
         if (resource.approved is False):
