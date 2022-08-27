@@ -34,15 +34,18 @@ class ResourceList(generic.ListView):
         if "filter" in self.kwargs:
             qs = results[self.kwargs["filter"]]
 
-        sort_request = self.request.GET.get("sort")
+        
+        
 
-        if sort_request:
-            if sort_request == "popular":
-                return qs.filter(approved=True).annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
+        sort_request = self.request.GET.get("sort", "new")
 
+        if sort_request == "popular":
+            return qs.filter(approved=True).annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
+        else:
             return qs.filter(approved=True).order_by(sort[sort_request])
 
         return qs
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,7 +66,7 @@ class GetAllTags(generic.ListView):
     View for listing all the tags in the database
     """
     def get(self, request, *arg, **kwargs):
-        context = {}
+        context = {"h1": "All Categories"}
         context["tags"] = tags = Tag.objects.all()
 
         return render(request, "tag_list.html", context)
