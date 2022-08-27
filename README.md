@@ -94,6 +94,8 @@ When a logged in user views their own profile, they can click a button to edit i
 
 ### Submit Resources to Directory
 
+When a user submits a resource to the directory, it is awaiting approval by a staff member. In the mean time, the user can see the resource in their My Submissions section (along with a badge telling them if it's been approved or not)
+
 ### Footer
 
 The Footer includes:
@@ -108,6 +110,10 @@ As the project can collect data from users, I included a Privacy Policy link in 
 
 See:
 [Writing a GDPR-compliant privacy notice (template included)](https://gdpr.eu/privacy-notice/)
+
+### Notifications
+
+Django Messages and Bootstrap's Toast elements were combined to make elegant notification messages when the user performs actions such as signing in/out and bookmarking or upvoting a resource. Staff also see notifications for things like approving/hiding/deleting resources.
 
 ***
 

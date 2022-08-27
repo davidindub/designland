@@ -1,4 +1,5 @@
 from . import views
+from django.views.generic import TemplateView
 from django.urls import path, include
 
 resource_patterns = [
@@ -22,8 +23,8 @@ list_patterns = [
     path('', views.ResourceList.as_view(), name='home'),
 #     path('bookmarks/', views.ResourceList.as_view(), name='bookmarks'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
-    path('<slug:listby>/', views.ResourceList.as_view(), name="list"),
-]
+    path('<slug:listby>/', views.ResourceList.as_view(), name="list")
+    ]
 
 urlpatterns = [
     path('', views.ResourceList.as_view(), name='home'),
@@ -37,5 +38,7 @@ urlpatterns = [
     path('bookmark/<slug:slug>', views.ResourceBookmark.as_view(),
          name='bookmark_resource'),
     path('upvote/<slug:slug>', views.ResourceUpvote.as_view(),
-         name='upvote_resource')
+         name='upvote_resource'),
+    path('alltags/', views.GetAllTags.as_view(), name="alltags"),
+    path('privacy/', TemplateView.as_view(template_name="privacy_policy.html")),
 ]

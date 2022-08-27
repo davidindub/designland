@@ -8,6 +8,7 @@ from django.utils.text import slugify
 from django.db.models import Count
 from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
+from taggit.models import Tag
 
 
 class ResourceList(generic.ListView):
@@ -30,8 +31,8 @@ class ResourceList(generic.ListView):
             "old": "created_on"
         }
 
-        if "listby" in self.kwargs:
-            return results[self.kwargs["listby"]]
+        if "filter" in self.kwargs:
+            qs = results[self.kwargs["filter"]]
 
         sort_request = self.request.GET.get("sort")
 
@@ -41,22 +42,31 @@ class ResourceList(generic.ListView):
 
             return qs.filter(approved=True).order_by(sort[sort_request])
 
-        return qs.filter(approved=True)
+        return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["h1"] = "Default h1"
+        context["h1"] = "Resources"
 
         h1s = {"unapproved": "Unapproved Resources",
                "approved": "Approved Resources",
                "bookmarks": "Your bookmarks",
                }
 
-        if "listby" in self.kwargs:
-            context["h1"] = h1s[self.kwargs["listby"]]
+        if "filter" in self.kwargs:
+            context["h1"] = h1s[self.kwargs["filter"]]
 
         return context
 
+class GetAllTags(generic.ListView):
+    """
+    View for listing all the tags in the database
+    """
+    def get(self, request, *arg, **kwargs):
+        context = {}
+        context["tags"] = tags = Tag.objects.all()
+
+        return render(request, "tag_list.html", context)
 
 class TagList(ResourceList):
     """
