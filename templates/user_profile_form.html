@@ -8,9 +8,10 @@ Update your profile
 
 {% block content %}
 <div class="container-main-content p-4">
-<!-- <form method="POST" action=""> -->
+<form method="POST" action="">
     {% csrf_token %}
 
+    {% crispy username_form %}
     {% crispy form %}
 
     <hr>
@@ -22,7 +23,7 @@ Update your profile
             Delete Account</a>
         {% endif %}
 
-<!-- </form> -->
+</form>
 </div>
 
 {% endblock content %}

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
 from django.db.models import Count
-from .forms import FormForResource, FormForProfile
+from .forms import FormForResource, FormForProfile, FormForUser
 from .models import Resource, Profile
 from taggit.models import Tag
 
@@ -33,9 +33,6 @@ class ResourceList(generic.ListView):
 
         if "filter" in self.kwargs:
             qs = results[self.kwargs["filter"]]
-
-        
-        
 
         sort_request = self.request.GET.get("sort", "new")
 
@@ -161,12 +158,12 @@ class UpdateUserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=user_info.id)
 
-            if (self.request.user.id == user_info.id 
-            or self.request.user.is_superuser):
+            if (self.request.user.id == user_info.id or self.request.user.is_superuser):
 
+                username_form = FormForUser(instance=user_info)
                 form = FormForProfile(instance=profile_info)
 
-                context = {"form": form, "user_info": user_info}
+                context = {"username_form": username_form, "form": form, "user_info": user_info}
 
                 return render(request, "user_profile_form.html", context)
 
@@ -179,20 +176,31 @@ class UpdateUserProfile(View):
         profile_info = get_object_or_404(
             Profile, user=user_info.id)
 
-        if (self.request.user.id == user_info.id 
-        or self.request.user.is_superuser):
+        if (self.request.user.id == user_info.id or self.request.user.is_superuser):
 
+            username_form = FormForUser(instance=user_info)
             form = FormForProfile(request.POST, instance=profile_info)
 
-            if form.is_valid():
+            # print(request.POST)
+            print(f"{username_form} errors:")
+            print(f"🟩 {username_form.errors}")
+            print(f"🟩 {username_form.is_valid()}")
+
+            if form.is_valid() and username_form.is_valid():
+                updated_username = username_form.save()
                 updated_entry = form.save()
                 # Return user to the profile they just updated
                 messages.add_message(
                     request, messages.SUCCESS, 'Profile Updated!')
                 return redirect("user", user_info.username)
 
-        else:
-            return redirect("home")
+            else:
+                context = {"username_form": username_form, "form": form, "user_info": user_info}
+
+                messages.add_message(request, messages.WARNING, f"Form not valid!")
+                return render(request, "user_profile_form.html", context)
+
+        return redirect("home")
 
 
 class DeleteUserProfile(View):

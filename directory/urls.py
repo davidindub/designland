@@ -20,14 +20,14 @@ user_patterns = [
 ]
 
 list_patterns = [
-    path('', views.ResourceList.as_view(), name='home'),
+    path('', views.ResourceList.as_view(), name='listall'),
 #     path('bookmarks/', views.ResourceList.as_view(), name='bookmarks'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
     path('<slug:listby>/', views.ResourceList.as_view(), name="list")
     ]
 
 urlpatterns = [
-    path('', views.ResourceList.as_view(), name='home'),
+    path('', TemplateView.as_view(template_name="splash_page.html"), name='home'),
     path('list/', include(list_patterns)),
     path('accounts/', include('allauth.urls')),
     path('manage/users', views.ProfilesList.as_view(), name='profile_list'),
@@ -40,5 +40,5 @@ urlpatterns = [
     path('upvote/<slug:slug>', views.ResourceUpvote.as_view(),
          name='upvote_resource'),
     path('alltags/', views.GetAllTags.as_view(), name="alltags"),
-    path('privacy/', TemplateView.as_view(template_name="privacy_policy.html")),
+    path('privacy/', TemplateView.as_view(template_name="privacy_policy.html"), name='privacy'),
 ]
