@@ -23,7 +23,7 @@ list_patterns = [
     path('', views.ResourceList.as_view(), name='listall'),
 #     path('bookmarks/', views.ResourceList.as_view(), name='bookmarks'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
-    path('<slug:listby>/', views.ResourceList.as_view(), name="list")
+    path('<slug:filter>/', views.ResourceList.as_view(), name="list")
     ]
 
 urlpatterns = [

@@ -32,14 +32,17 @@ class ResourceList(generic.ListView):
         }
 
         if "filter" in self.kwargs:
+            print(f"🟩 {self.kwargs['filter']}")
             qs = results[self.kwargs["filter"]]
+        else:
+            qs = results["approved"]
 
         sort_request = self.request.GET.get("sort", "new")
 
         if sort_request == "popular":
-            return qs.filter(approved=True).annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
+            return qs.annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
         else:
-            return qs.filter(approved=True).order_by(sort[sort_request])
+            return qs.order_by(sort[sort_request])
 
         return qs
 
