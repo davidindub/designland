@@ -17,17 +17,10 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <p class="card-text ">
-                            Member since: {{ user_info.date_joined|date:'j M \'y' }}
-                            <br>
-                            {% comment %} Upvotes received: {{ user_info.total_upvotes_received }} {% endcomment %}
-
-                            <hr>
-
                             {% if user.is_authenticated %}
                             {% if user.username == user_info.username or user.is_superuser %}
                             <a href="{% url 'update_user_profile' user_info.get_username %}"
-                                class="btn btn-sm btn-outline-dark">
+                                class="btn btn-sm btn-outline-dark align-self-end">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-pencil-square" viewBox="0 0 16 16">
                                     <path
@@ -36,11 +29,30 @@
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                 </svg>
                                 Edit Profile</a>
+                                <hr>
                             {% endif %}
                             {% endif %}
 
+                            <table class="table">
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">Date Joined</th>
+                                    <td>{{ user_info.date_joined|date:'j M \'y' }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Resources Contributed</th>
+                                    <td>{{ profile_info.number_resources_added }}</td>
+                                  </tr>
+                                  <tr>
+                                    <th scope="row">Upvotes Received</th>
+                                    <td>{{ profile_info.total_upvotes_received }}</td>
+                                  </tr>
 
-                            <hr>
+                                </tbody>
+                              </table>
+
+                            {% if profile_info.website_address or profile_info.username_github or profile_info.username_twitter  %}
+                            <h5>Connect with {{ user_info.get_username }}:</h5>
                         <div class="btn-group" role="group">
                             {% if profile_info.website_address %}
                             <a href="{{ profile_info.website_address }}" target="_blank"
@@ -78,7 +90,7 @@
                                 @{{ profile_info.username_twitter }}</a>
                             {% endif %}
                         </div>
-                        </p>
+                        {% endif %}
 
                     </div>
                 </div>
@@ -86,21 +98,23 @@
 
             <div class="col-lg-6">
                 <div class="card mb-4">
-                    <div class="card-body">
-                        <p class="card-text ">
+                            <h5 class="card-header">
                             {% if profile_info.number_resources_added == 0 %}
                             No Resources added yet:
-                            {% elif profile_info.number_resources_added > 1 %}
-                            <a href="{% url 'added_by_user' user_info.get_username %}">
-                                {{ profile_info.number_resources_added}} Resources added:
-                            </a>
                             {% else %}
-                            <a href="{% url 'added_by_user' user_info.get_username %}">
-                                {{ profile_info.number_resources_added }} Resource added:
-                            </a>
+                                {% comment %} <a href="{% url 'added_by_user' user_info.get_username %}"> {% endcomment %}
+                                {% if profile_info.number_resources_added > 1 %}
+                                    Latest Resources contributed:
+                                {% else %}
+                                    Latest Resource contributed:
+                                {% endif %}
+                                {% comment %} </a> {% endcomment %}
                             {% endif %}
+                        </h5>
 
-                        <ul class="list-group">
+                        <div class="card-body">
+
+                        <ul class="list-group mb-4">
                             {% if user_info.resources_added.all %}
                             {% for resource in user_info.resources_added.all|slice:":5" %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -110,10 +124,14 @@
 
                             {% endfor %}
                         </ul>
+                        <a href="{% url 'added_by_user' user_info.get_username %}" class="btn btn-dark btn-sm">
+                            See all {{ profile_info.number_resources_added}} Resources...
+                        </a>
 
                         {% else %}
-
+                        <p class="card-text">
                         {{ user_info.get_username }} hasn't submitted any resources yet.
+                        </p>
                         {% endif %}
                         </p>
                     </div>

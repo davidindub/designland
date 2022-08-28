@@ -25,7 +25,6 @@ class FormForResource(LoginRequiredMixin, forms.ModelForm):
 
     class Meta:
         model = Resource
-        # fields = "__all__"
         exclude = ["approved", "slug", "upvotes", "bookmarks", "thumbnail"]
 
         labels = {
