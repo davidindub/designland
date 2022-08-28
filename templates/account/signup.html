@@ -2,12 +2,18 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load static %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block title %}
+Sign Up / Designland
+{% endblock %}
 
 {% block content %}
+<div class="container-main-content p-4">
 
 <h1>{% trans "Sign Up" %}</h1>
+
+<p>You can bookmark your favourite resources and share your finds with others with an account.</p>
 
 {% get_providers as socialaccount_providers %}
       
@@ -30,5 +36,6 @@
   {% endif %}
   <button class="btn btn-dark" type="submit">{% trans "Sign Up" %}</button>
 </form>
+</div>
 
 {% endblock %}

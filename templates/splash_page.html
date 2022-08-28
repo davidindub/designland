@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 Designland
@@ -10,9 +11,26 @@ Designland
 
 {% block content %}
 
-<div class="container-main-content p-4">
+<div class="container-main-content">
 
-<h2>HOMEPAGE SPLASH/HERO IMAGE</h2>
+    <div class="px-4 pt-5 text-center">
+        <h1 class="display-4 fw-bold">Design for Developers.</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Find the design tools you need for your dream projects.
+            <br>
+            Share your favourite finds with others.
+            <br>
+            Connect with other developers and designers.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <a href="{% url 'listall' %}" class="btn btn-dark btn-lg px-4 me-sm-3">Show me the resources!</a>
+          </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh;">
+          <div class="container px-5">
+            <img src="{% static 'images/hero-image-paintbrush.png' %}" class="img-fluid resource-detail-thumbnail" alt="A photograph of a paintbrush" width="700" height="500" loading="lazy">
+          </div>
+        </div>
+      </div>
 
 </div>
 

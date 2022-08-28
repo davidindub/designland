@@ -284,6 +284,7 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 ### Media
 
 - [Bootstrap Icons](https://icons.getbootstrap.com/) were used extensively in the project.
+- [Zuzana](https://unsplash.com/photos/B6EOE4ouiAc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink) on [Unsplash](https://unsplash.com/) for the paintbrush hero image.
 
 
 
