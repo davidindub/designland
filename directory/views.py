@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
 from django.db.models import Count
-from .forms import FormForResource, FormForProfile, FormForUser
+from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
 from taggit.models import Tag
 
@@ -163,10 +163,9 @@ class UpdateUserProfile(View):
 
             if (self.request.user.id == user_info.id or self.request.user.is_superuser):
 
-                username_form = FormForUser(instance=user_info)
                 form = FormForProfile(instance=profile_info)
 
-                context = {"username_form": username_form, "form": form, "user_info": user_info}
+                context = {"form": form, "user_info": user_info}
 
                 return render(request, "user_profile_form.html", context)
 
@@ -181,16 +180,9 @@ class UpdateUserProfile(View):
 
         if (self.request.user.id == user_info.id or self.request.user.is_superuser):
 
-            username_form = FormForUser(instance=user_info)
             form = FormForProfile(request.POST, instance=profile_info)
 
-            # print(request.POST)
-            print(f"{username_form} errors:")
-            print(f"🟩 {username_form.errors}")
-            print(f"🟩 {username_form.is_valid()}")
-
-            if form.is_valid() and username_form.is_valid():
-                updated_username = username_form.save()
+            if form.is_valid():
                 updated_entry = form.save()
                 # Return user to the profile they just updated
                 messages.add_message(
@@ -198,7 +190,7 @@ class UpdateUserProfile(View):
                 return redirect("user", user_info.username)
 
             else:
-                context = {"username_form": username_form, "form": form, "user_info": user_info}
+                context = {"form": form, "user_info": user_info}
 
                 messages.add_message(request, messages.WARNING, f"Form not valid!")
                 return render(request, "user_profile_form.html", context)

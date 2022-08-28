@@ -64,25 +64,3 @@ class FormForProfile(LoginRequiredMixin, forms.ModelForm):
             "username_twitter": "Twitter Username",
             "website_address": "Portfolio or Personal Site URL"
         }
-
-
-class FormForUser(LoginRequiredMixin, forms.ModelForm):
-    """
-    Form for updating user info
-    """
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper(self)
-        self.helper.form_tag = False
-        self.helper.disable_csrf = True
-
-
-    class Meta:
-        model = User
-        prefix = 'user'
-        fields = ["username"]
-        labels = {
-            "username": "Username",
-        }
-
-UsernameAndProfileFormSet = forms.formset_factory(FormForUser, FormForProfile)
