@@ -25,20 +25,20 @@ class FormForResource(LoginRequiredMixin, forms.ModelForm):
 
     class Meta:
         model = Resource
-        exclude = ["approved", "slug", "upvotes", "bookmarks", "thumbnail"]
+        exclude = ["approved", "author", "slug", "upvotes", "bookmarks", "thumbnail"]
 
         labels = {
             "url": "URL",
             "content": "Description of the resource"
         }
 
-
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "url": forms.URLInput(attrs={"class": "form-control"}),
-            "author": forms.Select(attrs={"class": "form-control"}),
+            # "author": forms.Select(attrs={"class": "form-control"}),
             "content": forms.Textarea(attrs={"class": "form-control"}),
-            "tags": forms.CheckboxSelectMultiple(choices=TAGS),
+            "tags": forms.TextInput(attrs={"class": "form-control"}),
+            # "tags": forms.CheckboxSelectMultiple(choices=TAGS),
             
         }
 
