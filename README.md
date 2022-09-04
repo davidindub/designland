@@ -19,7 +19,15 @@ The project was built keeping the Agile management principles in mind, and I uti
 
 [Closed Issues on GitHub for the project](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed)
 
-I used [GitHub issues](https://github.com/davidindub/designland/issues) to write user stories and bug reports.
+I used [GitHub issues](https://github.com/davidindub/designland/issues) for the product backlog containing the user stories. Issues were also used for bug reports so I could keep track of tricky bugs over time.
+
+<details>
+<summary>Screenshot of the product backlog</summary>
+
+![](docs/images/product-backlog.png)
+
+</details>
+
 
 I used the tags feature in GitHub Issues for assigning story points, prioritising features based on [the MoSCoW method](https://en.wikipedia.org/wiki/MoSCoW_method), and categorising the user stories.
 
@@ -42,7 +50,9 @@ As the project is a directory of design resources, I wanted to try something fun
 [Qode Magazine - 60 Best Examples of Brutalism in Web Design](https://qodeinteractive.com/magazine/best-examples-of-brutalism-in-web-design/)
 [Elementor Blog - What Is Brutalism in Web Design?](https://elementor.com/blog/brutalism-in-web-design/)
 
+
 ![](/docs/images/palette.png)
+
 
 ### Typography
 
@@ -50,6 +60,10 @@ As the project is a directory of design resources, I wanted to try something fun
 
 - [Baloo 2](https://fonts.google.com/specimen/Baloo+2?query=baloo) contrasts the harsh lines of the display font with friendlier rounded letters that made it suitable for the headings and navbar.
 
+
+### Wireframes
+
+![](/docs/images/wireframe.png)
 
 ## Accessibility
 
@@ -59,14 +73,22 @@ Buttons featuring icons have appropriate `aria-labels`, and notification message
 
 I tested navigating the project with VoiceOver on macOS.
 
+## Database Design
 
-### Wireframes
-
-![](/docs/images/wireframe.png)
-
-### Database Design
+I used the desktop version of [diagrams.net](https://app.diagrams.net/) to design the models. I created a Profile model to associate extra information with users not included in the default Djano user model. 
 
 ![](/docs/images/database_design.png)
+
+After creating the Profile model I used this script in the terminal to create a profile for existing users in the database that didn't have one yet:
+
+
+```
+>>> from django.contrib.auth.models import User
+>>> from directory.models import Profile
+>>> users = User.objects.filter(profile=None)
+>>> for user in users:
+...     Profile.objects.create(user=user)
+```
 
 
 ## Features 
@@ -345,6 +367,7 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 
 ### Content 
 - [Writing a GDPR-compliant privacy notice (template included)](https://gdpr.eu/privacy-notice/)
+- [OrdinaryCoders - Django custom user profile](https://ordinarycoders.com/django-custom-user-profile) was really helpful for the script to create profiles for existing users.
 
 
 ### Media
@@ -353,7 +376,7 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 - [Zuzana](https://unsplash.com/photos/B6EOE4ouiAc?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink) on [Unsplash](https://unsplash.com/) for the paintbrush hero image.
 
 
-
-
-
 ### Acknowledgements
+
+- Thank you to my CI Mentor [Tim Nelson](https://github.com/TravelTimN) for his help and suggestions.
+- Thanks to my partner David for his constant support on my journey to a new career.
