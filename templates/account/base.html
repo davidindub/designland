@@ -45,17 +45,7 @@
     {% endfor %}
 </div>
 
-<script>
-    const toastLiveMessages = document.getElementsByClassName("message-toast");
-
-    console.log(toastLiveMessages);
-
-    for (let toastElement of toastLiveMessages) {
-        console.log(toastElement);
-        const toast = new bootstrap.Toast(toastElement);
-        toast.show();
-    }
-</script>
+<script src="{% static 'scripts/script.js' %}"></script>
 
 
 {% endif %}
