@@ -1,7 +1,7 @@
 
 # designland
 
-![Designland logo](docs/images/logo.png)
+[![Designland logo](docs/images/logo.png)](https://designland.herokuapp.com/)
 
 
 ## Table of Contents
@@ -59,12 +59,13 @@ The Navbar is responsive and collapses to a hamburger menu on smaller devices. O
 When a user is logged in, their username is displayed in the navbar, and a dropdown menu includes:
 - My Profile (link to the user's own profile)
 - My Bookmarks (list of the resources the user has bookmarked)
-- My Submissions (list including submissions not yet approved by staff)
+- My Submissions (list of approved resources the user has submitted)
 - Submit New Resource (form to submit a new resource)
 - Logout
 
 When a staff member is logged in, an extra Manage dropdown option is shown which includes:
 - Unapproved Resources (submissions not yet visible on the site ready for screening)
+- User List (a list of all registered users on the site)
 - Django Admin Panel (a link to the Django Administration Panel)
 
 
@@ -94,7 +95,22 @@ When a logged in user views their own profile, they can click a button to edit i
 
 ### Submit Resources to Directory
 
-When a user submits a resource to the directory, it is awaiting approval by a staff member. In the mean time, the user can see the resource in their My Submissions section (along with a badge telling them if it's been approved or not)
+Users can submit a resource to the directory by providing a Title, URL, Description, and Tags describing the resource.
+
+A placeholder thumbnail is added to the Resource on submitting.
+
+When a user submits a resource to the directory, they can see a preview of it which they can edit again, and a badge telling them it is awaiting approval by a staff member.
+
+<details>
+<summary>A resource with awaiting approval badge</summary>
+
+![](/docs/images/screenshot-resource-awaiting-approval.png)
+
+As viewed by a staff member.
+</details>
+
+Submissions will be manually approved by staff members to prevent unwanted material being posts, and to ensure a high standard of resources in the directory.
+
 
 ### Footer
 
@@ -113,16 +129,30 @@ See:
 
 ### Notifications
 
-Django Messages and Bootstrap's Toast elements were combined to make elegant notification messages when the user performs actions such as signing in/out and bookmarking or upvoting a resource. Staff also see notifications for things like approving/hiding/deleting resources.
+Django Messages and Bootstrap's Toast elements were combined to make elegant notification messages when the user performs actions such as signing in/out and bookmarking or upvoting a resource. Staff also see notifications for things like approving/hiding/deleting resources. The notifications appear on the bottom right so as not to cover the navigation bar.
+
+### Staff Only Features
+
+The Manage dropdown menu in the nav bar appears only for logged in staff members and features additional pages.
+
+#### Unapproved Resources
+
+All unapproved resources that have been submitted by registerer users. Staff members can approve, edit, or delete them.
+
+#### User List
+
+A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes recieved.
+
+The Manage menu also features a link to the Django admin panel should it be needed for moderation not yet implemented directly in the project. (such as managing tags).
 
 ***
 
 
 ### Features Left to Implement
 
-- Currently the screenshot thumbnails for the site are manually uploaded to Cloudinary by an administrator, but I would like to add an API such as [URL2PNG](http://url2png.com/) in future to automate the process, however it was difficult to find a free service for this project.
+- Currently the screenshot thumbnails for the site are manually uploaded to Cloudinary by an administrator, but I would love to add an API such as [URL2PNG](http://url2png.com/) in future to automate the process, however it was difficult to find a free service for this project.
 
-- With Heroku ending free plans in November 2022, the project will be redeployed on a different cloud platform in future. This was only announced when nearing the final sprint.
+- With Heroku ending free plans in November 2022, the project will be redeployed on a different cloud platform in future. This was only announced when nearing the final sprint and the project continued as planned for the submission deadline,.
 
 
 
@@ -137,6 +167,9 @@ Django Messages and Bootstrap's Toast elements were combined to make elegant not
 - [Balsamiq](https://balsamiq.com/wireframes/) for wireframing.
 - [Bootstrap 5](https://getbootstrap.com/) as a front end framework.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/), [Mozilla Firefox](https://www.mozilla.org/en-US/firefox/new/) and [Safari](https://www.apple.com/safari/) for testing on macOS Monterey.
+- [Microsoft Edge](https://www.microsoft.com/en-us/edge) for testing on Windows 11.
+- [Safari](https://www.apple.com/safari/) on iOS and iPadOS 15.
+- [Google Chrome](https://www.google.com/intl/en_ie/chrome/) on Android 12.
 - [diagrams.net](https://www.diagrams.net/) for drawing database diagrams.
 
 ## External Python Packages Used
