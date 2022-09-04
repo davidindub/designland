@@ -13,11 +13,9 @@ Update your profile
 
     {% crispy form %}
 
-    <hr>
-  
         <input type="submit" value="Update" class="btn btn-dark"></input>
-        <hr>
         {% if user.username == user_info.username %}
+        <hr>
         <a href="{% url 'delete_user_profile' user_info.get_username %}" class="btn btn-sm btn-outline-danger">
             Delete Account</a>
         {% endif %}

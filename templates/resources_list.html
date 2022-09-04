@@ -10,8 +10,8 @@ Designland
 {% endblock %}
 
 {% block sort-dropdown %}
-    <div class="col col-12 col-lg-4 top-col-sort">
-        <form action="" class="d-flex align-items-center">
+    <div class="col col-12 col-lg-3 top-col-sort d-flex flex-row justify-content-center align-items-center">
+        <form action="" class="d-flex flex-row align-items-center">
             <label for="sort" class="form-label visually-hidden">Sort by:</label>
                     <select class="sort-select form-select form-select-sm flex-grow-1" name="sort" id="sort">
                         <option value="new">newest</option>
@@ -41,18 +41,20 @@ Designland
                                     <img class="card-img-top" src=" {{ resource.thumbnail.url }}" alt="">
                                     {% endif %}
                                 </div>
-                                <h2 class="card-title text-dark pt-2">{{ resource.title }}</h2>
+                                <h4 class="card-title text-dark pt-2">{{ resource.title }}</h4>
                             </a>
                             <p class="card-text">{{ resource.content }}</p>
                             <div class="card-body">
+                                <div class="btns-container d-flex justify-content-end">
                                 {% if user.is_authenticated %}
+
                                 <form class="d-inline" action="{% url 'upvote_resource' resource.slug %}" method="POST">
                                     {% csrf_token %}
                                     
                                     {% if user in resource.upvotes.all %}
                                     <!-- If user has upvoted already display active button with number of upvotes -->
                                     <button type="submit" name="button-upvote" value="{{resource.slug}}"
-                                        class="btn btn-sm float-end btn-upvote active"
+                                        class="btn btn-sm btn-upvote active"
                                         aria-label="Remove your upvote from {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
@@ -67,7 +69,7 @@ Designland
                                     <button type="submit" 
                                     name="button-upvote" 
                                     value="{{resource.slug}}"
-                                    class="btn btn-sm float-end btn-upvote"
+                                    class="btn btn-sm btn-upvote"
                                     aria-label="Upvote {{ resource }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                             fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
@@ -81,7 +83,7 @@ Designland
 
                                 {% else %}
                                 <!-- For guests, just display the up arrow icon and number of upvotes -->
-                                <span class="btn btn-sm float-end">
+                                <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                         class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -91,6 +93,7 @@ Designland
                                 </span>
 
                                 {% endif %}
+                            </div>
 
                             </div>
                         </div>

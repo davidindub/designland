@@ -112,9 +112,13 @@ class ListByUser(ResourceList):
 
     def get_queryset(self, **kwargs):
         qs = super().get_queryset()
-        user_id = User.objects.get(username=self.kwargs["user"]).id
-        # Filter to display approved added by the queried user
-        return qs.filter(approved=True).filter(author__id__in=[user_id])
+
+        if "user" in self.kwargs:
+            user_info = get_object_or_404(
+                User, username=self.kwargs["user"])
+
+            # Filter to display approved added by the queried user
+            return qs.filter(approved=True).filter(author__id__in=[user_info.id])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
