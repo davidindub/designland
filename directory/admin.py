@@ -3,6 +3,7 @@ from .models import Resource, Profile
 
 admin.site.register(Profile)
 
+
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}

@@ -18,17 +18,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Resource',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200, unique=True)),
                 ('slug', models.SlugField(max_length=200, unique=True)),
                 ('updated_on', models.DateTimeField(auto_now=True)),
                 ('content', models.TextField()),
-                ('thumbnail', cloudinary.models.CloudinaryField(default='placeholder', max_length=255, verbose_name='image')),
+                ('thumbnail', cloudinary.models.CloudinaryField(
+                    default='placeholder', max_length=255, verbose_name='image')),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('status', models.IntegerField(choices=[(0, 'Draft'), (1, 'Published')], default=0)),
-                ('bookmarks', models.ManyToManyField(blank=True, related_name='bookmarked_resources', to=settings.AUTH_USER_MODEL)),
-                ('upvotes', models.ManyToManyField(blank=True, related_name='upvoted_resources', to=settings.AUTH_USER_MODEL)),
-                ('user_added', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='resources_added', to=settings.AUTH_USER_MODEL)),
+                ('status', models.IntegerField(choices=[
+                 (0, 'Draft'), (1, 'Published')], default=0)),
+                ('bookmarks', models.ManyToManyField(
+                    blank=True, related_name='bookmarked_resources', to=settings.AUTH_USER_MODEL)),
+                ('upvotes', models.ManyToManyField(
+                    blank=True, related_name='upvoted_resources', to=settings.AUTH_USER_MODEL)),
+                ('user_added', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='resources_added', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['-created_on'],
@@ -37,19 +43,24 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='tags', to='directory.resource')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('description', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT, related_name='tags', to='directory.resource')),
             ],
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('body', models.TextField()),
                 ('created_on', models.DateTimeField(auto_now_add=True)),
                 ('approved', models.BooleanField(default=False)),
-                ('resource', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='directory.resource')),
-                ('user_added', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments_left', to=settings.AUTH_USER_MODEL)),
+                ('resource', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='comments', to='directory.resource')),
+                ('user_added', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                 related_name='comments_left', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ['created_on'],

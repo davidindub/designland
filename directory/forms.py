@@ -10,6 +10,7 @@ class FormForResource(LoginRequiredMixin, forms.ModelForm):
     """
     Form for creating and updating design resources
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
@@ -18,7 +19,8 @@ class FormForResource(LoginRequiredMixin, forms.ModelForm):
 
     class Meta:
         model = Resource
-        exclude = ["approved", "author", "slug", "upvotes", "bookmarks", "thumbnail"]
+        exclude = ["approved", "author", "slug",
+                   "upvotes", "bookmarks", "thumbnail"]
 
         labels = {
             "url": "URL",
@@ -37,12 +39,12 @@ class FormForProfile(LoginRequiredMixin, forms.ModelForm):
     """
     Form for updating users profiles
     """
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.disable_csrf = True
-
 
     class Meta:
         model = Profile

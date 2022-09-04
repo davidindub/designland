@@ -24,7 +24,7 @@ list_patterns = [
     path('bookmarks/', views.BookmarkList.as_view(), name='bookmarks'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
     path('<slug:filter>/', views.ResourceList.as_view(), name="list")
-    ]
+]
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name="splash_page.html"), name='home'),

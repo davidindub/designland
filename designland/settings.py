@@ -15,9 +15,9 @@ import os
 import dj_database_url
 from django.contrib import messages
 
-
+# If the env.py file exists, import it (won't be used on Heroku)
 if os.path.isfile("env.py"):
-    import env
+    import env # noqa
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,12 +40,13 @@ development = os.environ.get('DEVELOPMENT', False)
 DEBUG = development
 
 if development:
-    ALLOWED_HOSTS = ['localhost', "127.0.0.1", "8000-davidindub-designland-4lnvj9ynh6j.ws-eu59.gitpod.io"]
+    ALLOWED_HOSTS = ['localhost', "127.0.0.1",
+                     "8000-davidindub-designland-4lnvj9ynh6j.ws-eu59.gitpod.io"] # noqa
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
 
 SOCIALACCOUNT_AUTO_SIGNUP = False
-SOCIALACCOUNT_LOGIN_ON_GET= True
+SOCIALACCOUNT_LOGIN_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = False
 
 # Application definition
@@ -140,16 +141,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # noqa
     },
 ]
 
@@ -176,7 +177,7 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'  # noqa
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

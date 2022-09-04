@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views import generic, View
 from django.http import HttpResponseRedirect, Http404
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils.text import slugify
@@ -22,8 +21,9 @@ class ResourceList(generic.ListView):
         results = {
             "unapproved": qs.filter(approved=False),
             "approved": qs.filter(approved=True),
-            "bookmarks": 
-            qs.filter(approved=True).filter(bookmarks__in=[self.request.user.id]),
+            "bookmarks":
+            qs.filter(approved=True).filter(
+                bookmarks__in=[self.request.user.id]),
         }
 
         sort = {
@@ -40,12 +40,12 @@ class ResourceList(generic.ListView):
         sort_request = self.request.GET.get("sort", "new")
 
         if sort_request == "popular":
-            return qs.annotate(num_upvotes=Count("upvotes")).order_by("-num_upvotes")
+            return (qs.annotate(num_upvotes=Count("upvotes"))
+                    .order_by("-num_upvotes"))
         else:
             return qs.order_by(sort[sort_request])
 
         return qs
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -61,15 +61,18 @@ class ResourceList(generic.ListView):
 
         return context
 
+
 class GetAllTags(generic.ListView):
     """
     View for listing all the tags in the database
     """
+
     def get(self, request, *arg, **kwargs):
         context = {"h1": "All Categories"}
-        context["tags"] = tags = Tag.objects.all()
+        context["tags"] = Tag.objects.all()
 
         return render(request, "tag_list.html", context)
+
 
 class TagList(ResourceList):
     """
@@ -80,7 +83,7 @@ class TagList(ResourceList):
         qs = super().get_queryset()
         # Filter to display approved resources with the requested tag
         return (qs.filter(approved=True)
-        .filter(tags__name__in=[self.kwargs["tag"]]))
+                .filter(tags__name__in=[self.kwargs["tag"]]))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,7 +100,7 @@ class BookmarkList(ResourceList):
         qs = super().get_queryset()
         # Filter to return only the resources bookmarked by the logged in user
         return (qs.filter(approved=True)
-        .filter(bookmarks__in=[self.request.user.id]))
+                .filter(bookmarks__in=[self.request.user.id]))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,7 +121,8 @@ class ListByUser(ResourceList):
                 User, username=self.kwargs["user"])
 
             # Filter to display approved added by the queried user
-            return qs.filter(approved=True).filter(author__id__in=[user_info.id])
+            return (qs.filter(approved=True)
+                    .filter(author__id__in=[user_info.id]))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -165,7 +169,8 @@ class UpdateUserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=user_info.id)
 
-            if (self.request.user.id == user_info.id or self.request.user.is_superuser):
+            if (self.request.user.id == user_info.id or
+                    self.request.user.is_superuser):
 
                 form = FormForProfile(instance=profile_info)
 
@@ -182,12 +187,13 @@ class UpdateUserProfile(View):
         profile_info = get_object_or_404(
             Profile, user=user_info.id)
 
-        if (self.request.user.id == user_info.id or self.request.user.is_superuser):
+        if (self.request.user.id == user_info.id or
+                self.request.user.is_superuser):
 
             form = FormForProfile(request.POST, instance=profile_info)
 
             if form.is_valid():
-                updated_entry = form.save()
+                form.save()
                 # Return user to the profile they just updated
                 messages.add_message(
                     request, messages.SUCCESS, 'Profile Updated!')
@@ -196,7 +202,8 @@ class UpdateUserProfile(View):
             else:
                 context = {"form": form, "user_info": user_info}
 
-                messages.add_message(request, messages.WARNING, f"Form not valid!")
+                messages.add_message(
+                    request, messages.WARNING, "Form not valid!")
                 return render(request, "user_profile_form.html", context)
 
         return redirect("home")
@@ -224,7 +231,8 @@ class DeleteUserProfile(View):
 
         if self.request.user == user_info or self.request.user.is_superuser:
             messages.add_message(request, messages.SUCCESS,
-                                 f"Account for {user_info} successfully deleted.")
+                                 f"Account for {user_info} \
+                                    successfully deleted.")
             user_info.delete()
 
         return redirect("home")
@@ -248,7 +256,6 @@ class CreateResource(View):
     def post(self, request, *arg, **kwargs):
         print(self.request.user.id)
         if self.request.user.is_authenticated:
-            user_info = get_object_or_404(User, id=self.request.user.id)
             form = FormForResource(request.POST)
             if form.is_valid():
                 # Set the author to the logged in user
@@ -258,7 +265,8 @@ class CreateResource(View):
 
                 new_entry = form.save()
                 messages.add_message(
-                    request, messages.SUCCESS, f"{new_entry} successfully added.")
+                    request, messages.SUCCESS,
+                    f"{new_entry} successfully added.")
                 # return user to the details page of the resource
                 # they just added or updated
                 return redirect("resource_detail", new_entry.slug)
@@ -279,7 +287,8 @@ class UpdateResource(View):
             resource = get_object_or_404(
                 Resource, slug=self.kwargs["slug"])
 
-            if self.request.user == resource.author or self.request.user.is_superuser:
+            if (self.request.user == resource.author or
+                    self.request.user.is_superuser):
 
                 form = FormForResource(instance=resource)
 
@@ -294,7 +303,8 @@ class UpdateResource(View):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
 
-        if self.request.user == resource.author or self.request.user.is_superuser:
+        if (self.request.user == resource.author or
+                self.request.user.is_superuser):
 
             form = FormForResource(request.POST, instance=resource)
 
@@ -302,12 +312,12 @@ class UpdateResource(View):
                 updated_entry = form.save()
                 messages.add_message(
                     request, messages.SUCCESS, f"{resource} updated.")
-                # return user to the details page of the resource they added or updated
+                # return user to page of the resource they added or updated
                 return redirect("resource_detail", updated_entry.slug)
 
         else:
             messages.add_message(request, messages.ERROR,
-                                 f"There was an error")
+                                 "There was an error")
             return redirect("home")
 
 
@@ -318,7 +328,8 @@ class DeleteResource(View):
 
         context = {"resource": resource}
 
-        if self.request.user == resource.author or self.request.user.is_superuser:
+        if (self.request.user == resource.author or
+                self.request.user.is_superuser):
             return render(request, "resource_delete.html", context)
 
         else:
@@ -328,7 +339,8 @@ class DeleteResource(View):
         resource = get_object_or_404(
             Resource, slug=self.kwargs["slug"])
 
-        if self.request.user == resource.author or self.request.user.is_superuser:
+        if (self.request.user == resource.author or
+                self.request.user.is_superuser):
             resource.delete()
 
         return redirect("home")
@@ -362,20 +374,23 @@ class ResourceDetail(View):
         tags = resource.tags.all()
 
         context = {
-            "resource": 
+            "resource":
             resource,
-            "approved": 
+            "approved":
             True if resource.approved else False,
-            "bookmarked": 
-            True if resource.bookmarks.filter(id=self.request.user.id).exists() else False,
-            "upvoted": 
-            True if resource.upvotes.filter(id=self.request.user.id).exists() else False,
-            "tags": 
+            "bookmarked":
+            True if resource.bookmarks.filter(
+                id=self.request.user.id).exists() else False,
+            "upvoted":
+            True if resource.upvotes.filter(
+                id=self.request.user.id).exists() else False,
+            "tags":
             tags
         }
 
         if (resource.approved is False):
-            if (resource.author == self.request.user or self.request.user.is_superuser):
+            if (resource.author == self.request.user or
+                    self.request.user.is_superuser):
                 return render(request, "resource_detail.html", context)
             else:
                 raise Http404
