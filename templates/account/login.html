@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% load i18n %}
 {% load account socialaccount %}
 {% load static %}
 
 {% block title %}
-Sign In / Designland
+Sign In / {{site.name}}
 {% endblock %}
 
 {% block content %}
@@ -16,6 +17,9 @@ Sign In / Designland
 
       <h1>{% trans "Sign In" %}</h1>
 
+      <p class="lead">{% blocktrans with site.name as site_name %}
+        Not yet registered? <a href="{{ signup_url }}">Sign up</a> for a {{ site_name }} account.{% endblocktrans %}</p>
+
       {% get_providers as socialaccount_providers %}
       
       {% if socialaccount_providers %}
@@ -25,9 +29,7 @@ Sign In / Designland
           <!-- list of oauth login providers -->
           {% include "socialaccount/snippets/provider_list.html" with process="login" %}
 
-      
-        <div class="login-or">{% trans 'or' %}</div>
-      
+      <hr>      
       </div>
       
       {% include "socialaccount/snippets/login_extra.html" %}
@@ -39,19 +41,13 @@ Sign In / Designland
       
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         {% if redirect_field_value %}
         <input class="form-control" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <a class="btn btn-outline-dark" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         <button class="btn btn-success" type="submit">{% trans "Sign In" %}</button>
       </form>
-<hr>
-      <p>{% blocktrans with site.name as site_name %}
-        Not yet registered?
-        <br>
-        <a href="{{ signup_url }}">Sign up</a>
-        for a {{ site_name }} account.{% endblocktrans %}</p>
 
     </div>
     <div class="col-xl-6 d-none d-xl-inline">
