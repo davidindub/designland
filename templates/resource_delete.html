@@ -9,7 +9,7 @@ Delete {{ resource.title }}?
 {% block content %}
 
 <div class="container-main-content p-4">
-<form method="POST" action="">
+<form method="POST"  >
 {% csrf_token %}
 
 <p>Are you sure you want to delete <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>?</p>

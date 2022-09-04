@@ -13,20 +13,31 @@ The project is an online directory of useful design resources for web developers
 
 Users can register to submit resources to the directory, and upvote and bookmark resources they find useful.
 
+The project was built keeping the Agile management principles in mind, and I utilised many of GitHub's features such as Issue and Projects to implement Scrum methodology.
+
+[Kanban Board for project](https://github.com/users/davidindub/projects/7/)
+
+[Closed Issues on GitHub for the project](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed)
+
+I used [GitHub issues](https://github.com/davidindub/designland/issues) to write user stories and bug reports.
+
+I used the tags feature in GitHub Issues for assigning story points, prioritising features based on [the MoSCoW method](https://en.wikipedia.org/wiki/MoSCoW_method), and categorising the user stories.
+
+I used the [Milestones feature](https://github.com/davidindub/designland/milestones) to plan sprints and set deadlines.
+
+
+I took the [Agile Foundations](https://www.linkedin.com/learning/agile-foundations/) course on LinkedIn Learning to better understand the difference between Agile and Scrum.
+
 
 ## User Stories
 
-
-
-## 
-
+User stories were prepared using GitHub Issues and assigned story points based on estimated completion time.
 
 
 ## UX  
 
 As the project is a directory of design resources, I wanted to try something fun and bold with the design and was inspired by the trend for neubrutalism web design, and websites such as [Gumroad](https://gumroad.com/) and [Google I/O 2022](https://io.google/2022/).
 
-I ensured that despite bold use of color, every element still met AAA level in the [Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG2AAA-Conformance) (WCAG)
 
 [Qode Magazine - 60 Best Examples of Brutalism in Web Design](https://qodeinteractive.com/magazine/best-examples-of-brutalism-in-web-design/)
 [Elementor Blog - What Is Brutalism in Web Design?](https://elementor.com/blog/brutalism-in-web-design/)
@@ -36,6 +47,15 @@ I ensured that despite bold use of color, every element still met AAA level in t
 - A display font called [Bebas Neue](https://fonts.google.com/specimen/Bebas+Neue?query=bebas) was used for the logo as it fitted the neubrutalist theme of the site.
 
 - [Baloo 2](https://fonts.google.com/specimen/Baloo+2?query=baloo) contrasts the harsh lines of the display font with friendlier rounded letters that made it suitable for the headings and navbar.
+
+
+## Accessibility
+
+I ensured that despite bold use of color, every element still met AAA level in the [Web Content Accessibility Guidelines](https://www.w3.org/WAI/WCAG2AAA-Conformance) (WCAG).
+
+Buttons featuring icons have appropriate `aria-labels`, and notification messages have `aria-live` tags and are read by screen readers.
+
+I tested navigating the project with VoiceOver on macOS.
 
 
 ### Wireframes
@@ -67,6 +87,15 @@ When a staff member is logged in, an extra Manage dropdown option is shown which
 - Unapproved Resources (submissions not yet visible on the site ready for screening)
 - User List (a list of all registered users on the site)
 - Django Admin Panel (a link to the Django Administration Panel)
+
+
+### Directory & Categories
+
+The list of design resources. Directory lists all resources, while Categories lets users sort by tag.
+
+Users can sort the list by newest, oldest or most up-voted.
+
+The list page is also used for seeing all the resources a user has added via their profile.
 
 
 ### Register / Login
@@ -143,7 +172,7 @@ All unapproved resources that have been submitted by registerer users. Staff mem
 
 A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes recieved.
 
-The Manage menu also features a link to the Django admin panel should it be needed for moderation not yet implemented directly in the project. (such as managing tags).
+The Manage menu also features a link to the Django admin panel should it be needed for moderation not currently implemented directly in the project. (such as managing tags).
 
 ***
 
@@ -171,6 +200,8 @@ The Manage menu also features a link to the Django admin panel should it be need
 - [Safari](https://www.apple.com/safari/) on iOS and iPadOS 15.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/) on Android 12.
 - [diagrams.net](https://www.diagrams.net/) for drawing database diagrams.
+- [favicon.io](https://favicon.io/favicon-generator/) to make a favicon for site.
+- [Meta Tags](https://metatags.io/) to prepare the Meta tags for social media share previews.
 
 ## External Python Packages Used
 
