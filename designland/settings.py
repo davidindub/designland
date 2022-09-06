@@ -73,6 +73,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5'
 ]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
