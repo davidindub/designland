@@ -21,7 +21,8 @@
                 </a>
                 <div class="row">
                 <div class="col">
-                <a href="{% url 'user' resource.author %}">{{ resource.author }}</a>| Added {{ resource.created_on|naturaltime }}
+
+                <a href="{% url 'user' resource.author %}">{{ resource.author }}</a> | Added {{ resource.created_on|naturaltime }}
                 {% if user.is_authenticated %}
                 {% if user.username == resource.author.username or user.is_staff %}
                 |
@@ -46,26 +47,31 @@
                 {% endif %}
             </div>
                 </div>
-                <p>
+                <div class="d-inline">
                     <a href="{% url 'update_resource' resource.slug %}" class="btn btn-sm btn-outline-dark">Edit</a>
                     <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
-
-                    {% if user.is_staff %}
-                        <form method="POST" class="" action="{% url 'approve_resource' resource.slug %}">
-                            {% csrf_token %}
-                            {% if not approved %}
-                            <input type="submit" class="btn btn-sm btn-outline-success" value="Approve"></input>
-                            {% else %}
-                            <input type="submit" class="btn btn-sm btn-outline-danger" value="Remove Approval"></input>
-                            {% endif %}
-                        </form>
-                    {% endif %}
-                </p>
+                </div>
+                {% if user.is_staff %}
+                    <form method="POST" class="d-inline m-0 p-0" action="{% url 'approve_resource' resource.slug %}">
+                        {% csrf_token %}
+                        {% if not approved %}
+                        <input type="submit" class="btn btn-sm btn-outline-success" value="Approve"></input>
+                        {% else %}
+                        <input type="submit" class="btn btn-sm btn-outline-danger" value="Remove Approval"></input>
+                        {% endif %}
+                    </form>
                 {% endif %}
-                {% else %}
+            {% endif %}
+            {% else %}
             </div>	
         </div>
                 {% endif %}
+                <div class="d-grid gap-2 d-md-block text-center">
+                    <a href="{{ resource.url }}" target="_blank" class="my-2 btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                    <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"/>
+                    <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"/>
+                  </svg> Visit Resource</a>
+                </div>
             </div>
             <div class="col-md-6">
                 <a href="{{ resource.url }}" target="_blank">
@@ -80,7 +86,7 @@
     </div>
 
     <div class="row">
-        <div class="col card m-4 pb-4 left top">
+        <div class="col card mt-3 m-md-4 py-2 left top">
             <div class="card-body">
                 <p class="card-text ">
                     {{ resource.content | safe }}
@@ -94,7 +100,7 @@
                         {% endfor %}
                     </div>
 
-                    <div class="col btns-container d-flex justify-content-end" role="group">
+                    <div class="col mt-3 btns-container d-flex justify-content-end" role="group">
 
                         {% if user.is_authenticated %}
                         <form class="d-inline" action="{% url 'upvote_resource' resource.slug %}" method="POST">

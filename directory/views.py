@@ -252,6 +252,7 @@ class CreateResource(View):
         if self.request.user.is_authenticated:
             form = FormForResource()
             context = {"form": form, "h1": "Submit a new Design Resource"}
+            context["tags"] = Tag.objects.all()
 
             return render(request, "resource_form.html", context)
 
@@ -298,6 +299,7 @@ class UpdateResource(View):
                 form = FormForResource(instance=resource)
 
                 context = {"form": form, "h1": f"Update {resource}"}
+                context["tags"] = Tag.objects.all()
 
                 return render(request, "resource_form.html", context)
 

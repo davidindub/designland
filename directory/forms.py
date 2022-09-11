@@ -4,6 +4,7 @@ from .models import Resource, Profile
 from django.contrib.auth.models import User
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
+from taggit.forms import TagWidget
 
 
 class FormForResource(LoginRequiredMixin, forms.ModelForm):
@@ -31,7 +32,8 @@ class FormForResource(LoginRequiredMixin, forms.ModelForm):
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "url": forms.URLInput(attrs={"class": "form-control"}),
             "content": forms.Textarea(attrs={"class": "form-control"}),
-            "tags": forms.TextInput(attrs={"class": "form-control"}),
+            # "tags": forms.TextInput(attrs={"class": "form-control"}),
+            "tags": TagWidget(),
         }
 
 
