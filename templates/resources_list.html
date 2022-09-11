@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 Designland
@@ -7,6 +8,10 @@ Designland
 
 {% block h1 %}
 {{ h1 }}
+{% endblock %}
+
+{% block extraJS %}
+<script src="{% static 'scripts/lists.js' %}"></script>
 {% endblock %}
 
 {% block sort-dropdown %}
@@ -132,4 +137,4 @@ Designland
     {% endif %}
 </div>
 
-{%endblock%}
+{% endblock %}

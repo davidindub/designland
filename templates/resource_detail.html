@@ -20,10 +20,8 @@
                     <h1 class="post-title text-dark">{{ resource.title }}</h1>
                 </a>
                 <div class="row">
-                <a href="{% url 'user' resource.author %}">
-                    <p class="post-subtitle">{{ resource.author }}
-                </a>| Added {{ resource.created_on|naturaltime }}
-
+                <div class="col">
+                <a href="{% url 'user' resource.author %}">{{ resource.author }}</a>| Added {{ resource.created_on|naturaltime }}
                 {% if user.is_authenticated %}
                 {% if user.username == resource.author.username or user.is_staff %}
                 |
@@ -46,37 +44,39 @@
                     </svg> Approved
                 </span>
                 {% endif %}
+            </div>
                 </div>
-                </p>
                 <p>
                     <a href="{% url 'update_resource' resource.slug %}" class="btn btn-sm btn-outline-dark">Edit</a>
                     <a href="{% url 'delete_resource' resource.slug %}" class="btn btn-sm btn-outline-danger">Delete</a>
 
                     {% if user.is_staff %}
-                <form method="POST" class="" action="{% url 'approve_resource' resource.slug %}">
-                    {% csrf_token %}
-                    {% if not approved %}
-                    <input type="submit" class="btn btn-sm btn-outline-success" value="Approve"></input>
-                    {% else %}
-                    <input type="submit" class="btn btn-sm btn-outline-danger" value="Remove Approval"></input>
+                        <form method="POST" class="" action="{% url 'approve_resource' resource.slug %}">
+                            {% csrf_token %}
+                            {% if not approved %}
+                            <input type="submit" class="btn btn-sm btn-outline-success" value="Approve"></input>
+                            {% else %}
+                            <input type="submit" class="btn btn-sm btn-outline-danger" value="Remove Approval"></input>
+                            {% endif %}
+                        </form>
                     {% endif %}
-                </form>
+                </p>
                 {% endif %}
-            </p>
-                {% endif %}
+                {% else %}
+            </div>	
+        </div>
                 {% endif %}
             </div>
-            <div class="d-md-block col-md-6">
+            <div class="col-md-6">
                 <a href="{{ resource.url }}" target="_blank">
                     {% if "placeholder" in resource.thumbnail.url %}
-                    <img class="resource-detail-thumbnail" src="https://i.ibb.co/10Y6XsK/open-graph-template.png"
-                        width="100%" alt="">
+                    <img class="resource-detail-thumbnail img-fluid" src="https://i.ibb.co/10Y6XsK/open-graph-template.png"
+                     alt="">
                     {% else %}
-                    <img class="resource-detail-thumbnail" src=" {{ resource.thumbnail.url }}" width="100%" alt="">
+                    <img class="resource-detail-thumbnail img-fluid" src=" {{ resource.thumbnail.url }}" alt="">
                     {% endif %}
                 </a>
             </div>
-        </div>
     </div>
 
     <div class="row">
@@ -171,7 +171,6 @@
     </div>
 
 
-</div>
 </div>
 </div>
 {% endblock content %}

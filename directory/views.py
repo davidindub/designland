@@ -19,7 +19,7 @@ class ResourceList(generic.ListView):
         qs = super().get_queryset()
 
         results = {
-            "unapproved": qs.filter(approved=False),
+            # "unapproved": qs.filter(approved=False),
             "approved": qs.filter(approved=True),
             "bookmarks":
             qs.filter(approved=True).filter(
@@ -31,9 +31,14 @@ class ResourceList(generic.ListView):
             "old": "created_on"
         }
 
+
         if "filter" in self.kwargs:
-            print(f"🟩 {self.kwargs['filter']}")
-            qs = results[self.kwargs["filter"]]
+            if self.kwargs['filter'] == "unapproved" and self.request.user.is_superuser:
+                qs = qs.filter(approved=False)
+                print("SUCCESS!!!")
+            else:
+
+                qs = results[self.kwargs["filter"]]
         else:
             qs = results["approved"]
 
