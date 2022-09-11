@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block title %}
+404 / Designland
+{% endblock %}
+
+{% block content %}
+<div class="container-main-content p-4">
+
+    <h1 class="display-1 text-center">404</h1>
+    <p class="text-center">Oops! That page cannot be found.
+        <br>
+        <a href="{% url 'listall' %}" class="btn btn-lg btn-dark my-5">Go back to the Directory</a>
+    </p>
+
+</div>
+
+{% endblock %}
