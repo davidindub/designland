@@ -23,5 +23,6 @@ urlpatterns = [
     path("", include("directory.urls"), name="directory-urls")
 ]
 
+handler403 = views.error_403
 handler404 = views.error_404
 handler500 = views.error_500

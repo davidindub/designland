@@ -3,11 +3,20 @@ from django.views import generic, View
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.utils.text import slugify
 from django.db.models import Count
 from .forms import FormForResource, FormForProfile
 from .models import Resource, Profile
 from taggit.models import Tag
+
+
+class SuperUserCheck(UserPassesTestMixin, View):
+    """
+    Checks if user is superuser for access to some views
+    """
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class ResourceList(generic.ListView):
@@ -18,29 +27,12 @@ class ResourceList(generic.ListView):
     def get_queryset(self, **kwargs):
         qs = super().get_queryset()
 
-        results = {
-            # "unapproved": qs.filter(approved=False),
-            "approved": qs.filter(approved=True),
-            "bookmarks":
-            qs.filter(approved=True).filter(
-                bookmarks__in=[self.request.user.id]),
-        }
-
         sort = {
             "new": "-created_on",
             "old": "created_on"
         }
 
-
-        if "filter" in self.kwargs:
-            if self.kwargs['filter'] == "unapproved" and self.request.user.is_superuser:
-                qs = qs.filter(approved=False)
-                print("SUCCESS!!!")
-            else:
-
-                qs = results[self.kwargs["filter"]]
-        else:
-            qs = results["approved"]
+        qs = qs.filter(approved=True)
 
         sort_request = self.request.GET.get("sort", "new")
 
@@ -56,14 +48,27 @@ class ResourceList(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["h1"] = "Resources"
 
-        h1s = {"unapproved": "Unapproved Resources",
-               "approved": "Approved Resources",
-               "bookmarks": "Your bookmarks",
+        h1s = {"approved": "Approved Resources",
+               "bookmarks": "Your bookmarks!",
                }
 
         if "filter" in self.kwargs:
             context["h1"] = h1s[self.kwargs["filter"]]
 
+        return context
+
+
+class UnapprovedList(SuperUserCheck, ResourceList):
+    """
+    View for showing unapproved resources to staff members
+    """
+
+    def get_queryset(self, **kwargs):
+        return Resource.objects.filter(approved=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["h1"] = "Upapproved Resources"
         return context
 
 
@@ -353,7 +358,7 @@ class DeleteResource(View):
         return redirect("home")
 
 
-class ApproveResource(View):
+class ApproveResource(SuperUserCheck, View):
 
     def post(self, request, slug, *args, **kwargs):
         resource = get_object_or_404(Resource, slug=slug)
@@ -440,7 +445,7 @@ class ResourceUpvote(View):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
-class ProfilesList(generic.ListView):
+class ProfilesList(SuperUserCheck, generic.ListView):
     """
     View for admin view of all user profiles
     """

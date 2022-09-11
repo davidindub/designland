@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% load static %}
+
+{% block title %}
+403 / Designland
+{% endblock %}
+
+{% block content %}
+<div class="container-main-content p-4">
+
+    <h1 class="display-1 text-center">403</h1>
+    <p class="text-center">Oops! Access Forbidden.
+        <br>
+        <a href="{% url 'listall' %}" class="btn btn-lg btn-dark my-5">Go back to the Directory</a>
+    </p>
+
+</div>
+
+{% endblock %}

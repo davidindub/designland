@@ -21,6 +21,7 @@ user_patterns = [
 
 list_patterns = [
     path('', views.ResourceList.as_view(), name='listall'),
+    path('unapproved/', views.UnapprovedList.as_view(), name='unapproved'),
     path('bookmarks/', views.BookmarkList.as_view(), name='bookmarks'),
     path('tag/<slug:tag>/', views.TagList.as_view(), name='tag'),
     path('<slug:filter>/', views.ResourceList.as_view(), name="list")
