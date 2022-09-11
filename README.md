@@ -284,7 +284,7 @@ os.environ["CLOUDINARY_URL"] = "cloudinary://YOUR_CLOUDINARY_URL"
 os.environ["HEROKU_HOSTNAME"] = "URL_OF_PROJECT_DEPLOYED_ON_HEROKU"
 os.environ["DEVELOPMENT"] = "True"
 ```
-**Ensure the 'env.py' file is added to your '.gitignore' file so it doesn't get pushed to a public repository.
+**Ensure the `env.py` file is added to your `.gitignore` file so it doesn't get pushed to a public repository.
 
 If you don't have a Cloudinary account already, you will need to [Sign Up for Free](https://cloudinary.com/users/register/free) to host the static files in the project.
 

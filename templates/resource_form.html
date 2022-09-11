@@ -11,10 +11,6 @@ Submit / Designland
 {{ h1 }}
 {% endblock %}
 
-{% block extraJS %}
-<script src="{% static 'scripts/resource-form.js' %}"></script>
-{% endblock %}
-
 {% block content %}
 
 <div class="container-main-content p-4">
@@ -22,10 +18,11 @@ Submit / Designland
         <form method="POST"  >
             {% csrf_token %}
             {% crispy form %}
-            <span class="text-muted mb-5">Popular Tags: </span><br>
+            <span class="text-muted mb-5">Popular Tags: 
             {% for tag in tags %}
-                <a href="#" class="badge rounded-pill form-tag me-2">#{{tag}}</a>
+            <span class"form-tag">{{tag}} | </span>
             {% endfor %}
+        </span>
                 <hr>
                 <input type="submit" value="Submit" class="btn btn-dark"></input>
 
