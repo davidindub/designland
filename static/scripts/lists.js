@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 // On list page - sets the sort drop down to match the url param
 const searchParams = new URLSearchParams(window.location.search);
 const sortOrder = searchParams.get("sort");
