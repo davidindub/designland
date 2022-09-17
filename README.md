@@ -143,7 +143,7 @@ See also:
 
 ## Database Design
 
-I used the desktop version of [diagrams.net](https://app.diagrams.net/) to design the models. I created a Profile model to associate extra information with users not included in the default Djano user model. 
+I used the desktop version of [diagrams.net](https://app.diagrams.net/) to design the models. I created a Profile model to associate extra information with users not included in the default Django user model. 
 
 ![](/docs/images/database_design.png)
 
@@ -224,7 +224,9 @@ The list page is also used for seeing all the resources a user has added via the
 
 Users can either sign up using their Google or Github account, or directly on the site.
 
-GitHub was chosen as the site is aimed at developers and designers, and Google as is has 1.8 billion active montly users.
+Users signing up with GitHub or Google just need to pick a username, and don't need to create a password.
+
+GitHub was chosen as the site is aimed at developers and designers, and Google as is has 1.8 billion active monthly users.
 
 Users who have previously registered with GitHub or Google can easily sign in again with one click.
 
@@ -292,8 +294,6 @@ Own Profile Page as a logged in user, showing Edit Profile button.
 </details>
 
 
-
-
 ### Submit Resources to Directory
 
 Users can submit a resource to the directory by providing a Title, URL, Description, and Tags describing the resource.
@@ -351,7 +351,7 @@ All unapproved resources that have been submitted by registered users. Staff mem
 
 #### User List
 
-A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes recieved.
+A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes received.
 
 The Manage menu also features a link to the Django admin panel should it be needed for features not yet implemented directly in the project. (such as managing tags).
 
@@ -420,7 +420,7 @@ Custom error pages were added for 403, 404, and 500 errors.
 
 ## Testing 
 
-I performed manual testing continously as the project was being developed, and filed [bug reports on GitHub](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) as issues were discovered to keep track of bugs. I kept track of how to recreate bugs, expected behaviour, screenshots of the issue and how it was resolved to help myself in future.
+I performed manual testing continuously as the project was being developed, and filed [bug reports on GitHub](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) as issues were discovered to keep track of bugs. I kept track of how to recreate bugs, expected behaviour, screenshots of the issue and how it was resolved to help myself in future.
 
 I asked friends to test registering accounts / submitting resources / deleting accounts in different ways (email registration, Google registration, GitHub registration, registration with no email, etc.) to try and catch any potential issues.
 
@@ -808,7 +808,7 @@ The custom CSS was validated using the [W3C CSS Validation Service](https://jigs
 
 All the custom Python files pass PEP8 Validation, which I checked both in the development environment and on [PEP8 online](http://pep8online.com/).
 
-`# noqa` was used in `settings.py` where linebreaks would have broken Django functionality.
+`# noqa` was used in `settings.py` where line breaks would have broken Django functionality.
 
 <details>
 
@@ -948,7 +948,7 @@ If you don't have a Cloudinary account already, you will need to [Sign Up for Fr
 5. Run the Django sever:
 `python manage.py runserver`
 The address of the server will appear in the terminal window.
-Add /admin to the address to acces the Django admin panel using your superuser credentials.
+Add /admin to the address to access the Django admin panel using your superuser credentials.
 
 ### Heroku Deployment
 <details>
