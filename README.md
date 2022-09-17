@@ -47,8 +47,8 @@ User stories were prepared using GitHub Issues and assigned story points based o
 As the project is a directory of design resources, I wanted to try something fun and bold with the design and was inspired by the trend for neubrutalism web design, and websites such as [Gumroad](https://gumroad.com/) and [Google I/O 2022](https://io.google/2022/).
 
 
-[Qode Magazine - 60 Best Examples of Brutalism in Web Design](https://qodeinteractive.com/magazine/best-examples-of-brutalism-in-web-design/)
-[Elementor Blog - What Is Brutalism in Web Design?](https://elementor.com/blog/brutalism-in-web-design/)
+- [Qode Magazine - 60 Best Examples of Brutalism in Web Design](https://qodeinteractive.com/magazine/best-examples-of-brutalism-in-web-design/)
+- [Elementor Blog - What Is Brutalism in Web Design?](https://elementor.com/blog/brutalism-in-web-design/)
 
 
 ![](/docs/images/palette.png)
@@ -237,6 +237,10 @@ The Manage menu also features a link to the Django admin panel should it be need
 
 ## Testing 
 
+I performed manual testing continously as the project was being developed, and filed bug reports on GitHub as issues were discovered to keep track of bugs.
+
+I asked friends to test registering accounts / submitting resources / deleting accounts in different ways (email registration, Google registration, GitHub registration, registration with no email, etc.) to try and catch any potential issues.
+
 
 
 ### Challenges Faced
@@ -246,10 +250,88 @@ The Manage menu also features a link to the Django admin panel should it be need
 
 ### Code Validation
 
+All the files pass PEP8 Validation, which I checked both in the development environment and on [PEP8 online](http://pep8online.com/).
+
+`# noqa` was used in `settings.py` where linebreaks would have broken Django functionality.
+
 
 <details>
 
-<summary>PEP8 Online Validation</summary>
+<summary>PEP8 Online Validation - designland/settings.py</summary>
+
+![](docs/images/pep8-designland-settings.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - designland/urls.py</summary>
+
+![](docs/images/pep8-designland-urls.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - designland/settings.py</summary>
+
+![](docs/images/pep8-designland-settings.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - directory/admin.py</summary>
+
+![](docs/images/pep8-directory-admin.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - directory/forms.py</summary>
+
+![](docs/images/pep8-directory-forms.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - directory/models.py</summary>
+
+![](docs/images/pep8-directory-models.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - directory/urls.py</summary>
+
+![](docs/images/pep8-designland-urls.png)
+
+✅ Pass
+
+</details>
+
+<details>
+
+<summary>PEP8 Online Validation - directory/views.py</summary>
+
+![](docs/images/pep8-designland-views.png)
+
+✅ Pass
 
 </details>
 
@@ -361,6 +443,13 @@ Under Deployment Method, choose GitHub and search for your repository and click 
 14. Now whenever you push your commits to GitHub, Heroku will rebuild the application.
 
 </details>
+
+
+### django-aullauth Setup
+
+You need to use your own [Google Cloud](https://cloud.google.com/) and [GitHub Developer](https://docs.github.com/en/developers) credentials to set up `django-allauth`.
+
+The [django-allauth documentation](https://django-allauth.readthedocs.io/en/latest/providers.html) provides instructions for how to complete setup in your Google Cloud Console / GitHub settings.
 
 
 ## Credits 

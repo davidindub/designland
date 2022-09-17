@@ -17,7 +17,7 @@ from django.contrib import messages
 
 # If the env.py file exists, import it (won't be used on Heroku)
 if os.path.isfile("env.py"):
-    import env # noqa
+    import env  # noqa
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,7 +41,7 @@ DEBUG = development
 
 if development:
     ALLOWED_HOSTS = ['localhost', "127.0.0.1",
-                     "8000-davidindub-designland-4lnvj9ynh6j.ws-eu59.gitpod.io"] # noqa
+                     "8000-davidindub-designland-4lnvj9ynh6j.ws-eu59.gitpod.io"]  # noqa
 else:
     ALLOWED_HOSTS = [os.environ.get("HEROKU_HOSTNAME")]
 
