@@ -96,6 +96,18 @@ After creating the Profile model I used this script in the terminal to create a 
 
 ## Existing Features
 
+### Landing Page
+
+A simple landing page explains the project and features a call to action button to lead the user to the main content.
+
+<details>
+<summary>Landing Page Screenshot</summary>
+
+![](/docs/images/screenshot-landing-page.png)
+
+</details>
+
+
 ### Navbar
 
 The Navbar is responsive and collapses to a hamburger menu on smaller devices. On larger screen it sticks to the top when the page is scrolled.
@@ -111,6 +123,17 @@ When a staff member is logged in, an extra Manage dropdown option is shown which
 - Unapproved Resources (submissions not yet visible on the site ready for screening)
 - User List (a list of all registered users on the site)
 - Django Admin Panel (a link to the Django Administration Panel)
+
+<details>
+<summary>Nav Bar Screenshots</summary>
+
+![](/docs/images/screenshot-navbar.png)
+Navbar as viewed by logged in admin.
+
+![](/docs/images/screenshot-navbar-mobile.png)
+Navbar as viewed by logged in admin (mobile).
+
+</details>
 
 
 ### Directory & Categories
@@ -130,9 +153,34 @@ GitHub was chosen as the site is aimed at developers and designers, and Google a
 
 Users who have previously registered with GitHub or Google can easily sign in again with one click.
 
+
+<details>
+<summary>Register / Login Screenshots</summary>
+
+![](/docs/images/screenshot-register.png)
+Register a new Account
+
+![](/docs/images/screenshot-register-google.png)
+Register a new Account - pick username (after authorising Google account)
+
+![](/docs/images/screenshot-login.png)
+Login
+
+</details>
+
 ### Upvoting
 
 Users can upvote the resources they like, other users will see the total number of uploads and can view the most popular resources on the site.
+
+<details>
+<summary>Most Popular page Screenshots</summary>
+
+![](/docs/images/screenshot-most-popular.png)
+Resources listed by number of upvotes
+
+</details>
+
+
 
 ### Bookmarks
 
@@ -145,6 +193,21 @@ Users can display links to their Personal Website, GitHub profile and Twitter pr
 A list of all the resources the user has contributed is shown on their page.
 
 When a logged in user views their own profile, they can click a button to edit it. The user can delete their account from this page too if they choose.
+
+<details>
+<summary>User Profile Screenshots</summary>
+
+![](/docs/images/screenshot-profile-guest.png)
+Profile Page as a guest
+
+![](/docs/images/screenshot-profile-loggedin.png)
+Own Profile Page as a logged in user, showing Edit Profile button.
+
+
+</details>
+
+
+
 
 ### Submit Resources to Directory
 
@@ -190,13 +253,25 @@ The Manage dropdown menu in the nav bar appears only for logged in staff members
 
 #### Unapproved Resources
 
-All unapproved resources that have been submitted by registerer users. Staff members can approve, edit, or delete them.
+All unapproved resources that have been submitted by registered users. Staff members can approve, edit, or delete them.
 
 #### User List
 
 A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes recieved.
 
 The Manage menu also features a link to the Django admin panel should it be needed for moderation not currently implemented directly in the project. (such as managing tags).
+
+### Custom Error Pages
+
+Custom error pages were added for 403, 404, and 500 errors.
+
+<details>
+
+<summary>Screenshot of 500 Error Message</summary>
+
+![](docs/images/screenshot-500-error.png)
+
+</details>
 
 ***
 
