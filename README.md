@@ -152,6 +152,13 @@ Users can sort the list by newest, oldest or most up-voted.
 
 The list page is also used for seeing all the resources a user has added via their profile.
 
+<details>
+<summary>Screenshot of Categories page listing all tags</summary>
+
+![](docs/images/screenshot-all-tags.png)
+
+</details>
+
 
 ### Register / Login
 
@@ -188,11 +195,21 @@ Resources listed by number of upvotes
 
 </details>
 
+### Tags
+
+Users can add tags their submissions which are used to categorise the entries. Suggested tags are show on the submission page.
 
 
 ### Bookmarks
 
-Users can bookmark resources they find useful in list that only they, and not other users can see.
+Users can bookmark resources they find useful in list that only they can see.
+
+<details>
+<summary>Screenshot of Bookmarks List</summary>
+
+![](docs/images/screenshot-bookmarks.png)
+
+</details>
 
 ### User Profiles
 
@@ -635,7 +652,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - designland/settings.py</summary>
 
-![](docs/images/pep8-designland-settings.png)
+![](docs/images/testing/python/pep8-designland-settings.png)
 
 ✅ Pass
 
@@ -645,7 +662,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - designland/urls.py</summary>
 
-![](docs/images/pep8-designland-urls.png)
+![](docs/images/testing/python/pep8-designland-urls.png)
 
 ✅ Pass
 
@@ -655,7 +672,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - designland/settings.py</summary>
 
-![](docs/images/pep8-designland-settings.png)
+![](docs/images/testing/python/pep8-designland-settings.png)
 
 ✅ Pass
 
@@ -665,7 +682,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - directory/admin.py</summary>
 
-![](docs/images/pep8-directory-admin.png)
+![](docs/images/testing/python/pep8-directory-admin.png)
 
 ✅ Pass
 
@@ -675,7 +692,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - directory/forms.py</summary>
 
-![](docs/images/pep8-directory-forms.png)
+![](docs/images/testing/python/pep8-directory-forms.png)
 
 ✅ Pass
 
@@ -685,7 +702,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - directory/models.py</summary>
 
-![](docs/images/pep8-directory-models.png)
+![](docs/images/testing/python/pep8-directory-models.png)
 
 ✅ Pass
 
@@ -695,7 +712,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - directory/urls.py</summary>
 
-![](docs/images/pep8-designland-urls.png)
+![](docs/images/testing/python/pep8-designland-urls.png)
 
 ✅ Pass
 
@@ -705,7 +722,7 @@ All the custom Python files pass PEP8 Validation, which I checked both in the de
 
 <summary>PEP8 Online Validation - directory/views.py</summary>
 
-![](docs/images/pep8-designland-views.png)
+![](docs/images/testing/python/pep8-designland-views.png)
 
 ✅ Pass
 
