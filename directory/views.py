@@ -157,9 +157,13 @@ class UserProfile(View):
             profile_info = get_object_or_404(
                 Profile, user=request.user.id)
 
+        approved_resources = list(Resource.objects.filter(approved=True)
+                    .filter(author__id__in=[user_info.id]))
+
         context = {
             "user_info": user_info,
             "profile_info": profile_info,
+            "approved_resources": approved_resources,
             "h1": f"{profile_info}"}
 
         return render(request, "user_profile.html", context)

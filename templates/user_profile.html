@@ -100,11 +100,11 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                             <h5 class="card-header">
-                            {% if profile_info.number_resources_added == 0 %}
+                            {% if approved_resources|length == 0 %}
                             No Resources added yet:
                             {% else %}
                                 {% comment %} <a href="{% url 'added_by_user' user_info.get_username %}"> {% endcomment %}
-                                {% if profile_info.number_resources_added > 1 %}
+                                {% if approved_resources|length > 1 %}
                                     Latest Resources contributed:
                                 {% else %}
                                     Latest Resource contributed:
@@ -116,8 +116,8 @@
                         <div class="card-body">
 
                         <ul class="list-group mb-4">
-                            {% if user_info.resources_added.all %}
-                            {% for resource in user_info.resources_added.all|slice:":5" %}
+                            {% if approved_resources %}
+                            {% for resource in approved_resources|slice:":5" %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <a href="{% url 'resource_detail' resource.slug %}">{{ resource.title }}</a>
                                 <span class="badge bg-success rounded-pill">{{ resource.number_upvotes }}</span>
@@ -126,7 +126,7 @@
                             {% endfor %}
                         </ul>
                         <a href="{% url 'added_by_user' user_info.get_username %}" class="btn btn-dark btn-sm">
-                            See all {{ profile_info.number_resources_added}} Resources...
+                            See all {{ approved_resources|length }} Resources...
                         </a>
 
                         {% else %}
