@@ -2,6 +2,7 @@
 # designland
 
 [![Designland logo](docs/images/logo.png)](https://designland.herokuapp.com/)
+[![Designland shown on a iPhone, MacBook and iPad](docs/images/devices-mockup.png)](https://designland.herokuapp.com/)
 
 
 ## Table of Contents
@@ -20,6 +21,11 @@ The project was built keeping the Agile management principles in mind, and I uti
 [Closed Issues on GitHub for the project](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed)
 
 I used [GitHub issues](https://github.com/davidindub/designland/issues) for the product backlog containing the user stories. Issues were also used for bug reports so I could keep track of tricky bugs over time.
+
+CRUD functionality
+- Users can read all approved resources, and create, update and delete resources they contributed.
+- Users can create, update, read and delete their accounts/profiles.
+- Admins can create, read, update and delete all resources.
 
 <details>
 <summary>Screenshot of the product backlog</summary>
@@ -300,6 +306,7 @@ Custom error pages were added for 403, 404, and 500 errors.
 - [Google Chrome](https://www.google.com/intl/en_ie/chrome/) on Android 12.
 - [diagrams.net](https://www.diagrams.net/) for drawing database diagrams.
 - [favicon.io](https://favicon.io/favicon-generator/) to make a favicon for site.
+- [Device Frames](https://deviceframes.com/) for the device mockups in this README.
 - [Meta Tags](https://metatags.io/) to prepare the Meta tags for social media share previews.
 
 ## External Python Packages Used
@@ -312,23 +319,298 @@ Custom error pages were added for 403, 404, and 500 errors.
 
 ## Testing 
 
-I performed manual testing continously as the project was being developed, and filed bug reports on GitHub as issues were discovered to keep track of bugs.
+I performed manual testing continously as the project was being developed, and filed [bug reports on GitHub](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) as issues were discovered to keep track of bugs. I kept track of how to recreate bugs, expected behaviour, screenshots of the issue and how it was resolved to help myself in future.
 
 I asked friends to test registering accounts / submitting resources / deleting accounts in different ways (email registration, Google registration, GitHub registration, registration with no email, etc.) to try and catch any potential issues.
 
+### User Story Testing
+
+<details>
+<summary>As a first time visitor I want to be greeted with a clear explanation of the site so that I know what it is about</summary>
+
+### Acceptance Criteria
+
+- If I visit the homepage I am greeted with a eye catching slogan/hero image
+- I should be able to tell the purpose of the site easily
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>
+As a visitor to the site I want to read the Privacy Policy before I sign up so that I can know how my data will be used
+</summary>
+
+### Acceptance Criteria
+
+- I can click a link to be taken to the Privacy Policy
+- The policy is written in easy to understand language 
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a registered user I want to update my profile page so that people can find me on Twitter / GitHub</summary>
+
+
+### Acceptance Criteria
+
+- I can add Twitter/GitHub links to my profile
+- I can delete my account
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a developer I want to register using my Github account so I can signup without filling in any forms</summary>
+
+
+### Acceptance Criteria
+
+- I chose to sign up with Github
+- An account is created automatically for me
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As I user I want to share the site on social media to help my designer friends find cool new stuff</summary>
+
+### Acceptance Criteria
+
+- If I share the site on Facebook/Twitter etc.
+- A thumbnail/logo and the right meta data describing the site should appear in the preview card
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a user I want to see all the resources I have submitted so I can see all my submissions in once place</summary>
+
+
+### Acceptance Criteria
+
+- I should be able to see all the resources I have submitted
+- I can see the resources added by other users on the site too
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a user I want to be able to see a list of tags on each resource so I know what category it belongs to</summary>
+
+### Acceptance Criteria
+
+- Each resource page should list tags categorising the resource
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I can view a paginated list of resources so that I can select one to read and not have too many displayed at once</summary>
+
+### Acceptance Criteria
+
+- When there is many resources, they should be split onto separate paginated pages
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a unregistered developer/designer I want to browse the directory so I can find useful resources for building my projects</summary>
+
+### Acceptance Criteria
+
+- If I visit the site I should see a list of design resources
+- I can click them to be taken to the resource
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As an administrator I want to manually approve or deny user submitted resources so I can moderate the directory and keep it free of spam or abusive messages</summary>
+
+
+### Acceptance Criteria
+
+- If a user posts a Resource it appears in the admin panel for approval
+- As an admin, I can approve or deny the Resource for publication
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I want to be able to click other users names to see what other resources they have added to the directory</summary>
+
+### Acceptance Criteria
+
+- I can click a username to be taken to their page
+- On their page I can see all the resources they have added to the directory
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I want to add links to my GitHub/Twitter/Portfolio website* so I can gain new followers</summary>
+
+### Acceptance Criteria
+
+- I can add a link to my website/GitHub/Twitter to my profile
+- It appears on my profile page
+
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a user I can click on a thumbnail so that I can view a page with the full details of the resource</summary>
+
+### Acceptance Criteria
+
+- If I click a resource in the lists, I am taken to a page with full details about it
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As an administrator I want to be able to add, edit and remove resources so I can curate the listings</summary>
+
+### Acceptance Criteria
+
+- If a user submits a link, I can approve or deny
+- If I approve it, it appears publicly on the site
+- I should be able to delete previously approved resources too
+
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a user I want to be able to see a thumbnail of the site so I can preview it before clicking</summary>
+
+### Acceptance Criteria
+
+- I should see thumbnails of each resource 
+- When I click the thumbnail it takes me to the page of the resource
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I want to be able to sort the resources by tag so I can find what I'm interested in</summary>
+
+
+### Acceptance Criteria
+
+- I should be able so view the listed resources tag by tag
+- When I select a tag, only resources with that tag are listed
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a registered user I want to be able to add useful resources I've discovered to the site so I can share them with the community</summary>
+
+### Acceptance Criteria
+
+- I should be able to add resources to the site
+
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I want to be able to upvote resources so I can participate and recommend resources to others</summary>
+
+
+### Acceptance Criteria
+
+- I can click a button to upvote resources
+- The number of upvotes should increase
+- Resources are listed by number of upvotes
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+
+<summary>As a user I want to be able to bookmark resources so that I can view a list of my favourites in future</summary>
+
+### Acceptance Criteria
+
+- I can click a bookmark icon next to each resources
+- The resource should be added to my list of bookmarked resources
+- I can visit a page where I can see all my bookmarked resources
+
+**Result:** ✅ Pass
+</details>
+
+<details>
+<summary>As a user, I want to be able to register for an account so I can interact with the site</summary>
+
+
+### Acceptance Criteria
+
+- I should be able to browse without logging in.
+- I should be able to register for an account using Google OAuth
+
+**Result:** ✅ Pass
+</details>
 
 
 ### Challenges Faced
 
+`django-taggit` was the source of a few bugs encountered in development. In a future project I may just model my own tags in the database.
 
+<details>
+<summary>django-taggit bug screenshot</summary>
+![](docs/images/screenshot-bug-with-taggit.png)
+</details>
+
+While Bootstrap was good for getting a responsive design up and running quickly, I found using Bootstrap classes for things like layout very frustrating when combined with Django templating. In future I would consider not using Bootstrap at all, or writing more custom classes instead of using Bootstrap layout classes that need to be changed in many places.
 
 
 ### Code Validation
 
-All the files pass PEP8 Validation, which I checked both in the development environment and on [PEP8 online](http://pep8online.com/).
+#### HTML Validation
+
+Pages were validating using the [W3 HTML Validator](https://validator.w3.org/nu/), and pages with content that varies based on guest/logged in user/admin status were validated in each state.
+
+| Page                | URL                | Logged In Status | Result                |
+|---------------------|--------------------|------------------|-----------------------|
+| Landing Page        | /                  | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2F) |
+| Landing Page        | /                  | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-landing-page-as-user.png) |
+| Landing Page        | /                  | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-landing-page-as-admin.png) |
+| Directory           | /list/             | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Flist%2F) |
+| Directory           | /list/             | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-directory-as-user.png) |
+| Directory           | /list/             | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-directory-as-admin.png) |
+| Categories          | /alltags/          | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Falltags%2F) |
+| Categories          | /alltags/          | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-categories-as-user.png) |
+| Categories          | /alltags/          | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-categories-as-admin.png) |
+| User Profile        | /user/admin/       | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Fuser%2Fadmin%2F) |
+| User Profile        | /user/admin/       | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-user-profile-as-user.png) |
+| User Profile        | /user/admin/       | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-user-profile-as-admin.png) |
+| Add New Resource    | /add/              | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-add-resource-as-user.png) |
+| Add New Resource    | /add/              | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-add-resource-as-admin.png) |
+| Login               | /accounts/login/   | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2F8000-davidindub-designland-4lnvj9ynh6j.ws-eu64.gitpod.io%2Faccounts%2Flogin%2F) |
+| Log Out             | /accounts/logout/  | User             | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-logout-as-user.png) |
+| Register            | /accounts/signup/  | Guest            | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Faccounts%2Fsignup%2F) |
+| Privacy Policy      | /privacy/          | User             | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Fprivacy%2F) |
+| User List           | /manage/users/     | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-user-list-as-admin.png) |
+| Update User Profile | /user/admin/update | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-update-profile-as-admin.png) |
+
+#### Python
+
+All the custom Python files pass PEP8 Validation, which I checked both in the development environment and on [PEP8 online](http://pep8online.com/).
 
 `# noqa` was used in `settings.py` where linebreaks would have broken Django functionality.
-
 
 <details>
 
@@ -409,6 +691,19 @@ All the files pass PEP8 Validation, which I checked both in the development envi
 ✅ Pass
 
 </details>
+
+
+#### JavaScript
+
+Very little custom JavaScript was used with most of the functionality coming from Bootstrap. The two JS files I wrote were validated using [JSHint](https://jshint.com/).
+
+<details>
+<summary>JSHint validation screenshot</summary>
+
+![](docs/images/testing/jshint-validation.png)
+
+</details>
+
 
 ***
 
