@@ -47,6 +47,8 @@ I took the [Agile Foundations](https://www.linkedin.com/learning/agile-foundatio
 
 User stories were prepared using GitHub Issues and assigned story points based on estimated completion time.
 
+User Stories can been seen below under [User Story Testing](#user-story-testing), and in the [GitHub Issues](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed) for full details including screenshots, story points and associated sprints.
+
 
 ## UX  
 
@@ -253,6 +255,15 @@ See:
 
 Django Messages and Bootstrap's Toast elements were combined to make elegant notification messages when the user performs actions such as signing in/out and bookmarking or upvoting a resource. Staff also see notifications for things like approving/hiding/deleting resources. The notifications appear on the bottom right so as not to cover the navigation bar.
 
+<details>
+<summary>Animated screenshot showing notifications</summary>
+
+![](docs/images/testing/testing-notifications.gif)
+
+Notifications for upvoting / removing upvote / logging out in action
+
+</details>
+
 ### Staff Only Features
 
 The Manage dropdown menu in the nav bar appears only for logged in staff members and features additional pages.
@@ -265,7 +276,15 @@ All unapproved resources that have been submitted by registered users. Staff mem
 
 A list of all registered users of the site along with the date they joined, number of contributions, and total upvotes recieved.
 
-The Manage menu also features a link to the Django admin panel should it be needed for moderation not currently implemented directly in the project. (such as managing tags).
+The Manage menu also features a link to the Django admin panel should it be needed for features not yet implemented directly in the project. (such as managing tags).
+
+<details>
+<summary>Screenshot of User List</summary>
+
+![](docs/images/screenshot-user-list.png)
+
+</details>
+
 
 ### Custom Error Pages
 
@@ -708,7 +727,6 @@ Very little custom JavaScript was used with most of the functionality coming fro
 ***
 
 
-
 ## Deployment
 
 ### Local Deployment
@@ -821,6 +839,7 @@ You need to use your own [Google Cloud](https://cloud.google.com/) and [GitHub D
 
 The [django-allauth documentation](https://django-allauth.readthedocs.io/en/latest/providers.html) provides instructions for how to complete setup in your Google Cloud Console / GitHub settings.
 
+*** 
 
 ## Credits 
 
