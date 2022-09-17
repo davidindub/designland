@@ -7,6 +7,58 @@
 
 ## Table of Contents
 
+- [designland](#designland)
+  * [Table of Contents](#table-of-contents)
+  * [Introduction](#introduction)
+  * [User Stories](#user-stories)
+  * [UX](#ux)
+    + [Typography](#typography)
+    + [Wireframes](#wireframes)
+  * [Accessibility](#accessibility)
+  * [Database Design](#database-design)
+  * [Features](#features)
+  * [Existing Features](#existing-features)
+    + [Landing Page](#landing-page)
+    + [Navbar](#navbar)
+    + [Directory & Categories](#directory---categories)
+    + [Register / Login](#register---login)
+    + [Upvoting](#upvoting)
+    + [Tags](#tags)
+    + [Bookmarks](#bookmarks)
+    + [User Profiles](#user-profiles)
+    + [Submit Resources to Directory](#submit-resources-to-directory)
+    + [Footer](#footer)
+    + [Privacy Policy](#privacy-policy)
+    + [Notifications](#notifications)
+    + [Staff Only Features](#staff-only-features)
+      - [Unapproved Resources](#unapproved-resources)
+      - [User List](#user-list)
+    + [Custom Error Pages](#custom-error-pages)
+    + [Favicon](#favicon)
+    + [Features Left to Implement](#features-left-to-implement)
+  * [Technologies Used](#technologies-used)
+  * [External Python Packages Used](#external-python-packages-used)
+  * [Testing](#testing)
+    + [Browser Compatibility](#browser-compatibility)
+    + [Responsiveness](#responsiveness)
+    + [Performance Testing](#performance-testing)
+    + [Accessibility Testing](#accessibility-testing)
+    + [User Story Testing](#user-story-testing)
+    + [Challenges Faced](#challenges-faced)
+    + [Code Validation](#code-validation)
+      - [HTML Validation](#html-validation)
+      - [CSS Validation](#css-validation)
+      - [Python Validation](#python-validation)
+      - [JavaScript](#javascript)
+  * [Deployment](#deployment)
+    + [Local Deployment](#local-deployment)
+    + [Heroku Deployment](#heroku-deployment)
+    + [django-aullauth Setup](#django-aullauth-setup)
+  * [Credits](#credits)
+    + [Content](#content)
+    + [Media](#media)
+    + [Acknowledgements](#acknowledgements)
+
 
 ## Introduction
 
@@ -315,6 +367,11 @@ Custom error pages were added for 403, 404, and 500 errors.
 
 </details>
 
+### Favicon
+
+![The favicon for the project](/static/images/favicons/apple-touch-icon.png)
+  - A favicon and icon for iOS/Android home screen bookmarks is included with the project's logo.
+
 ***
 
 
@@ -358,6 +415,79 @@ Custom error pages were added for 403, 404, and 500 errors.
 I performed manual testing continously as the project was being developed, and filed [bug reports on GitHub](https://github.com/davidindub/designland/issues?q=is%3Aissue+is%3Aclosed+label%3Abug) as issues were discovered to keep track of bugs. I kept track of how to recreate bugs, expected behaviour, screenshots of the issue and how it was resolved to help myself in future.
 
 I asked friends to test registering accounts / submitting resources / deleting accounts in different ways (email registration, Google registration, GitHub registration, registration with no email, etc.) to try and catch any potential issues.
+
+### Browser Compatibility
+
+I tested the website on four different operating systems on four different types of hardware.
+
+| Operating System | Chrome | Firefox | Edge | Safari |
+|------------------|--------|---------|------|--------|
+| macOS 12.2       | ✅      | ✅       | ✅    | ✅      |
+| Windows 11       | ✅      | ✅       | ✅    | ✅    |
+| Android 10       | ✅      | ✅       | ✅    | ✅      |
+| iOS & iPadOS 15  | ✅   | ✅        | ✅    | ✅       |
+
+
+### Responsiveness 
+
+I tested for responsiveness on many different sized viewports from 320px wide up to Ultrawide resolutions, and using different hardware (Monitors, Laptops, Phones).
+
+I used Polypane during development to test many different viewport sizes at once.
+
+<details>
+
+<summary>Screenshot of Polypane Testing</summary>
+
+![](docs/images/testing/screenshot-polypane.png)
+
+</details>
+
+
+### Performance Testing
+
+Performed using [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) in Google Chrome 105.0.5195.125 on macOS 12.5.1
+
+<details>
+Detailed Lighthouse Testing
+<summary>
+</summary>
+
+__Desktop__
+
+| Page | Performance | Accessibility | Best Practices | SEO |
+|---|---|---|---|---|
+| Landing Page | 96 | 100 | 92 | 91 |
+| Directory | 90 | 98 | 100 | 91 |
+| Categories | 86 | 100 | 100 | 90 |
+| Privacy Policy | 99 | 98 | 100 | 90 |
+| User Profile Page | 90 | 98 | 100 | 90 |
+| Resource Page | 99 | 95 | 92 | 91 |
+
+__Mobile__
+
+| Page 	| Performance 	| Accessibility 	| Best Practices 	| SEO 	|
+|---	|---	|---	|---	|---	|
+| Landing Page 	| 95 	| 100 	| 100 	| 92 	|
+| Directory 	| 85 	| 98 	| 100 	| 92 	|
+| Categories 	| 82 	| 100 	| 100 	| 89 	|
+| Privacy Policy 	| 95 	| 97 	| 100 	| 92 	|
+| User Profile Page 	| 94 	| 98 	| 100 	| 92 	|
+| Resource Page 	| 94 	| 95 	| 100 	| 92 	|
+
+
+</details>
+
+### Accessibility Testing
+
+No errors were detected using the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/report#/http://designland.herokuapp.com/).
+
+  <details>
+  <summary>WAVE Web Accessibility Evaluation Tool Results</summary>
+
+  ![](docs/images/testing/screenshot-wave-report.png)
+
+  </detais>
+
 
 ### User Story Testing
 
@@ -642,7 +772,24 @@ Pages were validating using the [W3 HTML Validator](https://validator.w3.org/nu/
 | User List           | /manage/users/     | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-user-list-as-admin.png) |
 | Update User Profile | /user/admin/update | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-update-profile-as-admin.png) |
 
-#### Python
+
+#### CSS Validation
+
+The custom CSS was validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) as CSS level 3 + SVG. 
+
+![https://jigsaw.w3.org/css-validator/](https://jigsaw.w3.org/css-validator/images/vcss)
+
+<details>
+
+<summary>W3C CSS Validation</summary>
+
+![](docs/images/testing/w3c-css-validation.png)
+
+✅ Pass
+
+</details>
+
+#### Python Validation
 
 All the custom Python files pass PEP8 Validation, which I checked both in the development environment and on [PEP8 online](http://pep8online.com/).
 
