@@ -133,6 +133,14 @@ Buttons featuring icons have appropriate `aria-labels`, and notification message
 
 I tested navigating the project with VoiceOver on macOS.
 
+I used inline SVGs for icons in the project.
+
+I recently watched [Seren Davies](https://github.com/ninjanails)' talk [Death to Icon Fonts](https://www.youtube.com/watch?v=9xXBYcWgCHA) where I learned of the issues that icon fonts can cause for accessibility. I researched the best way to use inline SVG icons, including descriptions where appropriate for screen readers. By using SVGs the icons don't break if a user chooses to use a custom font such as [Dyslexie](https://www.dyslexiefont.com/).
+
+See also:
+- [Inline SVG vs Icon Fonts - CSS Tricks](https://css-tricks.com/icon-fonts-vs-svg/)
+- [SVG, Icon Fonts, and Accessibility: A Case Study - 24 Accessibility](https://www.24a11y.com/2017/svg-icon-fonts-accessibility-case-study/)
+
 ## Database Design
 
 I used the desktop version of [diagrams.net](https://app.diagrams.net/) to design the models. I created a Profile model to associate extra information with users not included in the default Djano user model. 
@@ -736,7 +744,9 @@ As a visitor to the site I want to read the Privacy Policy before I sign up so t
 
 <details>
 <summary>django-taggit bug screenshot</summary>
+
 ![](docs/images/screenshot-bug-with-taggit.png)
+
 </details>
 
 While Bootstrap was good for getting a responsive design up and running quickly, I found using Bootstrap classes for things like layout very frustrating when combined with Django templating. In future I would consider not using Bootstrap at all, or writing more custom classes instead of using Bootstrap layout classes that need to be changed in many places.
@@ -747,6 +757,10 @@ While Bootstrap was good for getting a responsive design up and running quickly,
 #### HTML Validation
 
 Pages were validating using the [W3 HTML Validator](https://validator.w3.org/nu/), and pages with content that varies based on guest/logged in user/admin status were validated in each state.
+
+<details>
+<summary>W3 HTML Validation</summary>
+
 
 | Page                | URL                | Logged In Status | Result                |
 |---------------------|--------------------|------------------|-----------------------|
@@ -770,6 +784,8 @@ Pages were validating using the [W3 HTML Validator](https://validator.w3.org/nu/
 | Privacy Policy      | /privacy/          | User             | [✅ No errors or warnings](https://validator.w3.org/nu/?doc=https%3A%2F%2Fdesignland.herokuapp.com%2Fprivacy%2F) |
 | User List           | /manage/users/     | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-user-list-as-admin.png) |
 | Update User Profile | /user/admin/update | Admin            | [✅ No errors or warnings](docs/images/testing/html/w3-html-testing-update-profile-as-admin.png) |
+
+</details>
 
 
 #### CSS Validation
