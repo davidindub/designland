@@ -418,7 +418,7 @@ I asked friends to test registering accounts / submitting resources / deleting a
 
 ### Browser Compatibility
 
-I tested the website on four different operating systems on four different types of hardware.
+I tested the website on four different operating systems on four different types of hardware and didn't find any rendering bugs between the browsers tested.
 
 | Operating System | Chrome | Firefox | Edge | Safari |
 |------------------|--------|---------|------|--------|
@@ -448,8 +448,8 @@ I used Polypane during development to test many different viewport sizes at once
 Performed using [Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) in Google Chrome 105.0.5195.125 on macOS 12.5.1
 
 <details>
-Detailed Lighthouse Testing
 <summary>
+Detailed Lighthouse Testing
 </summary>
 
 __Desktop__
@@ -481,13 +481,12 @@ __Mobile__
 
 No errors were detected using the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/report#/http://designland.herokuapp.com/).
 
-  <details>
-  <summary>WAVE Web Accessibility Evaluation Tool Results</summary>
+<details>
+<summary>WAVE Web Accessibility Evaluation Tool Results</summary>
 
-  ![](docs/images/testing/screenshot-wave-report.png)
+![](docs/images/testing/screenshot-wave-report.png)
 
-  </detais>
-
+</details>
 
 ### User Story Testing
 
